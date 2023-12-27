@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Azzarip\Teavel\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class TeavelCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'teavel';
 
     public $description = 'My command';
 

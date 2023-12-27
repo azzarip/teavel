@@ -1,15 +1,15 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Azzarip\Teavel;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class SkeletonPlugin implements Plugin
+class TeavelPlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'skeleton';
+        return 'teavel';
     }
 
     public function register(Panel $panel): void
