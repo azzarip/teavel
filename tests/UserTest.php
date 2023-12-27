@@ -1,6 +1,5 @@
 <?php
 
-use Azzarip\Teavel\Tests\TestModels\User;
 use Azzarip\Teavel\Tests\TestModels\UserFactory;
 
 it('has full name', function () {
