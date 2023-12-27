@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Tests;
 
+use Azzarip\Teavel\TeavelServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
@@ -18,7 +19,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Azzarip\Teavel\TeavelServiceProvider;
 
 class TestCase extends Orchestra
 {
