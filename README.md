@@ -7,7 +7,7 @@
 
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Open Source CRM and Automation Tool for handling landing page forms and contacts with possible leads and clients. 
 
 ## Installation
 
