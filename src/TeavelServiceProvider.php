@@ -88,7 +88,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         }
 
         // Testing
-        Testable::mixin(new TestsTeavel());
+        //Testable::mixin(new TestsTeavel());
     }
 
     protected function getAssetPackageName(): ?string
@@ -103,8 +103,8 @@ class TeavelServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('teavel', __DIR__ . '/../resources/dist/components/teavel.js'),
-            Css::make('teavel-styles', __DIR__ . '/../resources/dist/teavel.css'),
-            Js::make('teavel-scripts', __DIR__ . '/../resources/dist/teavel.js'),
+            // Css::make('teavel-styles', __DIR__ . '/../resources/dist/teavel.css'),
+            // Js::make('teavel-scripts', __DIR__ . '/../resources/dist/teavel.js'),
         ];
     }
 
