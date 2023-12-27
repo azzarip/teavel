@@ -1,12 +1,16 @@
 <?php
 
-use Azzarip\Teavel\Tests\TestModels\User;
-use Azzarip\Teavel\Tests\TestModels\UserFactory;
+use Azzarip\Teavel\Database\Factories\ContactFactory;
 
 it('has full name', function () {
-    $user = UserFactory::new()->create([
+    $contact = ContactFactory::new()->create([
         'name' => 'Name',
         'surname' => 'Surname',
     ]);
-    expect($user->fullName)->toBe('Name Surname');
+    expect($contact->fullName)->toBe('Name Surname');
+});
+
+it('has uuid', function () {
+    $contact = ContactFactory::new()->create();
+    expect($contact->uuid)->not->toBeNull();
 });

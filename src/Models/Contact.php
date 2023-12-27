@@ -1,27 +1,37 @@
 <?php
 
-namespace Azzarip\Teavel\Tests\TestModels;
+namespace Azzarip\Teavel\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Auth\Authenticatable;
-use Azzarip\Teavel\Traits\Contactable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class Contact extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable;
     use Authorizable;
-    use Contactable;
+    use HasFactory;
 
     protected $fillable = [
         'name', 'surname',
         'email',
     ];
 
-    public $timestamps = false;
+    public function getFullNameAttribute() {
+        return trim($this->name . ' ' . $this->surname);
+    }
 
-    protected $table = 'users';
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::creating(function ($model) {
+            $model->uuid = Str::uuid();
+        });
+    }
+
 }
