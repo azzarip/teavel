@@ -44,7 +44,6 @@ class TeavelServiceProvider extends PackageServiceProvider
         if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
             $package->hasConfigFile();
         }
-
         if (file_exists($package->basePath('/../database/migrations'))) {
             $package->hasMigrations($this->getMigrations());
         }
@@ -63,7 +62,7 @@ class TeavelServiceProvider extends PackageServiceProvider
     }
 
     public function packageBooted(): void
-    {
+    {      
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -148,7 +147,7 @@ class TeavelServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_teavel_table',
+            'create_contacts_table',
         ];
     }
 }

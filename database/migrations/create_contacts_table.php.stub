@@ -8,19 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+       Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique()->index();
             $table->string('name');
             $table->string('surname')->nullable();
             $table->string('email')->unique()->index();
-            $table->string('uuid')->unique()->index();
+            $table->string('phone')->nullable();
             $table->string('password')->nullable();
             $table->timestamps();
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('contacts');
     }
 };
