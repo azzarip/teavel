@@ -62,7 +62,7 @@ class TeavelServiceProvider extends PackageServiceProvider
     }
 
     public function packageBooted(): void
-    {      
+    {
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),

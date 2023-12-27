@@ -2,9 +2,9 @@
 
 namespace Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages;
 
+use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource;
 
 class ListContacts extends ListRecords
 {

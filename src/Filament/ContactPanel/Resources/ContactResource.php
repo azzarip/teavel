@@ -2,18 +2,15 @@
 
 namespace Azzarip\Teavel\Filament\ContactPanel\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Azzarip\Teavel\Models\Contact;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\CreateContact;
 use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\EditContact;
 use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\ListContacts;
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\CreateContact;
+use Azzarip\Teavel\Models\Contact;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class ContactResource extends Resource
 {
@@ -60,7 +57,7 @@ class ContactResource extends Resource
             ])
             ->defaultSort('created_at', 'desc')
             ->persistSortInSession();
-    
+
     }
 
     public static function getRelations(): array
