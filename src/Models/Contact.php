@@ -2,7 +2,6 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\Traits\Contactable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -20,7 +19,8 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         'email',
     ];
 
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return trim($this->name . ' ' . $this->surname);
     }
 
@@ -32,5 +32,4 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
             $model->uuid = Str::uuid();
         });
     }
-
 }
