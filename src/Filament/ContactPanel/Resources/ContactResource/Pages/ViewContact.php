@@ -2,9 +2,9 @@
 
 namespace Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages;
 
+use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
-use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource;
 
 class ViewContact extends ViewRecord
 {

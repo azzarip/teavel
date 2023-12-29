@@ -3,8 +3,8 @@
 namespace Azzarip\Teavel\Filament\ContactPanel\Resources\Dashboard\Widgets;
 
 use Azzarip\Teavel\Models\Contact;
-use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class ContactsWidget extends BaseWidget
 {
@@ -15,9 +15,9 @@ class ContactsWidget extends BaseWidget
 
         return [
             Stat::make('Contacts', $total_contacts)
-            ->description('+'. $last_week . ' in last week')
-            ->descriptionIcon('heroicon-m-arrow-trending-up')
-            ->color('success')
+                ->description('+' . $last_week . ' in last week')
+                ->descriptionIcon('heroicon-m-arrow-trending-up')
+                ->color('success'),
         ];
     }
 }
