@@ -2,15 +2,21 @@
 
 namespace Azzarip\Teavel\Filament\ContactPanel\Resources;
 
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\CreateContact;
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\EditContact;
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\ListContacts;
-use Azzarip\Teavel\Models\Contact;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Infolists\Infolist;
+use Filament\Resources\Resource;
+use Azzarip\Teavel\Models\Contact;
+use Filament\Forms\Components\Fieldset;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Fieldset as ILFieldset;
+use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\EditContact;
+use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\ViewContact;
+use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\ListContacts;
+use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\CreateContact;
 
 class ContactResource extends Resource
 {
@@ -18,15 +24,52 @@ class ContactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    protected static ?string $recordTitleAttribute = 'email';
+    protected static ?string $recordTitleAttribute = 'full_name';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
-            ]);
+                Fieldset::make('Label')
+                    ->schema([
+                    TextInput::make('name')
+                        ->required()
+                        ->label('First Name'),
+                    TextInput::make('surname')
+                        ->label('Last Name'),
+                    TextInput::make('email')
+                        ->required(),
+                    TextInput::make('phone'),
+                    ])->columnSpan(2)
+            ])
+            ->columns(3);
     }
+
+    public static function infolist(Infolist $infolist): Infolist
+{
+    return $infolist
+        ->schema([
+            ILFieldset::make('Label')->schema([
+                TextEntry::make('name'),
+                TextEntry::make('surname'),
+                TextEntry::make('email')
+                ->icon('heroicon-m-envelope')
+                ->iconColor('primary')
+                ->copyable()
+                ->copyMessage('Copied!')
+                ->copyMessageDuration(1500),
+                TextEntry::make('phone'),
+            ])->columnSpan(2),
+            ILFieldset::make('Label')->schema([
+                TextEntry::make('created_at')->dateTime('d M Y, H:i:s'),
+                TextEntry::make('privacy_at')->dateTime('d M Y, H:i:s'),
+                TextEntry::make('marketing_at')->dateTime('d M Y, H:i:s'),
+                TextEntry::make('updated_at')->dateTime('d M Y, H:i:s'),
+            ])->columnSpan(1)->columns(2)
+        ])->columns(3);
+}
+
+
 
     public static function table(Table $table): Table
     {
@@ -42,13 +85,14 @@ class ContactResource extends Resource
                     ->label('Telephone Number'),
                 TextColumn::make('created_at')
                     ->label('Added at')
+                    ->sortable()
                     ->dateTime('M d, Y H:i'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -72,6 +116,7 @@ class ContactResource extends Resource
         return [
             'index' => ListContacts::route('/'),
             'create' => CreateContact::route('/create'),
+            'view' => ViewContact::route('/{record}'),
             'edit' => EditContact::route('/{record}/edit'),
         ];
     }

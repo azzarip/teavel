@@ -16,9 +16,15 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
     protected $fillable = [
         'name', 'surname',
-        'email',
+        'email', 'phone',
+        'privacy_at', 'marketing_at',
     ];
 
+    protected $casts = [
+        'privacy_at' => 'datetime',
+        'marketing_at' => 'datetime',
+    ];
+    
     public function getFullNameAttribute()
     {
         return trim($this->name . ' ' . $this->surname);
