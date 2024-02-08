@@ -2,7 +2,6 @@
 
 namespace Azzarip\Teavel;
 
-use Azzarip\Teavel\Commands\TeavelCommand;
 use Azzarip\Teavel\Testing\TestsTeavel;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
