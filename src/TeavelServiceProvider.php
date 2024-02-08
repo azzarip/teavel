@@ -112,9 +112,7 @@ class TeavelServiceProvider extends PackageServiceProvider
      */
     protected function getCommands(): array
     {
-        return [
-            TeavelCommand::class,
-        ];
+        return [];
     }
 
     /**
