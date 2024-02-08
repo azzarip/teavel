@@ -2,21 +2,21 @@
 
 namespace Azzarip\Teavel\Filament\ContactPanel\Resources;
 
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\CreateContact;
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\EditContact;
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\ListContacts;
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\ViewContact;
-use Azzarip\Teavel\Models\Contact;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\TextInput;
+use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\Fieldset as ILFieldset;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Forms\Components\Fieldset;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Fieldset as ILFieldset;
+use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\CreateContact;
+use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages\EditContact;
+use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages\ViewContact;
+use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages\ListContacts;
+use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages\CreateContact;
 
 class ContactResource extends Resource
 {
