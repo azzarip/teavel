@@ -2,6 +2,10 @@
 
 All notable changes to `teavel` will be documented in this file.
 
+## 1.0.1 - 2024-02-08
+
+Fixed namespacing contact resource
+
 ## 1.0.0 - 202X-XX-XX
 
 - initial release
