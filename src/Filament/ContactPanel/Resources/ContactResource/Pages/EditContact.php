@@ -1,6 +1,6 @@
 <?php
 
-namespace Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages;
+namespace Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages;
 
 use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource;
 use Filament\Actions;
