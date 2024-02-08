@@ -2,6 +2,10 @@
 
 All notable changes to `teavel` will be documented in this file.
 
+## 1.0.4 - 2024-02-08
+
+Fixed error in namespacing
+
 ## 1.0.3 - 2024-02-08
 
 Fixed merge error
