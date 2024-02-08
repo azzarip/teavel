@@ -12,7 +12,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\Fieldset as ILFieldset;
-use Azzarip\Teavel\Filament\ContactPanel\ContactResource\Pages\CreateContact;
 use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages\EditContact;
 use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages\ViewContact;
 use Azzarip\Teavel\Filament\ContactPanel\Resources\ContactResource\Pages\ListContacts;
