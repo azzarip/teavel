@@ -14,11 +14,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use Authenticatable;
     use Authorizable;
 
-    protected $fillable = [
-        'name', 'surname',
-        'email', 'phone',
-        'privacy_at', 'marketing_at',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'privacy_at' => 'datetime',
@@ -30,6 +26,11 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         return trim($this->name . ' ' . $this->surname);
     }
 
+    public static function findByEmail(string $email)
+    {
+        return self::where('email', $email)->first();
+    }
+
     protected static function booted()
     {
         parent::booted();
@@ -38,4 +39,6 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
             $model->uuid = Str::uuid();
         });
     }
+
+
 }
