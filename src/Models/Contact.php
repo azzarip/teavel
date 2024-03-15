@@ -23,7 +23,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
     public function getFullNameAttribute()
     {
-        return trim($this->name . ' ' . $this->surname);
+        return trim($this->first_name . ' ' . $this->last_name);
     }
 
     public static function findByEmail(string $email)

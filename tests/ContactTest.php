@@ -5,8 +5,8 @@ use Azzarip\Teavel\Database\Factories\ContactFactory;
 
 it('has full name', function () {
     $contact = ContactFactory::new()->create([
-        'name' => 'Name',
-        'surname' => 'Surname',
+        'first_name' => 'Name',
+        'last_name' => 'Surname',
     ]);
     expect($contact->fullName)->toBe('Name Surname');
 });
@@ -21,5 +21,7 @@ it('finds contacts by Email', function () {
     $email = $contact->email;
 
     $foundContact = Contact::findByEmail($email);
-    expect($foundContact)->toBe($contact);
-);
+    expect($foundContact->first_name)->toBe($contact->first_name);
+    expect($foundContact->last_name)->toBe($contact->last_name);
+    expect($foundContact->email)->toBe($contact->email);
+});
