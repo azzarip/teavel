@@ -5,17 +5,14 @@ namespace Azzarip\Teavel\Models;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable;
-    use Authorizable;
-
-    protected $guarded = [];
+    use Authenticatable, Authorizable;
 
     protected $casts = [
         'privacy_at' => 'datetime',
