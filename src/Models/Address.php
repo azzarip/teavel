@@ -47,4 +47,9 @@ class Address extends Model
         }
         $contact->save();
     }
+
+    protected static function newFactory()
+    {
+        return new \Azzarip\Teavel\Database\Factories\AddressFactory;
+    }
 }

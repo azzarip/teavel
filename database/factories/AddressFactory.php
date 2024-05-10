@@ -2,11 +2,14 @@
 
 namespace Azzarip\Teavel\Database\Factories;
 
+use Azzarip\Teavel\Models\Address;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AddressFactory extends Factory
 {
+    protected $model = Address::class;
+
     /**
      * Define the model's default state.
      *
