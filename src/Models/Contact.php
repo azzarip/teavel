@@ -67,6 +67,4 @@ public static function fromData(array $data)
     return $contact;
 }
 
-
-
 }
