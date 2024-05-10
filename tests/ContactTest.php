@@ -1,7 +1,7 @@
 <?php
 
-use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Database\Factories\ContactFactory;
+use Azzarip\Teavel\Models\Contact;
 
 it('has full name', function () {
     $contact = ContactFactory::new()->create([

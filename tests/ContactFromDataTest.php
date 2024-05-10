@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Arr;
 use Azzarip\Teavel\Models\Contact;
+use Illuminate\Support\Arr;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->data = [
         'first_name' => '::name::',
         'last_name' => '::last_name::',
@@ -61,8 +61,6 @@ it('adds phone if empty', function () {
     expect($contact->phone)->toBe('+41787878787');
 
 });
-
-
 
 it('DOES NOT add marketing_at if not_marketing', function () {
     $this->data['not_marketing'] = true;
