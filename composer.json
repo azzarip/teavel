@@ -63,8 +63,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Azzarip\\Teavel\\TeavelServiceProvider",
-                "Azzarip\\Teavel\\Providers\\Filament\\ContactPanelProvider"
+                "Azzarip\\Teavel\\TeavelServiceProvider"
             ],
             "aliases": {
                 "Teavel": "Azzarip\\Teavel\\Facades\\Teavel"
