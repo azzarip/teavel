@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Traits\HasAddresses;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Authenticatable;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable;
+    use HasAddresses;
 
     protected $casts = [
         'privacy_at' => 'datetime',
