@@ -62,19 +62,6 @@ class TeavelServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        // Asset Registration
-        FilamentAsset::register(
-            $this->getAssets(),
-            $this->getAssetPackageName()
-        );
-
-        FilamentAsset::registerScriptData(
-            $this->getScriptData(),
-            $this->getAssetPackageName()
-        );
-
-        // Icon Registration
-        FilamentIcon::register($this->getIcons());
 
         // Handle Stubs
         if (app()->runningInConsole()) {
@@ -145,6 +132,7 @@ class TeavelServiceProvider extends PackageServiceProvider
     {
         return [
             'create_contacts_table',
+            'create_addresses_table',
         ];
     }
 }
