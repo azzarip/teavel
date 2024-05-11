@@ -1,8 +1,6 @@
 <?php
 
 use Azzarip\Teavel\Models\Address;
-use Azzarip\Teavel\Models\Contact;
-use Azzarip\Teavel\Database\Factories\ContactFactory;
 
 it('has one_line', function () {
     $address = Address::factory()->create([

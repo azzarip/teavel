@@ -21,7 +21,7 @@ class Address extends Model
         return $this->belongsTo(Contact::class);
     }
 
-    public function remove()
+    public function remove(): void
     {
         $oldId = $this->id;
         $this->delete();
@@ -29,7 +29,7 @@ class Address extends Model
         $contact = $this->contact;
         $addresses = $contact->addresses;
 
-        if (empty($addresses)) {
+        if ($addresses->isEmpty()) {
             $contact->update([
                 'shipping_id' => null,
                 'billing_id' => null,
