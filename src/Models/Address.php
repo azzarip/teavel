@@ -48,6 +48,25 @@ class Address extends Model
         $contact->save();
     }
 
+    public function getOneLineAttribute(): string
+    {
+        return $this->address . ', ' . $this->plz . ' ' . $this->city;
+    }
+
+    public function getLabelAttribute(): string
+    {
+        return implode("\n", $this->toArray());
+    }
+    public function toArray(): array
+    {
+        return array_filter([
+            $this->name,
+            $this->address,
+            $this->additional,
+            $this->plz . ' ' . $this->city,
+        ], fn ($value) => $value != null);
+    }
+
     protected static function newFactory()
     {
         return new \Azzarip\Teavel\Database\Factories\AddressFactory;

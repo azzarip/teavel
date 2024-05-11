@@ -17,6 +17,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use Authorizable;
     use HasAddresses;
 
+    protected $guarded = [];
     protected $casts = [
         'privacy_at' => 'datetime',
         'marketing_at' => 'datetime',

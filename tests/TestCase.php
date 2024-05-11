@@ -54,6 +54,8 @@ class TestCase extends Orchestra
 
         $migration = include __DIR__ . '/../database/migrations/create_contacts_table.php.stub';
         $migration->up();
+        $migration = include __DIR__ . '/../database/migrations/create_addresses_table.php.stub';
+        $migration->up();
 
     }
 
