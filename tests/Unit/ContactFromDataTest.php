@@ -21,9 +21,9 @@ it('returns a contact', function () {
     expect($contact)->toBeInstanceOf(Contact::class);
 });
 
-it('has marketing at = now()', function () {
+it('has no marketing_at', function () {
     $contact = Contact::fromData($this->data);
-    expect($contact->marketing_at)->not->toBeNull();
+    expect($contact->marketing_at)->toBeNull();
 });
 
 test('no new contact for existing email', function () {
@@ -40,44 +40,21 @@ test('no new contact for existing email', function () {
     $this->assertDatabaseMissing('contacts', $data2);
 });
 
-it('adds last_name if empty', function () {
+it('adds attributes if empty', function () {
     $this->data['last_name'] = null;
+    $this->data['phone'] = null;
+    $this->data['password'] = null;
     $contact = Contact::fromData($this->data);
-    expect($contact->last_name)->toBeNull();
 
     $this->data['last_name'] = '::last_name::';
+    $this->data['phone'] = '::phone::';
+    $this->data['password'] = '::password::';
     $contact = Contact::fromData($this->data);
     expect($contact->last_name)->toBe('::last_name::');
+    expect($contact->phone)->toBe('::phone::');
+    expect($contact->password)->toBe('::password::');
 
 });
 
-it('adds phone if empty', function () {
-    $this->data['phone'] = null;
-    $contact = Contact::fromData($this->data);
-    expect($contact->phone)->toBeNull();
 
-    $this->data['phone'] = '+41787878787';
-    $contact = Contact::fromData($this->data);
-    expect($contact->phone)->toBe('+41787878787');
 
-});
-
-it('DOES NOT add marketing_at if not_marketing', function () {
-    $this->data['not_marketing'] = true;
-    $contact = Contact::fromData($this->data);
-    expect($contact->marketing_at)->toBeNull();
-
-    $contact = Contact::fromData($this->data);
-    expect($contact->marketing_at)->toBeNull();
-});
-
-it('adds marketing_at if empty ', function () {
-    $this->data['not_marketing'] = true;
-    $contact = Contact::fromData($this->data);
-    expect($contact->marketing_at)->toBeNull();
-
-    Arr::forget($this->data, 'not_marketing');
-    $contact = Contact::fromData($this->data);
-    expect($contact->marketing_at)->not->toBeNull();
-
-});
