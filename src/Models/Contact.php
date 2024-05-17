@@ -16,7 +16,6 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use Authenticatable;
     use Authorizable;
     use Traits\HasAddresses;
-    use Traits\HasTags;
 
     protected $guarded = [];
     protected $casts = [
@@ -86,6 +85,16 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         $this->update(['marketing_at' => now()]);
 
         return $this;
+    }
+
+    public function getMarketingAtAttribute($value)
+    {
+        return $value ? \Illuminate\Support\Carbon::parse($value) : null;
+    }
+
+    public function getCanMarketAttribute(): bool
+    {
+        return (bool) $this->marketing_at;
     }
 
 }

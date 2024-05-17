@@ -38,3 +38,21 @@ it('can allow Marketing and does not update', function () {
     $contact->allowMarketing();
     expect($contact->marketing_at)->not->toBe($timestamp);
 });
+
+it('returns null if marketing_at is empty', function () {
+    $contact = ContactFactory::new()->create();
+    expect($contact->marketing_at)->toBe(null);
+    $contact->allowMarketing();
+    expect($contact->marketing_at)->toBeInstanceOf(\Carbon\Carbon::class);
+});
+
+it('has can_market attribute', function () {
+    $contact = ContactFactory::new()->create(['marketing_at' => null]);
+
+    expect($contact->can_market)->toBeFalse();
+
+    $contact->allowMarketing();
+
+    expect($contact->can_market)->toBeTrue();
+
+});
