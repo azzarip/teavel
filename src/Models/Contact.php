@@ -59,7 +59,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
         if (! $contact) {
             $data['privacy_at'] = now();
-
+            unset($data['privacy']);
             return self::create($data);
         }
 
