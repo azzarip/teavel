@@ -21,6 +21,7 @@
     ],
     "require": {
         "php": "^8.2",
+        "propaganistas/laravel-phone": "^5.3",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {

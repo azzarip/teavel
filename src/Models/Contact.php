@@ -96,6 +96,11 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         return (bool) $this->marketing_at;
     }
 
+    public function getIsRegisteredAttribute(): bool
+    {
+        return (bool) $this->password;
+    }
+
     protected static function newFactory()
     {
         return new \Azzarip\Teavel\Database\Factories\ContactFactory;

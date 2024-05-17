@@ -5,7 +5,7 @@ namespace Azzarip\Teavel;
 use Azzarip\Teavel\Rules\Registered;
 use Illuminate\Filesystem\Filesystem;
 use Spatie\LaravelPackageTools\Package;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Factory;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
@@ -62,9 +62,6 @@ class TeavelServiceProvider extends PackageServiceProvider
                 ], 'teavel-stubs');
             }
         }
-
-        Validator::extend(Registered::handle(), Registered::class);
-
     }
 
     protected function getAssetPackageName(): ?string
@@ -72,17 +69,6 @@ class TeavelServiceProvider extends PackageServiceProvider
         return 'azzarip/teavel';
     }
 
-    /**
-     * @return array<Asset>
-     */
-    protected function getAssets(): array
-    {
-        return [
-            // AlpineComponent::make('teavel', __DIR__ . '/../resources/dist/components/teavel.js'),
-            // Css::make('teavel-styles', __DIR__ . '/../resources/dist/teavel.css'),
-            // Js::make('teavel-scripts', __DIR__ . '/../resources/dist/teavel.js'),
-        ];
-    }
 
     /**
      * @return array<class-string>

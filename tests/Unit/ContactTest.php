@@ -56,3 +56,13 @@ it('has can_market attribute', function () {
     expect($contact->can_market)->toBeTrue();
 
 });
+it('has is registered attribute', function () {
+    $contact = ContactFactory::new()->create(['password' => null]);
+
+    expect($contact->is_registered)->toBeFalse();
+
+    $contact->update(['password' => '::password::']);
+
+    expect($contact->is_registered)->toBeTrue();
+
+});

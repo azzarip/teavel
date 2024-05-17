@@ -20,7 +20,7 @@ class Registered implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $contact = Contact::findEmail($attribute);
+        $contact = Contact::findEmail($value);
 
         if ($contact && $contact->is_registered) {
             $fail('registered');
