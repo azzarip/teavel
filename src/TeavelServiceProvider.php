@@ -2,10 +2,11 @@
 
 namespace Azzarip\Teavel;
 
+use Illuminate\Validation\Factory;
 use Azzarip\Teavel\Rules\Registered;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\LaravelPackageTools\Package;
-use Illuminate\Validation\Factory;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
@@ -21,22 +22,21 @@ class TeavelServiceProvider extends PackageServiceProvider
 
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
+            ->hasMigrations($this->getMigrations())
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    ->publishConfigFile()
+                    //->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
+                    ->endsWith(fn () => Artisan::call('teavel:contact-model'))
                     ->askToStarRepoOnGitHub('azzarip/teavel');
             });
 
         $configFileName = $package->shortName();
 
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-            $package->hasConfigFile();
-        }
-        if (file_exists($package->basePath('/../database/migrations'))) {
-            $package->hasMigrations($this->getMigrations());
-        }
+        // if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
+        //     $package->hasConfigFile();
+        // }
 
         if (file_exists($package->basePath('/../resources/lang'))) {
             $package->hasTranslations();
