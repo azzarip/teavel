@@ -2,7 +2,6 @@
 
 namespace Azzarip\Teavel\Commands;
 
-use Azzarip\Teavel\Models\Tag;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 

@@ -2,11 +2,10 @@
 
 namespace Azzarip\Teavel;
 
-use Illuminate\Validation\Factory;
-use Azzarip\Teavel\Rules\Registered;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\LaravelPackageTools\Package;
+use Azzarip\Teavel\Commands;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
@@ -75,7 +74,9 @@ class TeavelServiceProvider extends PackageServiceProvider
      */
     protected function getCommands(): array
     {
-        return [];
+        return [
+            Commands\ContactModelCommand::class,
+        ];
     }
 
     /**
