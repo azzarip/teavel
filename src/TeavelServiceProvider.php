@@ -28,7 +28,7 @@ class TeavelServiceProvider extends PackageServiceProvider
                     //->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->endsWith(fn () => Artisan::call('teavel:contact-model'))
+                    ->endWith(fn () => Artisan::call('teavel:contact-model'))
                     ->askToStarRepoOnGitHub('azzarip/teavel');
             });
 
