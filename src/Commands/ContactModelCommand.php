@@ -29,7 +29,7 @@ class ContactModelCommand extends Command
         }
 
 
-        $stubPath = __DIR__ . '../../stubs/Contact.php.stub';
+        $stubPath = __DIR__ . '/../../stubs/Contact.php.stub';
         File::copy($stubPath, $modelPath);
         $this->info('Contact model created successfully.');
         return 0; // Success code
