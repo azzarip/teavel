@@ -24,10 +24,6 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         'marketing_at' => 'datetime',
     ];
 
-    public function getFullNameAttribute(): string
-    {
-        return trim($this->first_name . ' ' . $this->last_name);
-    }
 
     public function getInfoAttribute(): string
     {
