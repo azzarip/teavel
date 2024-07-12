@@ -6,6 +6,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\LaravelPackageTools\Package;
 use Azzarip\Teavel\Commands;
+use Azzarip\Teavel\Providers\Filament\TagsPanelProvider;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
@@ -48,6 +49,7 @@ class TeavelServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
+        $this->app->register(TagsPanelProvider::class);
     }
 
     public function packageBooted(): void
