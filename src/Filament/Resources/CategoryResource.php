@@ -10,9 +10,9 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Azzarip\Teavel\Filament\Resources\TagCategoryResource\Pages;
+use Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Azzarip\Teavel\Filament\Resources\TagCategoryResource\RelationManagers;
+use Azzarip\Teavel\Filament\Resources\CategoryResource\RelationManagers;
 
 class CategoryResource extends Resource
 {
