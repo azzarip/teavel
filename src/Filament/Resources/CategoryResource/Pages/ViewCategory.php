@@ -10,7 +10,7 @@ use Filament\Infolists\Components\Section;
 use Azzarip\Teavel\Filament\Resources\TagCategoryResource;
 use Filament\Infolists\Components\TextEntry;
 
-class ViewTagCategory extends ViewRecord
+class ViewCategory extends ViewRecord
 {
     protected static string $resource = TagCategoryResource::class;
 

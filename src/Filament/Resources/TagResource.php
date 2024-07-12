@@ -71,6 +71,7 @@ class TagResource extends Resource
             ])->defaultSort('name', 'asc')
             ->filters([
                 SelectFilter::make('category')
+                ->label('Category')
                 ->relationship('category', 'name')
                 ->searchable()
                 ->preload(),

@@ -6,9 +6,9 @@ use App\Filament\Resources\TagCategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditTagCategory extends EditRecord
+class EditCategory extends EditRecord
 {
-    protected static string $resource = TagCategoryResource::class;
+    protected static string $resource = CategoryResource::class;
 
     protected function getHeaderActions(): array
     {

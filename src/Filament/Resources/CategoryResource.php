@@ -14,7 +14,7 @@ use Azzarip\Teavel\Filament\Resources\TagCategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Azzarip\Teavel\Filament\Resources\TagCategoryResource\RelationManagers;
 
-class TagCategoryResource extends Resource
+class CategoryResource extends Resource
 {
     protected static ?string $model = TagCategory::class;
 
@@ -85,9 +85,9 @@ class TagCategoryResource extends Resource
     {
         return [
             'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateTagCategory::route('/create'),
-            'view' => Pages\ViewTagCategory::route('/{record}'),
-            'edit' => Pages\EditTagCategory::route('/{record}/edit'),
+            'create' => Pages\CreateCategory::route('/create'),
+            'view' => Pages\ViewCategory::route('/{record}'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }

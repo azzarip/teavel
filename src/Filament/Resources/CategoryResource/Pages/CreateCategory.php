@@ -6,7 +6,7 @@ use App\Filament\Resources\TagCategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateTagCategory extends CreateRecord
+class CreateCategory extends CreateRecord
 {
     protected static string $resource = TagCategoryResource::class;
 
