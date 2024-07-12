@@ -34,9 +34,6 @@ class TeavelServiceProvider extends PackageServiceProvider
 
         $configFileName = $package->shortName();
 
-        // if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-        //     $package->hasConfigFile();
-        // }
 
         if (file_exists($package->basePath('/../resources/lang'))) {
             $package->hasTranslations();
@@ -68,10 +65,6 @@ class TeavelServiceProvider extends PackageServiceProvider
         return 'azzarip/teavel';
     }
 
-
-    /**
-     * @return array<class-string>
-     */
     protected function getCommands(): array
     {
         return [
@@ -79,33 +72,6 @@ class TeavelServiceProvider extends PackageServiceProvider
         ];
     }
 
-    /**
-     * @return array<string>
-     */
-    protected function getIcons(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getRoutes(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function getScriptData(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string>
-     */
     protected function getMigrations(): array
     {
         return [

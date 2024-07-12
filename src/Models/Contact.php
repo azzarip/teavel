@@ -18,6 +18,8 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use Authorizable;
     use HasFactory;
     use Traits\HasAddresses;
+    use Traits\HasTags;
+
     protected $guarded = [];
     protected function casts(){
         return [

@@ -22,12 +22,11 @@ class TeavelPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
             ->id('teavel')
             ->path('teavel')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Green,
             ])
             ->discoverResources(in: base_path('/vendor/azzarip/teavel/src/Filament/Resources'), for: 'Azzarip\\Teavel\\Filament\\Resources')
             ->discoverPages(in: base_path('/vendor/azzarip/teavel/src/Filament/Pages'), for: 'Azzarip\\Teavel\\Filament\\Pages')
