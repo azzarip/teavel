@@ -2,14 +2,12 @@
 
 namespace Azzarip\Teavel;
 
-use Azzarip\Teavel\Commands;
+use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
-use Spatie\LaravelPackageTools\Package;
-use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
-
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class TeavelServiceProvider extends PackageServiceProvider
 {
@@ -33,7 +31,6 @@ class TeavelServiceProvider extends PackageServiceProvider
             });
 
         $configFileName = $package->shortName();
-
 
         if (file_exists($package->basePath('/../resources/lang'))) {
             $package->hasTranslations();

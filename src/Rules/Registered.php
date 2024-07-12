@@ -2,8 +2,8 @@
 
 namespace Azzarip\Teavel\Rules;
 
-use Closure;
 use Azzarip\Teavel\Models\Contact;
+use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class Registered implements ValidationRule

@@ -2,7 +2,6 @@
 
 use Azzarip\Teavel\Models\Contact;
 
-
 it('can be tagged/detagged', function () {
     $contact = Contact::factory()->create();
 

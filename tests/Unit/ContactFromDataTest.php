@@ -1,7 +1,6 @@
 <?php
 
 use Azzarip\Teavel\Models\Contact;
-use Illuminate\Support\Arr;
 
 beforeEach(function () {
     $this->data = [
@@ -55,6 +54,3 @@ it('adds attributes if empty', function () {
     expect($contact->password)->toBe('::password::');
 
 });
-
-
-

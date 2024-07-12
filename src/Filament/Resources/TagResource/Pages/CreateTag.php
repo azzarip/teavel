@@ -3,7 +3,6 @@
 namespace Azzarip\Teavel\Filament\Resources\TagResource\Pages;
 
 use Azzarip\Teavel\Filament\Resources\TagResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTag extends CreateRecord

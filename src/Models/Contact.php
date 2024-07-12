@@ -3,14 +3,13 @@
 namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Traits;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Support\Str;
 
 class Contact extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -21,13 +20,14 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use Traits\HasTags;
 
     protected $guarded = [];
-    protected function casts(){
+
+    protected function casts()
+    {
         return [
             'privacy_at' => 'datetime',
             'marketing_at' => 'datetime',
         ];
     }
-
 
     public function getNameEmailAttribute(): string
     {
@@ -66,12 +66,13 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
         if (! $contact) {
             $data['privacy_at'] = now();
+
             return self::create($data);
         }
 
         unset($data['email']);
         foreach ($data as $key => $value) {
-            if(empty($contact->$key)){
+            if (empty($contact->$key)) {
                 $contact->$key = $value;
             }
         }
@@ -82,9 +83,13 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
     public function allowMarketing(bool $allow = true): self
     {
-        if (!$allow) return $this;
+        if (! $allow) {
+            return $this;
+        }
 
-        if($this->marketing_at) return $this;
+        if ($this->marketing_at) {
+            return $this;
+        }
 
         $this->update(['marketing_at' => now()]);
 
@@ -110,5 +115,4 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     {
         return new \Azzarip\Teavel\Database\Factories\ContactFactory;
     }
-
 }

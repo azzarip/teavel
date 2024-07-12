@@ -3,7 +3,6 @@
 namespace Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
 
 use Azzarip\Teavel\Filament\Resources\CategoryResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateCategory extends CreateRecord

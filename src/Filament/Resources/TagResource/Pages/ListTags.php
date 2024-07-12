@@ -16,6 +16,4 @@ class ListTags extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
-
-
 }

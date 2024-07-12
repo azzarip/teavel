@@ -2,13 +2,13 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\Models\Tag;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class TagCategory extends Model
 {
     use HasFactory;
+
     protected $fillable = ['name', 'description'];
 
     public function tags()
@@ -20,10 +20,10 @@ class TagCategory extends Model
     {
         $category = self::where('name', $name)->first();
 
-        if (!$category) {
+        if (! $category) {
             $category = self::create([
                 'name' => $name,
-                'description' => 'Automatically generated description.'
+                'description' => 'Automatically generated description.',
             ]);
         }
 

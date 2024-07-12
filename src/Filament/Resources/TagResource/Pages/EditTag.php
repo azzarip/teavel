@@ -22,5 +22,4 @@ class EditTag extends EditRecord
     {
         return $this->getResource()::getUrl('view', ['record' => $this->record]);
     }
-
 }

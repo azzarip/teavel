@@ -1,8 +1,7 @@
 <?php
 
-use Azzarip\Teavel\Models\Address;
-use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Database\Factories\ContactFactory;
+use Azzarip\Teavel\Models\Address;
 
 it('has shipping address', function () {
     $contact = ContactFactory::new()->create();
@@ -20,8 +19,6 @@ it('has billing address', function () {
     expect($contact->billingAddress->id)->toBe($address->id);
 });
 
-
-
 test('addresses have soft deletes', function () {
     $address = Address::factory()->create();
 
@@ -35,10 +32,8 @@ test('removing address deletes both', function () {
     $address = Address::factory()->create(['contact_id' => $contact->id]);
     $contact->update(['billing_id' => $address->id, 'shipping_id' => $address->id]);
 
-
     $contact->shippingAddress->remove();
     $contact->refresh();
-
 
     expect($contact->shipping_id)->toBeNull();
     expect($contact->billing_id)->toBeNull();

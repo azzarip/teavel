@@ -2,14 +2,13 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\Models\TagCategory;
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
     use HasFactory;
+
     protected $fillable = ['name', 'description', 'category_id'];
 
     public function category()
@@ -32,16 +31,15 @@ class Tag extends Model
     {
         $tag = self::where('name', $name)->first();
 
-        if (!$tag) {
+        if (! $tag) {
             $category = TagCategory::name('unassigned');
             $tag = self::create([
                 'name' => $name,
                 'description' => 'Automatic Generated Tag',
-                'category_id' => $category->id
+                'category_id' => $category->id,
             ]);
         }
 
         return $tag;
     }
-
 }

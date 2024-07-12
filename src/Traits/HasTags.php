@@ -6,7 +6,8 @@ use Azzarip\Teavel\Models\Tag;
 
 trait HasTags
 {
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class)
             ->withPivot('tagged_at');
     }
@@ -15,6 +16,7 @@ trait HasTags
     {
         $tag = Tag::name($name);
         $this->tags()->attach($tag->id);
+
         return $this;
     }
 
@@ -22,6 +24,7 @@ trait HasTags
     {
         $tag = Tag::name($name);
         $this->tags()->detach($tag->id);
+
         return $this;
     }
 }

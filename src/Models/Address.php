@@ -57,6 +57,7 @@ class Address extends Model
     {
         return implode("\n", $this->toArray());
     }
+
     public function toArray(): array
     {
         return array_filter([
