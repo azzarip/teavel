@@ -30,12 +30,12 @@ class TagsPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'Azzarip\\Teavel\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'Azzarip\\Teavel\\Filament\\Pages')
+            ->discoverResources(in: base_path('/vendor/azzarip/teavel/src/Filament/Resources'), for: 'Azzarip\\Teavel\\Filament\\Resources')
+            ->discoverPages(in: base_path('/vendor/azzarip/teavel/src/Filament/Pages'), for: 'Azzarip\\Teavel\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'Azzarip\\Teavel\\Filament\\Widgets')
+            ->discoverWidgets(in: base_path('/vendor/azzarip/teavel/src/Filament/Widgets'), for: 'Azzarip\\Teavel\\Filament\\Widgets')
             ->widgets([
 
             ])
