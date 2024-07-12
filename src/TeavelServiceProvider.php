@@ -52,8 +52,6 @@ class TeavelServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-
-        // Handle Stubs
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
@@ -111,6 +109,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         return [
             'create_contacts_table',
             'create_addresses_table',
+            'create_tags_table',
         ];
     }
 }

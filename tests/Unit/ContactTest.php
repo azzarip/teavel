@@ -11,6 +11,15 @@ it('has full name', function () {
     expect($contact->fullName)->toBe('Name Surname');
 });
 
+it('has name_email', function () {
+    $contact = ContactFactory::new()->create([
+        'first_name' => 'Name',
+        'last_name' => 'Surname',
+        'email' => 'test@example.com',
+    ]);
+    expect($contact->nameEmail)->toBe('Name Surname (test@example.com)');
+});
+
 it('has uuid', function () {
     $contact = ContactFactory::new()->create();
     expect($contact->uuid)->not->toBeNull();

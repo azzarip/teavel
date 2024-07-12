@@ -19,15 +19,22 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use HasFactory;
     use Traits\HasAddresses;
     protected $guarded = [];
-    protected $casts = [
-        'privacy_at' => 'datetime',
-        'marketing_at' => 'datetime',
-    ];
+    protected function casts(){
+        return [
+            'privacy_at' => 'datetime',
+            'marketing_at' => 'datetime',
+        ];
+    }
 
 
-    public function getInfoAttribute(): string
+    public function getNameEmailAttribute(): string
     {
         return $this->FullName . ' (' . $this->email . ')';
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
     }
 
     public static function findEmail(string $email)

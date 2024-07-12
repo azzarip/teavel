@@ -32,18 +32,18 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            ActionsServiceProvider::class,
-            BladeCaptureDirectiveServiceProvider::class,
-            BladeHeroiconsServiceProvider::class,
-            BladeIconsServiceProvider::class,
-            FilamentServiceProvider::class,
-            FormsServiceProvider::class,
-            InfolistsServiceProvider::class,
-            LivewireServiceProvider::class,
-            NotificationsServiceProvider::class,
-            SupportServiceProvider::class,
-            TablesServiceProvider::class,
-            WidgetsServiceProvider::class,
+            // ActionsServiceProvider::class,
+            // BladeCaptureDirectiveServiceProvider::class,
+            // BladeHeroiconsServiceProvider::class,
+            // BladeIconsServiceProvider::class,
+            // FilamentServiceProvider::class,
+            // FormsServiceProvider::class,
+            // InfolistsServiceProvider::class,
+            // LivewireServiceProvider::class,
+            // NotificationsServiceProvider::class,
+            // SupportServiceProvider::class,
+            // TablesServiceProvider::class,
+            // WidgetsServiceProvider::class,
             TeavelServiceProvider::class,
         ];
     }
@@ -55,6 +55,8 @@ class TestCase extends Orchestra
         $migration = include __DIR__ . '/../database/migrations/create_contacts_table.php.stub';
         $migration->up();
         $migration = include __DIR__ . '/../database/migrations/create_addresses_table.php.stub';
+        $migration->up();
+        $migration = include __DIR__ . '/../database/migrations/create_tags_table.php.stub';
         $migration->up();
 
     }
