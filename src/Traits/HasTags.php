@@ -9,7 +9,7 @@ trait HasTags
     public function tags()
     {
         return $this->belongsToMany(Tag::class)
-            ->withPivot('tagged_at');
+            ->withPivot('created_at');
     }
 
     public function tag(string $name)

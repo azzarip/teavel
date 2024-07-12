@@ -14,6 +14,7 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\File;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
@@ -52,13 +53,10 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        $migration = include __DIR__ . '/../database/migrations/create_contacts_table.php.stub';
-        $migration->up();
-        $migration = include __DIR__ . '/../database/migrations/create_addresses_table.php.stub';
-        $migration->up();
-        $migration = include __DIR__ . '/../database/migrations/create_tags_table.php.stub';
-        $migration->up();
-
+        $files = File::glob(__DIR__ . '/../database/migrations/*.php.stub');
+        foreach ($files as $file) {
+            (include $file)->up();
+        }
     }
 
     protected function defineDatabaseMigrations()

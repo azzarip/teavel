@@ -19,7 +19,7 @@ class Tag extends Model
     public function contacts()
     {
         return $this->belongsToMany(Contact::class)
-            ->withPivot('tagged_at');
+            ->withPivot('created_at');
     }
 
     public function getCountContactsAttribute()

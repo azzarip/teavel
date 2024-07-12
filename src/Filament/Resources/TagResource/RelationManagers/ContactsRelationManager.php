@@ -40,7 +40,7 @@ class ContactsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('full_name'),
                 Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('tagged_at')
+                Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('j F Y, H:i'),
             ])
             ->filters([

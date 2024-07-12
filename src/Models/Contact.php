@@ -17,6 +17,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use Authorizable;
     use HasFactory;
     use Traits\HasAddresses;
+    use Traits\HasGoals;
     use Traits\HasTags;
 
     protected $guarded = [];
