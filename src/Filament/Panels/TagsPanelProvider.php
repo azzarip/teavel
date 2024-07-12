@@ -1,6 +1,6 @@
 <?php
 
-namespace Azzarip\Teavel\Providers\Filament;
+namespace Azzarip\Teavel\Filament\Panels;
 
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;

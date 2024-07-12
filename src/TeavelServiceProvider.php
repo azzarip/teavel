@@ -2,11 +2,11 @@
 
 namespace Azzarip\Teavel;
 
+use Azzarip\Teavel\Commands;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\LaravelPackageTools\Package;
-use Azzarip\Teavel\Commands;
-use Azzarip\Teavel\Providers\Filament\TagsPanelProvider;
+use Azzarip\Teavel\Filament\Panels\TagsPanelProvider;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
