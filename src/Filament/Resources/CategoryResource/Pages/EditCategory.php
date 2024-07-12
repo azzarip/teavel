@@ -1,8 +1,8 @@
 <?php
 
-namespace Azzarip\Teavel\Filament\Resources\TagCategoryResource\Pages;
+namespace Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
 
-use App\Filament\Resources\TagCategoryResource;
+use Azzarip\Teavel\Filament\Resources\CategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

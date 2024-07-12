@@ -1,14 +1,14 @@
 <?php
 
-namespace Azzarip\Teavel\Filament\Resources\TagCategoryResource\Pages;
+namespace Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
 
-use App\Filament\Resources\TagCategoryResource;
+use Azzarip\Teavel\Filament\Resources\CategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateCategory extends CreateRecord
 {
-    protected static string $resource = TagCategoryResource::class;
+    protected static string $resource = CategoryResource::class;
 
     protected static bool $canCreateAnother = false;
 
