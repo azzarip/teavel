@@ -17,16 +17,15 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class TagsPanelProvider extends PanelProvider
+class TeavelPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
-            ->id('teavel_tags')
-            ->path('teavel/tags')
+            ->id('teavel')
+            ->path('teavel')
             ->login()
-            ->guard('admin')
             ->colors([
                 'primary' => Color::Amber,
             ])
