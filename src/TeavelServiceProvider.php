@@ -49,7 +49,7 @@ class TeavelServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->register(TagsPanelProvider::class);
+        $this->app->register(TeavelPanelProvider::class);
     }
 
     public function packageBooted(): void
