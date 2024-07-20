@@ -3,14 +3,16 @@
 namespace Azzarip\Teavel\Traits;
 
 use Azzarip\Teavel\Models\Form;
+use Azzarip\Teavel\Models\UTMString;
+use Azzarip\Teavel\Models\CompiledForm;
 use Illuminate\Support\Facades\Session;
 
 trait HasGoals
 {
     public function forms()
     {
-        return $this->belongsToMany(Form::class)
-            ->withPivot(['created_at', 'utm_source', 'utm_click_id', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']);
+        return $this->belongsToMany(Form::class, 'contact_form')->using(CompiledForm::class)
+            ->withPivot(['id', 'created_at', 'utm_source_id', 'utm_click_id', 'utm_medium_id', 'utm_campaign_id', 'utm_term_id', 'utm_content_id']);
     }
 
     public function completeForm(string | Form $name)
@@ -26,30 +28,25 @@ trait HasGoals
     {
         $utm = [];
 
-        if (Session::has('utm.source')) {
-            $utm['utm_source'] = Session::get('utm.source');
-        }
+        if (!Session::has('utm.source')) return [];
 
-        if (Session::has('utm.medium')) {
-            $utm['utm_medium'] = Session::get('utm.medium');
-        }
+        $utm['utm_source_id'] = $this->getStringId('utm.source');
+        $utm['utm_medium_id'] = $this->getStringId('utm.medium');
+        $utm['utm_campaign_id'] = $this->getStringId('utm.campaign');
+        $utm['utm_content_id'] = $this->getStringId('utm.content');
+        $utm['utm_term_id'] = $this->getStringId('utm.term');
 
-        if (Session::has('utm.campaign')) {
-            $utm['utm_campaign'] = Session::get('utm.campaign');
-        }
-
-        if (Session::has('utm.term')) {
-            $utm['utm_term'] = Session::get('utm.term');
-        }
-
-        if (Session::has('utm.content')) {
-            $utm['utm_content'] = Session::get('utm.content');
-        }
-
-        if (Session::has('utm.click_id')) {
-            $utm['utm_click_id'] = Session::get('utm.click_id');
-        }
+        $utm['utm_click_id'] = Session::get('utm.click_id');
 
         return $utm;
+    }
+
+    protected function getStringId(string $field): ?int
+    {
+        $string = Session::get($field);
+        if (!$string) return null;
+
+        $utm_string = UTMString::firstOrCreate(['string' => $string]);
+        return $utm_string->id;
     }
 }

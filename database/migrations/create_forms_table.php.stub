@@ -22,15 +22,21 @@ return new class extends Migration
             $table->id();
             $table->foreignId('contact_id');
             $table->foreignId('form_id');
-            $table->string('utm_source')->nullable();
-            $table->string('utm_medium')->nullable();
-            $table->string('utm_campaign')->nullable();
-            $table->string('utm_term')->nullable();
-            $table->string('utm_content')->nullable();
+            $table->foreignId('utm_source_id')->nullable();
+            $table->foreignId('utm_medium_id')->nullable();
+            $table->foreignId('utm_campaign_id')->nullable();
+            $table->foreignId('utm_term_id')->nullable();
+            $table->foreignId('utm_content_id')->nullable();
             $table->string('utm_click_id')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
+        });
+
+        Schema::create('utm_strings', function (Blueprint $table) {
+            $table->id();
+            $table->string('string')->unique();
+            $table->timestamp('created_at')->useCurrent();
         });
 
     }
