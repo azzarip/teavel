@@ -46,9 +46,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tag_categories');
-        Schema::dropIfExists('tags');
-        Schema::dropIfExists('contact_tag');
-
+        Schema::dropIfExists('utm_strings');
+        Schema::dropIfExists('contact_form');
+        Schema::dropIfExists('forms');
     }
 };
