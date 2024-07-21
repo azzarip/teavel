@@ -26,7 +26,10 @@ class TeavelServiceProvider extends PackageServiceProvider
                     //->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->endWith(fn () => Artisan::call('teavel:contact-model'))
+                    ->endWith(function () {
+                     Artisan::call('teavel:contact-model');
+
+                })
                     ->askToStarRepoOnGitHub('azzarip/teavel');
             });
 
@@ -66,6 +69,7 @@ class TeavelServiceProvider extends PackageServiceProvider
     {
         return [
             Commands\ContactModelCommand::class,
+            Commands\CreateFormCommand::class,
         ];
     }
 

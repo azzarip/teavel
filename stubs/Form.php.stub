@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Teavel\Sequences;
+
+
+class cNAMEc extends BaseContact
+{
+    public function $name = 'xNAMEx';
+
+}
