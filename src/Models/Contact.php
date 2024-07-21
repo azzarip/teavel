@@ -111,6 +111,11 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         return (bool) $this->password;
     }
 
+    public function sequences()
+    {
+        return $this->belongsToMany(\Azzarip\Teavel\Models\Sequence::class, )
+            ->withPivot(['created_at', 'stopped_at']);
+    }
     protected static function newFactory()
     {
         return new \Azzarip\Teavel\Database\Factories\ContactFactory;
