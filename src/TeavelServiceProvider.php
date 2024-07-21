@@ -75,6 +75,7 @@ class TeavelServiceProvider extends PackageServiceProvider
             'create_contacts_table',
             'create_addresses_table',
             'create_tags_table',
+            'create_forms_table',
         ];
     }
 }
