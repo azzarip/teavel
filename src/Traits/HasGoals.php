@@ -21,6 +21,8 @@ trait HasGoals
 
         $this->forms()->attach($form->id, $this->retrieveUtm());
 
+        $form->dispatch($this->id);
+
         return $this;
     }
 

@@ -36,9 +36,14 @@ class CreateFormCommand extends Command
             File::makeDirectory($directory, 0755, true);
         }
 
+
         $name = $this->argument('name');
-        $cName = str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('-', ' ', $name))));
+        $cName = ns_case($name);
         $filepath = $directory . '/' . $cName . '.php';
+        if(File::exists($filepath)) {
+            return 1;
+        }
+
         $stubPath = __DIR__ . '/../../stubs/Form.php.stub';
         File::copy($stubPath, $filepath);
 

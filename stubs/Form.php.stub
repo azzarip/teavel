@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Teavel\Sequences;
+namespace App\Teavel\Goals\Forms;
 
 
-class cNAMEc extends BaseContact
+class cNAMEc
 {
-    public function $name = 'xNAMEx';
-
+    public string $name = 'xNAMEx';
 }

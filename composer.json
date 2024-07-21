@@ -41,7 +41,10 @@
         "psr-4": {
             "Azzarip\\Teavel\\": "src/",
             "Azzarip\\Teavel\\Database\\Factories\\": "database/factories/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
