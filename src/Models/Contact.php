@@ -61,13 +61,12 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
     public static function fromData(array $data)
     {
-        unset($data['privacy']);
+        unset($data['privacy_policy']);
         $email = $data['email'];
         $contact = self::findEmail($email);
 
         if (! $contact) {
             $data['privacy_at'] = now();
-
             return self::create($data);
         }
 
