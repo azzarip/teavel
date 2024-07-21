@@ -38,9 +38,14 @@ class CreateFormCommand extends Command
 
         $name = $this->argument('name');
         $cName = str_replace(' ', '', ucwords(str_replace('_', ' ', str_replace('-', ' ', $name))));
-
+        $filepath = $directory . '/' . $cName . '.php';
         $stubPath = __DIR__ . '/../../stubs/Form.php.stub';
-        File::copy($stubPath, $directory . '/' . $cName . '.php');
+        File::copy($stubPath, $filepath);
+
+        $fileContent = File::get($filepath);
+        $modifiedContent =str_replace('cNAMEc', $cName, $fileContent);
+        $modifiedContent =str_replace('xNAMEx', $name, $modifiedContent);
+        File::put($filepath, $modifiedContent);
 
         $this->info('Form Goal created successfully.');
 
