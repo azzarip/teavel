@@ -1,10 +1,5 @@
 <?php
 
-use Illuminate\Support\Carbon;
-use Azzarip\Teavel\Models\Contact;
-use Azzarip\Teavel\Models\Sequence;
-
-
 it('adds contact to a sequence', function () {
     $contact = Contact::factory()->create();
     $sequence = Sequence::name('test');
