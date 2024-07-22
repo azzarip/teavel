@@ -2,12 +2,15 @@
 
 namespace Azzarip\Teavel;
 
-use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
+use Azzarip\Teavel\Events;
+use Azzarip\Teavel\Listeners;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Artisan;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class TeavelServiceProvider extends PackageServiceProvider
 {
@@ -58,6 +61,8 @@ class TeavelServiceProvider extends PackageServiceProvider
                 ], 'teavel-stubs');
             }
         }
+
+        $this->registerEvents();
     }
 
     protected function getAssetPackageName(): ?string
@@ -81,5 +86,13 @@ class TeavelServiceProvider extends PackageServiceProvider
             'create_tags_table',
             'create_forms_table',
         ];
+    }
+
+    protected function registerEvents()
+    {
+        Event::listen(
+            Events\FormSubmitted::class,
+            Listeners\FormGoalAchieved::class,
+        );
     }
 }

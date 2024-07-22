@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Traits;
 
+use Azzarip\Teavel\Events\FormSubmitted;
 use Azzarip\Teavel\Models\Form;
 use Azzarip\Teavel\Models\UTMString;
 use Azzarip\Teavel\Models\CompiledForm;
@@ -21,7 +22,7 @@ trait HasGoals
 
         $this->forms()->attach($form->id, $this->retrieveUtm());
 
-        $form->dispatch($this->id);
+        FormSubmitted::dispatch($form, $this);
 
         return $this;
     }

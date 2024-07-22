@@ -12,7 +12,7 @@ class Form extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'namespace'];
+    protected $fillable = ['name', 'description'];
 
     public function contacts()
     {
@@ -27,28 +27,35 @@ class Form extends Model
         if (! $form) {
             $form = self::create([
                 'name' => $name,
-                'namespace' => '\\App\\Teavel\\Goals\\Forms\\',
                 'description' => 'Automatic Generated Form',
             ]);
         }
 
-        $form->findClass();
         return $form;
     }
 
-    protected function findClass()
+    protected function findNamespace()
     {
-        $name =
-        $allFiles = File::allFiles(app_path("Teavel/Goals/Forms/"));
+    $directory = app_path("Teavel/Goals/Forms/");
+        $allFiles = File::allFiles($directory);
 
+        $name = ns_case($this->name);
         foreach ($allFiles as $file) {
             if ($file->getFilename() === $name . '.php') {
                 $match = $file->getPathname();
                 break;
             }
         }
-        require_once $match;
-        $class = new \App\Teavel\Goals\Forms\Formbb();
-        dd($class);
+
+        if(empty($match)) return;
+
+        $relativePath = str_replace($directory, '', $match);
+        $relativePath = pathinfo($relativePath, PATHINFO_FILENAME);
+        $relativePath = str_replace(DIRECTORY_SEPARATOR, '\\', $relativePath);
+
+        return '\\App\\Teavel\\Goals\\Forms\\' . $relativePath;
     }
+
+
 }
+
