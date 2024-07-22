@@ -2,9 +2,9 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
+use Azzarip\Teavel\SequenceManager;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 class Sequence extends Model
@@ -35,15 +35,19 @@ class Sequence extends Model
 
     public function start(Contact $contact)
     {
+
         try {
             $contact->sequences()->attach($this->id);
         } catch (UniqueConstraintViolationException $e) {
             $entry = $contact->sequences()->where('sequence_id', $this->id)->first();
 
-            if ($entry && $entry->pivot->stopped_at) {
-                    $contact->sequences()->updateExistingPivot($this->id, ['stopped_at' => null]);
+            if (empty($entry->pivot->stopped_at)) {
+                return;
             }
+
+            $contact->sequences()->updateExistingPivot($this->id, ['stopped_at' => null]);
         }
+        SequenceManager::start($this, $contact);
     }
 
     public function stop(Contact $contact)

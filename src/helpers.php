@@ -1,12 +1,9 @@
 <?php
 
-if (!function_exists('ns_case')) {
+if (! function_exists('ns_case')) {
     /**
      * Convert a namespace-like string to a "namespace case" string
      * by replacing hyphens and underscores with capital Letters.
-     *
-     * @param string $input
-     * @return string
      */
     function ns_case(string $input): string
     {

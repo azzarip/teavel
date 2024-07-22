@@ -2,8 +2,6 @@
 
 use Azzarip\Teavel\Models\Sequence;
 
-
-
 it('returns sequence by name', function () {
     $sequence1 = Sequence::create(['name' => 'test']);
     $sequence2 = Sequence::name('test');

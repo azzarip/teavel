@@ -20,27 +20,26 @@ class CreateFormCommand extends Command
     {
         $directory = app_path('Teavel');
 
-        if (!File::exists($directory)) {
+        if (! File::exists($directory)) {
             File::makeDirectory($directory, 0755, true);
         }
 
         $directory .= '/Goals';
 
-        if (!File::exists($directory)) {
+        if (! File::exists($directory)) {
             File::makeDirectory($directory, 0755, true);
         }
 
         $directory .= '/Forms';
 
-        if (!File::exists($directory)) {
+        if (! File::exists($directory)) {
             File::makeDirectory($directory, 0755, true);
         }
-
 
         $name = $this->argument('name');
         $cName = ns_case($name);
         $filepath = $directory . '/' . $cName . '.php';
-        if(File::exists($filepath)) {
+        if (File::exists($filepath)) {
             return 1;
         }
 
@@ -48,8 +47,8 @@ class CreateFormCommand extends Command
         File::copy($stubPath, $filepath);
 
         $fileContent = File::get($filepath);
-        $modifiedContent =str_replace('cNAMEc', $cName, $fileContent);
-        $modifiedContent =str_replace('xNAMEx', $name, $modifiedContent);
+        $modifiedContent = str_replace('cNAMEc', $cName, $fileContent);
+        $modifiedContent = str_replace('xNAMEx', $name, $modifiedContent);
         File::put($filepath, $modifiedContent);
 
         $this->info('Form Goal created successfully.');
@@ -58,9 +57,9 @@ class CreateFormCommand extends Command
     }
 
     protected function promptForMissingArgumentsUsing(): array
-{
-    return [
-        'name' => 'How should the Form Goal be called?',
-    ];
-}
+    {
+        return [
+            'name' => 'How should the Form Goal be called?',
+        ];
+    }
 }

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-afterEach(function() {
+use Illuminate\Support\Str;
+
+afterEach(function () {
     File::deleteDirectory(app_path('Teavel'));
 });
 it('creates the teavel directory', function () {

@@ -2,15 +2,13 @@
 
 namespace Azzarip\Teavel;
 
-use Azzarip\Teavel\Events;
-use Azzarip\Teavel\Listeners;
+use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Event;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class TeavelServiceProvider extends PackageServiceProvider
 {
@@ -30,9 +28,9 @@ class TeavelServiceProvider extends PackageServiceProvider
                     ->publishMigrations()
                     ->askToRunMigrations()
                     ->endWith(function () {
-                     Artisan::call('teavel:contact-model');
+                        Artisan::call('teavel:contact-model');
 
-                })
+                    })
                     ->askToStarRepoOnGitHub('azzarip/teavel');
             });
 

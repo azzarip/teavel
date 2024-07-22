@@ -2,9 +2,9 @@
 
 namespace Azzarip\Teavel\Database\Factories;
 
-use Illuminate\Support\Str;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ContactFactory extends Factory
 {

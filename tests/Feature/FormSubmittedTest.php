@@ -1,11 +1,12 @@
 <?php
 
-use Azzarip\Teavel\Models\Form;
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Support\Facades\Event;
 use Azzarip\Teavel\Events\FormSubmitted;
 use Azzarip\Teavel\Listeners\FormGoalAchieved;
-beforeEach(function() {
+use Azzarip\Teavel\Models\Contact;
+use Azzarip\Teavel\Models\Form;
+use Illuminate\Support\Facades\Event;
+
+beforeEach(function () {
     Event::fake();
 });
 

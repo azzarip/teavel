@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use Azzarip\Teavel\Http\Middleware\HandleUTM;
+use Illuminate\Support\Facades\Route;
+
 use function Pest\Laravel\get;
 
 beforeEach(function () {

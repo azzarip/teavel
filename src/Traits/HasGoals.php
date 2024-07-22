@@ -3,9 +3,9 @@
 namespace Azzarip\Teavel\Traits;
 
 use Azzarip\Teavel\Events\FormSubmitted;
+use Azzarip\Teavel\Models\CompiledForm;
 use Azzarip\Teavel\Models\Form;
 use Azzarip\Teavel\Models\UTMString;
-use Azzarip\Teavel\Models\CompiledForm;
 use Illuminate\Support\Facades\Session;
 
 trait HasGoals
@@ -31,7 +31,9 @@ trait HasGoals
     {
         $utm = [];
 
-        if (!Session::has('utm.source')) return [];
+        if (! Session::has('utm.source')) {
+            return [];
+        }
 
         $utm['utm_source_id'] = $this->getStringId('utm.source');
         $utm['utm_medium_id'] = $this->getStringId('utm.medium');
@@ -47,9 +49,12 @@ trait HasGoals
     protected function getStringId(string $field): ?int
     {
         $string = Session::get($field);
-        if (!$string) return null;
+        if (! $string) {
+            return null;
+        }
 
         $utm_string = UTMString::firstOrCreate(['string' => $string]);
+
         return $utm_string->id;
     }
 }

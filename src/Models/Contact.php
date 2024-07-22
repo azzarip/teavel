@@ -67,6 +67,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
         if (! $contact) {
             $data['privacy_at'] = now();
+
             return self::create($data);
         }
 
@@ -113,9 +114,10 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
     public function sequences()
     {
-        return $this->belongsToMany(\Azzarip\Teavel\Models\Sequence::class, )
+        return $this->belongsToMany(\Azzarip\Teavel\Models\Sequence::class)
             ->withPivot(['created_at', 'stopped_at']);
     }
+
     protected static function newFactory()
     {
         return new \Azzarip\Teavel\Database\Factories\ContactFactory;
