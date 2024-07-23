@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 use Mockery as M;
 
 beforeEach(function () {
-    $this->mock = M::mock('alias:Azzarip\Teavel\SequenceManager');
+    $this->mock = M::mock('alias:App\Teavel\Sequences\Test');
 });
 it('calls the sequence start', function () {
     $this->mock->shouldReceive('start')->once();
@@ -86,6 +86,27 @@ it('renews a sequence if it has been stopped', function () {
     $pivot = $contact->sequences()->where('sequence_id', $sequence->id)->first()->pivot;
     expect($pivot->stopped_at)->toBeNull();
 });
+
+
+it('executes start method on the class', function () {
+    $this->mock->shouldReceive('start')->once();
+    $contact = Contact::factory()->create();
+    $sequence = Sequence::name('test');
+
+    $sequence->start($contact);
+});
+
+it('throws error on missing start method', function () {
+    \Mockery::mock('alias:App\Teavel\Sequences\Test');
+    $contact = Contact::factory()->create();
+    $sequence = Sequence::name('test');
+
+    $sequence->start($contact);
+    \Mockery::close();
+
+})->throws(BadMethodCallException::class);
+
+
 afterEach(function () {
-    Mockery::close();
+    M::close();
 });

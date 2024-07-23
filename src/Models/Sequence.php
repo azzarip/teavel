@@ -2,9 +2,12 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Exceptions;
 use Azzarip\Teavel\SequenceRouter;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Azzarip\Teavel\Exceptions\MissingClassException;
+use Azzarip\Teavel\Exceptions\BadMethodCallException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 class Sequence extends Model
@@ -35,22 +38,46 @@ class Sequence extends Model
 
     public function start(Contact $contact)
     {
+        if($this->saveEntry($contact)) {
+            $this->startSequence($contact);
+        }
+    }
+
+    public function stop(Contact $contact)
+    {
+        $this->contacts()->updateExistingPivot($contact->id, ['stopped_at' => now()]);
+    }
+
+    protected function saveEntry(Contact $contact)
+    {
         try {
             $contact->sequences()->attach($this->id);
         } catch (UniqueConstraintViolationException $e) {
             $entry = $contact->sequences()->where('sequence_id', $this->id)->first();
 
             if (empty($entry->pivot->stopped_at)) {
-                return;
+                return false;
             }
 
             $contact->sequences()->updateExistingPivot($this->id, ['stopped_at' => null]);
         }
-        SequenceRouter::start($this, $contact);
+
+        return true;
     }
 
-    public function stop(Contact $contact)
+    protected function startSequence(Contact $contact)
     {
-        $this->contacts()->updateExistingPivot($contact->id, ['stopped_at' => now()]);
+        $Name = ns_case($this->name);
+        $className = 'App\\Teavel\\Sequences\\' . $Name;
+
+        if (! class_exists($className)) {
+            throw new MissingClassException("Sequence $Name class not found!");
+        }
+
+        try {
+            $className::start($contact);
+        } catch (\BadMethodCallException $e) {
+            throw new BadMethodCallException("Sequence $Name does not have a start method!");
+        }
     }
 }
