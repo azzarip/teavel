@@ -6,6 +6,6 @@ class SequenceMock
 {
     public static function start()
     {
-
+        return 'hello!';
     }
 }
