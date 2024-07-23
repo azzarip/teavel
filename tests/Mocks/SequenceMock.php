@@ -2,9 +2,11 @@
 
 namespace App\Teavel\Sequences;
 
-class SequenceMock
+use Azzarip\Teavel\Automations\SequenceAutomation;
+
+class SequenceMock extends SequenceAutomation
 {
-    public static function start()
+    public function start()
     {
         return 'hello!';
     }

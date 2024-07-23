@@ -17,7 +17,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     use Authorizable;
     use HasFactory;
     use Traits\HasAddresses;
-    use Traits\HasGoals;
+    use Traits\HasAutomations;
     use Traits\HasTags;
 
     protected $guarded = [];
@@ -110,12 +110,6 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     public function getIsRegisteredAttribute(): bool
     {
         return (bool) $this->password;
-    }
-
-    public function sequences()
-    {
-        return $this->belongsToMany(\Azzarip\Teavel\Models\Sequence::class)
-            ->withPivot(['created_at', 'stopped_at']);
     }
 
     protected static function newFactory()

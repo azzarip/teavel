@@ -3,8 +3,9 @@
 namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Exceptions;
-use Azzarip\Teavel\SequenceRouter;
 use Illuminate\Database\Eloquent\Model;
+use Azzarip\Teavel\Models\ContactSequence;
+use Azzarip\Teavel\Automations\SequenceHandler;
 use Azzarip\Teavel\Exceptions\MissingClassException;
 use Azzarip\Teavel\Exceptions\BadMethodCallException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,6 +20,7 @@ class Sequence extends Model
     public function contacts()
     {
         return $this->belongsToMany(Contact::class)
+            ->using(ContactSequence::class)
             ->withPivot(['created_at', 'stopped_at']);
     }
 
@@ -38,9 +40,19 @@ class Sequence extends Model
 
     public function start(Contact $contact)
     {
-        if($this->saveEntry($contact)) {
-            $this->startSequence($contact);
+        $pivot = $this->findPivot($contact);
+
+        if(!$pivot) {
+            $this->contacts()->attach($contact);
+            $pivot = $this->findPivot($contact);
+            return SequenceHandler::start($pivot, $contact);
         }
+    
+        if($pivot->is_active) return;
+        
+        
+        $pivot->reset();
+        return SequenceHandler::start($pivot, $contact);
     }
 
     public function stop(Contact $contact)
@@ -48,36 +60,9 @@ class Sequence extends Model
         $this->contacts()->updateExistingPivot($contact->id, ['stopped_at' => now()]);
     }
 
-    protected function saveEntry(Contact $contact)
+    protected function findPivot(Contact $contact)
     {
-        try {
-            $contact->sequences()->attach($this->id);
-        } catch (UniqueConstraintViolationException $e) {
-            $entry = $contact->sequences()->where('sequence_id', $this->id)->first();
-
-            if (empty($entry->pivot->stopped_at)) {
-                return false;
-            }
-
-            $contact->sequences()->updateExistingPivot($this->id, ['stopped_at' => null]);
-        }
-
-        return true;
+        $this->contacts()->where('contact_id', $contact->id)->first()->pivot;
     }
 
-    protected function startSequence(Contact $contact)
-    {
-        $Name = ns_case($this->name);
-        $className = 'App\\Teavel\\Sequences\\' . $Name;
-
-        if (! class_exists($className)) {
-            throw new MissingClassException("Sequence $Name class not found!");
-        }
-
-        try {
-            $className::start($contact);
-        } catch (\BadMethodCallException $e) {
-            throw new BadMethodCallException("Sequence $Name does not have a start method!");
-        }
-    }
 }
