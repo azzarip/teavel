@@ -8,6 +8,30 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ContactSequence extends Pivot
 {
+
+    protected function cast() {
+        return [
+            'execute_at' => 'datetime',
+            'stopped_at' => 'datetime',
+        ];
+    }
+    public function reset()
+    {
+        $this->stopped_at = null;
+        $this->execute_at = null;
+        $this->step = null;
+        $this->created_at = now();
+        $this->save();
+    }
+
+    public static function ready()
+    {
+        return self::whereNull('stopped_at')
+                    ->whereNotNull('execute_at')
+                    ->where('execute_at', '<=', Carbon::now())
+                    ->get();
+    }
+
     public function getIsStoppedAttribute()
     {
         return (bool) $this->stopped_at;
@@ -40,14 +64,4 @@ class ContactSequence extends Pivot
         && empty($this->execute_at)
         && $this->updated_at->gt(Carbon::now()->subMinutes(5));
     }
-
-    public function reset()
-    {
-        $this->stopped_at = null;
-        $this->execute_at = null;
-        $this->step = null;
-        $this->created_at = now();
-        $this->save();
-    }
-
 }
