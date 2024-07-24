@@ -74,6 +74,7 @@ class TeavelServiceProvider extends PackageServiceProvider
             Commands\ContactModelCommand::class,
             Commands\CreateFormCommand::class,
             Commands\CreateSequenceCommand::class,
+            Commands\TeavelRunCommand::class,
         ];
     }
 

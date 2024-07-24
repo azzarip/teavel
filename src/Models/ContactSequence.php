@@ -24,14 +24,17 @@ class ContactSequence extends Pivot
         $this->save();
     }
 
-    public static function ready()
+    public static function getReadySteps()
     {
-        return self::whereNull('stopped_at')
-                    ->whereNotNull('execute_at')
-                    ->where('execute_at', '<=', Carbon::now())
-                    ->get();
+        return self::ready()->get();
     }
 
+    protected static function ready()
+    {
+        return self::whereNull('stopped_at')
+        ->whereNotNull('execute_at')
+        ->where('execute_at', '<=', Carbon::now());
+    }
     public function getIsStoppedAttribute()
     {
         return (bool) $this->stopped_at;

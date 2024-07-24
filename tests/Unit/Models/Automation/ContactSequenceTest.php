@@ -97,7 +97,7 @@ it('pulls the ready pivots', function () {
        'stopped_at' => now()->subDay(),
     ]);
 
-    $ready = ContactSequence::ready();
+    $ready = ContactSequence::getReadySteps();
 
 
     expect($ready)->toHaveCount(1);
