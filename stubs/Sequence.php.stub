@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Teavel\Sequences;
+
+use Azzarip\Teavel\Automations\SequenceAutomation;
+
+class cNAMEc extends SequenceAutomation
+{
+    protected string $key = 'xNAMEx';
+
+    public function start()
+    {
+        //start function
+    }
+}
