@@ -2,15 +2,17 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Azzarip\Teavel\Models\Automatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Form extends Model
+class Form extends Automatable
 {
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
+
+    protected readonly string $automationPath = 'Goal\\Forms';
 
     public function contacts()
     {

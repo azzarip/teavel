@@ -34,7 +34,7 @@ class TeavelRunCommand extends Command
     protected function executeStep(ContactSequence $step)
     {
         try {
-            SequenceHandler::handle($step);
+            SequenceHandler::process($step);
         } catch (\Exception $e) {
             Log::error('TEAVEL: ' . $e->getMessage());
         }

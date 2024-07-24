@@ -7,7 +7,19 @@ use Azzarip\Teavel\Models\Sequence;
 
 class SequenceAutomation
 {
-    public function __construct(public Sequence $sequence, public Contact $contact)
+    public readonly $key;
+
+    public function __construct(public Contact $contact)
     {
     }
+
+    public static function stop(Contact $contact) {
+        Sequence::name($this->key)->stop($contact);
+    }
+
+    public static function startHandler(Contact $contact){
+        Sequence::name($this->key)->start($contact);
+    }
+
+    
 }

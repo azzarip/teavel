@@ -2,15 +2,17 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Models\Automatable;
 use Azzarip\Teavel\Automations\SequenceHandler;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Sequence extends Model
+class Sequence extends Automatable
 {
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
+
+    protected readonly string $automationPath = 'Sequences';
 
     public function contacts()
     {
@@ -41,7 +43,7 @@ class Sequence extends Model
             $this->contacts()->attach($contact);
             $pivot = $this->findPivot($contact);
 
-            return SequenceHandler::start($pivot, $contact, $this);
+            return SequenceHandler::start($pivot, $contact, $this->getAutomation());
         }
 
         if ($pivot->is_active) {
@@ -50,16 +52,24 @@ class Sequence extends Model
 
         $pivot->reset();
 
-        return SequenceHandler::start($pivot, $contact, $this);
+        return SequenceHandler::start($pivot, $contact, $this->getAutomation());
     }
 
     public function stop(Contact $contact)
     {
-        $this->contacts()->updateExistingPivot($contact->id, ['stopped_at' => now()]);
+        $pivot = $this->findPivot($contact);
+
+        if($pivot->is_active) {
+            $this->contacts()->updateExistingPivot($contact->id, ['stopped_at' => now()]);
+        }
     }
 
     protected function findPivot(Contact $contact)
     {
-        return $this->contacts()->where('contact_id', $contact->id)->first()->pivot;
+        $relationship = $this->contacts()->where('contact_id', $contact->id)->first();
+        
+        if(!$relationship) return;
+        
+        return $this->pivot;
     }
 }

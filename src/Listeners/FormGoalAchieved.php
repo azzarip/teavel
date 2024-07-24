@@ -9,24 +9,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class FormGoalAchieved implements ShouldQueue
 {
     /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      */
     public function handle(FormSubmitted $event): void
     {
-        $goalClass = $this->getNamespace($event->form);
-        $goalClass::start();
+        $automationGoal = $event->form->getAutomation();
+
+        $automationGoal::activate($event->contact);
     }
 
-    protected function getNamespace(Form $form): string
-    {
-        return '\\App\\Teavel\\Goals\\Forms\\' . ns_case($form->name);
-    }
+
 }

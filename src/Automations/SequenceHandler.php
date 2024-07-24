@@ -10,50 +10,39 @@ use Azzarip\Teavel\Models\Sequence;
 
 class SequenceHandler
 {
-    protected $namespace;
-
     protected $step;
 
-    public function __construct(public ContactSequence $pivot, public Contact $contact, public Sequence $sequence)
-    {
-        $this->namespace = $this->getNamespace();
-        $this->step = $pivot->step ?? 'start';
+    public function __construct(
+      public ContactSequence $pivot, 
+      public Contact $contact, 
+      protected SequenceAutomation $automation = null
+   )
+    {       
+      $this->step = $pivot->step ?? 'start';
     }
 
-    public function run()
+    public function handle()
     {
         try {
-            $automation = (new ($this->namespace)($this->sequence, $this->contact));
+            $automation = (new ($this->namespace)($this->contact));
             $automation->{$this->step}();
         } catch (\BadMethodCallException $e) {
             throw new BadMethodCallException("Sequence {$this->sequence->name} does not have a $this->step method!");
         }
     }
 
-    public static function handle(ContactSequence $pivot)
+    public static function process(ContactSequence $pivot)
     {
-        $sequence = Sequence::find($pivot->sequence_id);
+        $automation = Sequence::find($pivot->sequence_id)->getAutomation();
         $contact = Contact::find($pivot->contact_id);
 
-        $handler = new self($pivot, $contact, $sequence);
-        $handler->run();
+        self::start($pivot, $contact, $automation);
     }
 
-    public static function start(ContactSequence $pivot, Contact $contact, Sequence $sequence)
+    public static function start(ContactSequence $pivot, Contact $contact, SequenceAutomation $automation)
     {
-        $handler = new self($pivot, $contact, $sequence);
-        $handler->run();
+        $handler = new self($pivot, $contact, $automation);
+        $handler->handle();
     }
 
-    protected function getNamespace()
-    {
-        $Name = ns_case($this->sequence->name);
-        $className = 'App\\Teavel\\Sequences\\' . $Name;
-
-        if (! class_exists($className)) {
-            throw new MissingClassException("Sequence $Name class not found!");
-        }
-
-        return $className;
-    }
 }
