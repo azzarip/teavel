@@ -1,9 +1,8 @@
 <?php
 
+use Azzarip\Teavel\Exceptions\MissingClassException;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\Sequence;
-use Azzarip\Teavel\Exceptions\BadMethodCallException;
-use Azzarip\Teavel\Exceptions\MissingClassException;
 
 it('returns sequence by name', function () {
     $sequence1 = Sequence::create(['name' => 'test']);
@@ -25,4 +24,3 @@ it('throws error on missing class', function () {
     $sequence->start($contact);
 
 })->throws(MissingClassException::class);
-

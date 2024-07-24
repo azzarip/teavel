@@ -7,5 +7,7 @@ use Azzarip\Teavel\Models\Sequence;
 
 class SequenceAutomation
 {
-   public function __construct(public Sequence $sequence, public Contact $contact) {}
+    public function __construct(public Sequence $sequence, public Contact $contact)
+    {
+    }
 }

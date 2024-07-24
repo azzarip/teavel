@@ -91,7 +91,6 @@ it('calls the sequence start', function () {
 //     expect($pivot->created_at)->toBe(now());
 // });
 
-
 // it('executes start method on the class', function () {
 //     $this->mock->shouldReceive('start')->once();
 //     $contact = Contact::factory()->create();
@@ -107,7 +106,6 @@ it('calls the sequence start', function () {
 //     $sequence->start($contact);
 
 // })->throws(BadMethodCallException::class);
-
 
 afterEach(function () {
     \Mockery::close();

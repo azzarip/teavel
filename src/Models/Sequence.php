@@ -2,14 +2,9 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\Exceptions;
-use Illuminate\Database\Eloquent\Model;
-use Azzarip\Teavel\Models\ContactSequence;
 use Azzarip\Teavel\Automations\SequenceHandler;
-use Azzarip\Teavel\Exceptions\MissingClassException;
-use Azzarip\Teavel\Exceptions\BadMethodCallException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Database\Eloquent\Model;
 
 class Sequence extends Model
 {
@@ -42,15 +37,19 @@ class Sequence extends Model
     {
         $pivot = $this->findPivot($contact);
 
-        if(!$pivot) {
+        if (! $pivot) {
             $this->contacts()->attach($contact);
             $pivot = $this->findPivot($contact);
+
             return SequenceHandler::start($pivot, $contact, $this);
         }
 
-        if($pivot->is_active) return;
+        if ($pivot->is_active) {
+            return;
+        }
 
         $pivot->reset();
+
         return SequenceHandler::start($pivot, $contact, $this);
     }
 
@@ -61,7 +60,6 @@ class Sequence extends Model
 
     protected function findPivot(Contact $contact)
     {
-       return $this->contacts()->where('contact_id', $contact->id)->first()->pivot;
+        return $this->contacts()->where('contact_id', $contact->id)->first()->pivot;
     }
-
 }

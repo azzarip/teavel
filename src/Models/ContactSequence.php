@@ -2,19 +2,19 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\Exceptions;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Carbon;
 
 class ContactSequence extends Pivot
 {
-
-    protected function cast() {
+    protected function cast()
+    {
         return [
             'execute_at' => 'datetime',
             'stopped_at' => 'datetime',
         ];
     }
+
     public function reset()
     {
         $this->stopped_at = null;
@@ -32,9 +32,10 @@ class ContactSequence extends Pivot
     protected static function ready()
     {
         return self::whereNull('stopped_at')
-        ->whereNotNull('execute_at')
-        ->where('execute_at', '<=', Carbon::now());
+            ->whereNotNull('execute_at')
+            ->where('execute_at', '<=', Carbon::now());
     }
+
     public function getIsStoppedAttribute()
     {
         return (bool) $this->stopped_at;

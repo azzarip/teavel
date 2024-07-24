@@ -1,8 +1,8 @@
 <?php
 
 use Azzarip\Teavel\Models\Contact;
-use Azzarip\Teavel\Models\Sequence;
 use Azzarip\Teavel\Models\ContactSequence;
+use Azzarip\Teavel\Models\Sequence;
 
 it('has is_stopped attribute', function () {
     $pivot = new ContactSequence();
@@ -76,29 +76,28 @@ it('pulls the ready pivots', function () {
 
     $pivot1 = ContactSequence::create([
         'contact_id' => $contacts[0]->id,
-       'sequence_id' => $sequence->id,
+        'sequence_id' => $sequence->id,
         'execute_at' => now()->subMinute(),
     ]);
 
     $pivot2 = ContactSequence::create([
         'contact_id' => $contacts[1]->id,
-       'sequence_id' => $sequence->id,
+        'sequence_id' => $sequence->id,
         'execute_at' => now()->addDay(),
     ]);
 
     $pivot3 = ContactSequence::create([
         'contact_id' => $contacts[2]->id,
-       'sequence_id' => $sequence->id,
+        'sequence_id' => $sequence->id,
     ]);
 
     $pivot4 = ContactSequence::create([
         'contact_id' => $contacts[3]->id,
-       'sequence_id' => $sequence->id,
-       'stopped_at' => now()->subDay(),
+        'sequence_id' => $sequence->id,
+        'stopped_at' => now()->subDay(),
     ]);
 
     $ready = ContactSequence::getReadySteps();
-
 
     expect($ready)->toHaveCount(1);
     expect($ready->pluck('execute_at'))->not->toContain(null);
