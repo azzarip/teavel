@@ -45,14 +45,13 @@ class Sequence extends Model
         if(!$pivot) {
             $this->contacts()->attach($contact);
             $pivot = $this->findPivot($contact);
-            return SequenceHandler::start($pivot, $contact);
+            return SequenceHandler::start($pivot, $contact, $this);
         }
-    
+
         if($pivot->is_active) return;
-        
-        
+
         $pivot->reset();
-        return SequenceHandler::start($pivot, $contact);
+        return SequenceHandler::start($pivot, $contact, $this);
     }
 
     public function stop(Contact $contact)
@@ -62,7 +61,7 @@ class Sequence extends Model
 
     protected function findPivot(Contact $contact)
     {
-        $this->contacts()->where('contact_id', $contact->id)->first()->pivot;
+       return $this->contacts()->where('contact_id', $contact->id)->first()->pivot;
     }
 
 }
