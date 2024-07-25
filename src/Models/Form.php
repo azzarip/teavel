@@ -12,7 +12,7 @@ class Form extends Automatable
 
     protected $fillable = ['name', 'description'];
 
-    protected readonly string $automationPath = 'Goal\\Forms';
+    protected string $automationPath = 'Goal\\Forms';
 
     public function contacts()
     {
@@ -32,30 +32,5 @@ class Form extends Automatable
         }
 
         return $form;
-    }
-
-    protected function findNamespace()
-    {
-        $directory = app_path('Teavel/Goals/Forms/');
-        $allFiles = File::allFiles($directory);
-
-        $name = ns_case($this->name);
-        foreach ($allFiles as $file) {
-            if ($file->getFilename() === $name . '.php') {
-                $match = $file->getPathname();
-
-                break;
-            }
-        }
-
-        if (empty($match)) {
-            return;
-        }
-
-        $relativePath = str_replace($directory, '', $match);
-        $relativePath = pathinfo($relativePath, PATHINFO_FILENAME);
-        $relativePath = str_replace(DIRECTORY_SEPARATOR, '\\', $relativePath);
-
-        return '\\App\\Teavel\\Goals\\Forms\\' . $relativePath;
     }
 }

@@ -15,22 +15,22 @@ class FormAutomation
     protected array $stop = [];
 
     public static function activate(Contact $contact) {
-        $goal = new self::($contact);
+        $goal = new self($contact);
         $goal->stopAutomations();
         $goal->startAutomations();
     }
 
-    public function stopAutomations() 
+    public function stopAutomations()
     {
         foreach($this->stop as $automation) {
-            $automation::stop($this->contact);
+            (new $automation($this->contact))->stopSequence();
         }
     }
 
-    public function startAutomations() 
+    public function startAutomations()
     {
         foreach($this->start as $automation) {
-            $automation::startHandler($this->contact);
+            (new $automation($this->contact))->startSequence();
         }
     }
 }

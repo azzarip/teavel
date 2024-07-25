@@ -2,8 +2,15 @@
 
 namespace App\Teavel\Goals\Forms;
 
-
 class cNAMEc
 {
     public string $name = 'xNAMEx';
+
+    protected array $start = [
+        // Add sequences to start
+    ];
+
+    protected array $stop = [
+        // Add sequences to stop
+    ];
 }

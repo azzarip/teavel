@@ -10,7 +10,7 @@ class Automatable extends Model
 {
     use HasFactory;
 
-    protected readonly string $automationPath;
+    protected string $automationPath;
 
     public function getAutomation()
     {

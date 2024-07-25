@@ -12,7 +12,7 @@ class Sequence extends Automatable
 
     protected $fillable = ['name', 'description'];
 
-    protected readonly string $automationPath = 'Sequences';
+    protected string $automationPath = 'Sequences';
 
     public function contacts()
     {
@@ -67,9 +67,9 @@ class Sequence extends Automatable
     protected function findPivot(Contact $contact)
     {
         $relationship = $this->contacts()->where('contact_id', $contact->id)->first();
-        
+
         if(!$relationship) return;
-        
+
         return $this->pivot;
     }
 }
