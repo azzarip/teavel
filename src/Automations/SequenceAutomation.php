@@ -21,5 +21,12 @@ class SequenceAutomation
         Sequence::name($this->name)->start($this->contact);
     }
 
+    protected function tag($tag){
+        $this->contact->tag($tag);
+    }
+
+    protected function detag($tag){
+        $this->contact->detag($tag);
+    }
 
 }
