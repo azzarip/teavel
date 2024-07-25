@@ -48,7 +48,13 @@ class SequenceHandler
 
     protected function nextStep($next)
     {
-        $this->pivot->stop();
+        if(is_null($next)) {
+            return $this->pivot->stop();
+        }
+
+        $this->pivot->execute_at = $next->getAdjustedTimestamp();
+        $this->pivot->step = $next->step;
+        $this->pivot->save();
     }
 
 }
