@@ -25,7 +25,8 @@ class SequenceHandler
     {
         try {
             $automation = (new ($this->automation)($this->contact));
-            $automation->{$this->step}();
+            $next = $automation->{$this->step}();
+            $this->nextStep($next);
         } catch (\BadMethodCallException $e) {
             throw new BadMethodCallException("Sequence ". get_class($this->automation). "does not have a $this->step method!");
         }
@@ -43,6 +44,11 @@ class SequenceHandler
     {
         $handler = new self($pivot, $contact, $automation);
         $handler->handle();
+    }
+
+    protected function nextStep($next)
+    {
+        $this->pivot->stop();
     }
 
 }

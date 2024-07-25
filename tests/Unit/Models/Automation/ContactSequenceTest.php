@@ -103,3 +103,19 @@ it('pulls the ready pivots', function () {
     expect($ready->pluck('execute_at'))->not->toContain(null);
     expect($ready->pluck('stopped_at'))->toContain(null);
 });
+
+it('stops', function () {
+    $contacts = Contact::factory(4)->create();
+    $sequence = Sequence::name('test_1');
+
+    $pivot = ContactSequence::create([
+        'contact_id' => $contacts[0]->id,
+        'sequence_id' => $sequence->id,
+    ]);
+
+    expect($pivot->is_stopped)->toBeFalse();
+
+    $pivot->stop();
+
+    expect($pivot->is_stopped)->toBeTrue();
+});

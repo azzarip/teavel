@@ -69,7 +69,7 @@ class Sequence extends Automatable
     {
         $relationship = $this->contacts()->where('contact_id', $contact->id)->first();
 
-        if(!$relationship) return;
+        if(!$relationship) return null;
 
         return $relationship->pivot;
     }

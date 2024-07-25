@@ -26,6 +26,15 @@ class ContactSequence extends Pivot
         return $this;
     }
 
+    public function stop()
+    {
+        $this->stopped_at = now();
+        $this->save();
+
+        return $this;
+    }
+
+
     public static function getReadySteps()
     {
         return self::ready()->get();
