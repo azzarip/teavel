@@ -12,7 +12,7 @@ class Form extends Automatable
 
     protected $fillable = ['name', 'description'];
 
-    protected string $automationPath = 'Goal\\Forms';
+    protected string $automationPath = 'Goals\\Forms';
 
     public function contacts()
     {

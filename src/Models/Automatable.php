@@ -18,7 +18,7 @@ class Automatable extends Model
         $className = 'App\\Teavel\\' . $this->automationPath . '\\' . $Name;
 
         if (! class_exists($className)) {
-            throw new MissingClassException("Sequence $Name class not found!");
+            throw new MissingClassException("$Name class not found!");
         }
 
         return $className;
