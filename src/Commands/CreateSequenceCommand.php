@@ -4,8 +4,9 @@ namespace Azzarip\Teavel\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Contracts\Console\PromptsForMissingInput;
 
-class CreateSequenceCommand extends Command
+class CreateSequenceCommand extends Command implements PromptsForMissingInput
 {
     protected $signature = 'make:teavel-sequence {name}';
 

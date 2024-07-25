@@ -4,8 +4,9 @@ namespace Azzarip\Teavel\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Contracts\Console\PromptsForMissingInput;
 
-class CreateFormCommand extends Command
+class CreateFormCommand extends Command implements PromptsForMissingInput
 {
     protected $signature = 'make:teavel-form {name}';
 
