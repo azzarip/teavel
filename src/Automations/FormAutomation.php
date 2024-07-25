@@ -3,7 +3,6 @@
 namespace Azzarip\Teavel\Automations;
 
 use Azzarip\Teavel\Models\Contact;
-use Azzarip\Teavel\Models\Sequence;
 
 class FormAutomation
 {
