@@ -2,9 +2,9 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\Automations\SequenceHandler;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Azzarip\Teavel\Exceptions\MissingClassException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Automatable extends Model
 {

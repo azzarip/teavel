@@ -13,21 +13,21 @@ class SequenceHandler
     protected $step;
 
     public function __construct(
-      public ContactSequence $pivot, 
-      public Contact $contact, 
-      protected SequenceAutomation $automation = null
+      public ContactSequence $pivot,
+      public Contact $contact,
+      protected SequenceAutomation $automation
    )
-    {       
+    {
       $this->step = $pivot->step ?? 'start';
     }
 
     public function handle()
     {
         try {
-            $automation = (new ($this->namespace)($this->contact));
+            $automation = (new ($this->automation)($this->contact));
             $automation->{$this->step}();
         } catch (\BadMethodCallException $e) {
-            throw new BadMethodCallException("Sequence {$this->sequence->name} does not have a $this->step method!");
+            throw new BadMethodCallException("Sequence ". get_class($this->automation). "does not have a $this->step method!");
         }
     }
 
