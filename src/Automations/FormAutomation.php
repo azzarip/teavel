@@ -13,20 +13,19 @@ class FormAutomation
 
     protected array $stop = [];
 
-    public static function activate(Contact $contact) {
-        $goal = new self($contact);
-        $goal->stopAutomations();
-        $goal->startAutomations();
+    public function activate() {
+        $this->stopSequences();
+        $this->startSequences();
     }
 
-    public function stopAutomations()
+    public function stopSequences()
     {
-        foreach($this->stop as $automation) {
-            (new $automation($this->contact))->stopSequence();
+        foreach($this->stop as $sequence) {
+            (new $sequence($this->contact))->stopSequence();
         }
     }
 
-    public function startAutomations()
+    public function startSequences()
     {
         foreach($this->start as $automation) {
             (new $automation($this->contact))->startSequence();

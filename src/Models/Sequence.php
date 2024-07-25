@@ -3,6 +3,7 @@
 namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Models\Automatable;
+use Azzarip\Teavel\Models\ContactSequence;
 use Azzarip\Teavel\Automations\SequenceHandler;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -43,7 +44,7 @@ class Sequence extends Automatable
             $this->contacts()->attach($contact);
             $pivot = $this->findPivot($contact);
 
-            return SequenceHandler::start($pivot, $contact, $this->getAutomation());
+            return SequenceHandler::start($pivot, $contact, new $this->getAutomation());
         }
 
         if ($pivot->is_active) {
@@ -64,12 +65,12 @@ class Sequence extends Automatable
         }
     }
 
-    protected function findPivot(Contact $contact)
+    protected function findPivot(Contact $contact): ?ContactSequence
     {
         $relationship = $this->contacts()->where('contact_id', $contact->id)->first();
 
         if(!$relationship) return;
 
-        return $this->pivot;
+        return $relationship->pivot;
     }
 }

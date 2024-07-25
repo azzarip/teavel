@@ -6,7 +6,7 @@ use Azzarip\Teavel\Automations\SequenceAutomation;
 
 class cNAMEc extends SequenceAutomation
 {
-    protected string $name = 'xNAMEx';
+    public string $name = 'xNAMEx';
 
     public function start()
     {

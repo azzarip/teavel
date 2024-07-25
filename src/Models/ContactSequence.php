@@ -22,6 +22,8 @@ class ContactSequence extends Pivot
         $this->step = null;
         $this->created_at = now();
         $this->save();
+
+        return $this;
     }
 
     public static function getReadySteps()
