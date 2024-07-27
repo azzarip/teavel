@@ -1,5 +1,6 @@
 <?php
 
+use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Models\EmailFile;
 use Illuminate\Support\Facades\File;
 use Azzarip\Teavel\Exceptions\TeavelException;
@@ -15,7 +16,6 @@ it('retrieves email file', function () {
 });
 
 it('creates a new one if file exists', function () {
-
     File::makeDirectory(base_path('content'), 0755, true, true);
     File::makeDirectory(base_path('content/emails'), 0755, true, true);
 
@@ -28,4 +28,13 @@ it('creates a new one if file exists', function () {
     expect($f->file)->toBe('test');
 
     File::deleteDirectory(base_path('content'));
+});
+
+it('has emails', function () {
+    $f = EmailFile::create(['file' => 'file']);
+    $email = Email::create(['file_id' => $f->id]);
+
+    $E = $f->emails()->first();
+    expect($E)->not->toBeNull();
+    expect($E->file_id)->toBe($email->id);
 });

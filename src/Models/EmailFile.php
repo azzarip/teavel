@@ -28,4 +28,9 @@ class EmailFile extends Model
         return $email;
     }
 
+    public function emails()
+    {
+        return $this->hasMany(Email::class, 'file_id');
+    }
+
 }
