@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\Sequence;
 use Azzarip\Teavel\Models\EmailFile;
 use Illuminate\Database\Eloquent\Model;
@@ -11,11 +12,6 @@ class Email extends Model
 
     protected $fillable = ['file_id', 'sequence_id'];
 
-    public function contacts()
-    {
-        return $this->belongsToMany(Contact::class)
-            ->withPivot(['sent_at', 'clicked_at']);
-    }
 
     public static function name(string $file, ?string $sequence_name = null)
     {
@@ -47,5 +43,26 @@ class Email extends Model
     public function sequence()
     {
         return $this->belongsTo(Sequence::class);
+    }
+
+    public function contacts()
+    {
+        return $this->belongsToMany(Contact::class)
+            ->using(ContactEmail::class)
+            ->withPivot(['sent_at', 'clicked_at']);
+    }
+
+    public static function findUuid(string $uuid)
+    {
+        return self::where('uuid', $uuid)->first();
+    }
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::creating(function ($model) {
+            $model->uuid = \Illuminate\Support\Str::uuid();
+        });
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
 
         Schema::create('emails', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique()->index();
             $table->foreignId('file_id');
             $table->foreignId('sequence_id')->nullable();
             $table->foreign('file_id')->references('id')->on('email_files')->onDelete('cascade');

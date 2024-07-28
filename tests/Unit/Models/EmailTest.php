@@ -4,14 +4,16 @@ use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Models\Sequence;
 use Azzarip\Teavel\Models\EmailFile;
 
+beforeEach(function() {
+    $this->f = EmailFile::create(['file' => 'test']);
+});
 
 it('has emailfiles', function () {
-    $f = EmailFile::create(['file' => 'file']);
-    $email = Email::create(['file_id' => $f->id]);
+    $email = Email::create(['file_id' => $this->f->id]);
 
     $F = $email->emailFile;
     expect($F)->not->toBeNull();
-    expect($F->id)->toBe($f->id);
+    expect($F->id)->toBe($this->f->id);
 });
 
 it('has sequence', function () {
@@ -28,8 +30,7 @@ it('has sequence', function () {
 
 
 test('name retrieves existing email', function () {
-    $f = EmailFile::create(['file' => 'test']);
-    $email = Email::create(['file_id' => $f->id]);
+    $email = Email::create(['file_id' => $this->f->id]);
 
     $Email = Email::name('test');
 
@@ -39,23 +40,26 @@ test('name retrieves existing email', function () {
 });
 
 test('name creates a new email', function () {
-    $f = EmailFile::create(['file' => 'test']);
 
     $Email = Email::name('test');
 
     expect($Email)->not->toBeNull();
-    expect($Email->emailFile->id)->toBe($f->id);
+    expect($Email->emailFile->id)->toBe($this->f->id);
     expect($Email->sequence)->toBe(null);
 
 });
 
 test('accepts sequence string', function () {
-    $f = EmailFile::create(['file' => 'test']);
-
     $Email = Email::name('test', 'sequence');
 
     expect($Email)->not->toBeNull();
-    expect($Email->emailFile->id)->toBe($f->id);
+    expect($Email->emailFile->id)->toBe($this->f->id);
     expect($Email->sequence->id)->not->toBeNull();
 
+});
+
+it('has UUID', function () {
+    $email1 = Email::name('test');
+    $email2 = Email::findUuid($email1->uuid);
+    expect($email1->id)->toBe($email2->id);
 });
