@@ -22,6 +22,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
             ->hasMigrations($this->getMigrations())
+            ->hasRoutes(['routes'])
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     //->publishConfigFile()

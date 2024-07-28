@@ -50,6 +50,11 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         return self::where('phone', $phone)->first();
     }
 
+    public static function findUuid(string $uuid)
+    {
+        return self::where('uuid', $uuid)->first();
+    }
+
     protected static function booted()
     {
         parent::booted();
@@ -88,13 +93,21 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
             return $this;
         }
 
-        if ($this->marketing_at) {
+        if ($this->can_market) {
             return $this;
         }
 
         $this->update(['marketing_at' => now()]);
 
         return $this;
+    }
+
+    public function disableMarketing(){
+        if ($this->marketing_at) {
+            $this->update(['marketing_at' => null]);
+            return true;
+        }
+        return false;
     }
 
     public function getMarketingAtAttribute($value)

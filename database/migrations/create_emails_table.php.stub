@@ -36,6 +36,15 @@ return new class extends Migration
             $table->foreign('email_id')->references('id')->on('emails')->onDelete('cascade');
             $table->primary(['contact_id', 'email_id']);
         });
+
+        Schema::create('email_unsubscribes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('contact_id');
+            $table->foreignId('email_id');
+            $table->timestamp('created_at')->useCurrent();
+            $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
+            $table->foreign('email_id')->references('id')->on('emails')->onDelete('cascade');
+        });
     }
 
     /**
