@@ -5,6 +5,7 @@ return [
     'email' => [
         'unsubscribe' => 'Abmelden',
         'question' => 'Willst du dich wirklich abmelden?',
-        'success' => 'Du hast dich erfolgreich abgemeldet.'
+        'success' => 'Du hast dich erfolgreich abgemeldet.',
+        'back' => 'Zurück zu Startseite',
     ],
 ];

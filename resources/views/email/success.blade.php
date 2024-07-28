@@ -10,16 +10,21 @@
 </head>
 <body>
 <div class="w-full min-h-screen">
-    <div class="flex flex-col justify-center items-center h-screen">
-        <div class="max-w-md p-6 bg-white rounded-lg shadow-md">
-            <h1 class="text-4xl font-bold text-gray-800 mb-6">
-                {{ config('app.name') }} - Email @lang('teavel.unsubscribe')
+    <div class="flex flex-col items-center justify-center h-screen px-2">
+        <div class="max-w-xl p-6 border rounded-lg shadow-md">
+            <h1 class="mb-6 text-4xl font-bold text-center text-gray-800">
+                {{ config('app.name') }} - @lang('teavel::email.unsubscribe')
             </h1>
-            <p class="text-center text-xl">
-                @lang('teavel.email.success')
+            <p class="text-xl text-center">
+                @lang('teavel::email.success')
+            </p>
+            <p class="mt-8">
+                <a class="text-center underline text-slate-600 " href={{ url('/') }}>@lang('teavel::email.back')</a>
             </p>
         </div>
+
     </div>
+
 </div>
 </body>
 </html>
