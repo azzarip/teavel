@@ -73,11 +73,6 @@ class TeavelMail extends Mailable
         return $this->parseText($subject);
     }
 
-    protected function parseParts($parts) {
-        foreach ($parts as $part) {
-            $
-        }
-    }
     protected function parseText($text)
     {
         $text = str_replace('{FIRST_NAME}', $this->contact->firstName, $text);
