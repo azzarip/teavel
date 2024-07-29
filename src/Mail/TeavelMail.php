@@ -4,8 +4,10 @@ namespace Azzarip\Teavel\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Azzarip\Teavel\EmailContent;
 use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Models\Contact;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
@@ -16,12 +18,15 @@ class TeavelMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public EmailContent $emailContent;
     /**
      * Create a new message instance.
      */
-    public function __construct(public Contact $contact, public Email $email)
+    public function __construct(public Contact $contact, $email)
     {
-
+        $this->emailContent = Cache::remember($email->emailFile->file, 910, function () use ($email) {
+            return $email->getContent();
+        });
     }
 
     /**
@@ -63,7 +68,7 @@ class TeavelMail extends Mailable
 
     protected function getSubject()
     {
-        $subject = $this->email->subject();
+        $subject = $this->emailContent->subject;
         return $this->parseText($subject);
     }
 

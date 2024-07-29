@@ -35,6 +35,10 @@ class Email extends Model
         return $email;
     }
 
+    public function getContent() {
+        return new EmailContent($this->emailFile, $this->uuid);
+    }
+
     public function emailFile()
     {
         return $this->belongsTo(EmailFile::class, 'file_id');
@@ -65,4 +69,5 @@ class Email extends Model
             $model->uuid = \Illuminate\Support\Str::uuid();
         });
     }
+
 }
