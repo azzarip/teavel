@@ -54,7 +54,7 @@
                         </td>
                     </tr>
                 </table>
-                <p style="align-text: center;">If you no longer wish to receive these emails you may unsubscribe: </p>
+                <p style="align-text: center;">@lang('teavel::email.ask_unsubscribe')</p>
                 <p style="align-text: center;"><a href="{{ $unsubscribeLink }}">@lang('teavel::email.unsubscribe')</a></p>
 
             </td>

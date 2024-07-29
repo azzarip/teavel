@@ -19,7 +19,12 @@ class EmailContent
         $text = $email->body();
 
         $this->parts = explode("CTA\n", $text);
-        $this->cta = $email->cta ?? [];
+
+        if(array_key_exists('url', $email->cta)) {
+            $this->cta = [$email->cta];
+        } else {
+            $this->cta = $email->cta ?? [];
+        }
     }
 
 }
