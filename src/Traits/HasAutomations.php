@@ -3,7 +3,9 @@
 namespace Azzarip\Teavel\Traits;
 
 use Azzarip\Teavel\Models\Email;
+use Azzarip\Teavel\Mail\TeavelMail;
 use Azzarip\Teavel\Models\Sequence;
+use Illuminate\Support\Facades\Mail;
 use Azzarip\Teavel\Models\ContactEmail;
 use Azzarip\Teavel\Models\ContactSequence;
 
@@ -26,16 +28,20 @@ trait HasAutomations
     }
 
     public function sendEmail(string $email){
+        if(! $this->can_market) return;
+
         $email = Email::name($email);
 
         $pivot = $this->findPivot($email);
 
         if (! $pivot) {
             $this->emails()->attach($email->id, ['sent_at' => now()]);
-            return;
+            $pivot = $this->findPivot($email);
+        } else {
+            $pivot->reset();
         }
 
-        $pivot->reset();
+        Mail::send(new TeavelMail($this, $email));
 
         return $this;
     }
