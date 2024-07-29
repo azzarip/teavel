@@ -46,7 +46,7 @@ class TeavelMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.teavel-mail',
+            view: 'teavel::email.mail',
         );
     }
 
