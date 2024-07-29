@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\EmailContent;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\Sequence;
 use Azzarip\Teavel\Models\EmailFile;

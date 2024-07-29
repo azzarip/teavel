@@ -27,6 +27,7 @@ class TeavelMail extends Mailable
         $this->emailContent = Cache::remember($email->emailFile->file, 910, function () use ($email) {
             return $email->getContent();
         });
+        $this->parts = array_map([$this, 'parseText'], $this->emailContent->parts);
     }
 
     /**
@@ -63,7 +64,7 @@ class TeavelMail extends Mailable
 
     protected function getUnsubscribeLink()
     {
-        return url("/emails/{$this->contact->uuid}/unsubscribe/{$this->email->uuid}");
+        return url("/emails/{$this->contact->uuid}/unsubscribe/{$this->emailContent->uuid}");
     }
 
     protected function getSubject()
@@ -72,6 +73,11 @@ class TeavelMail extends Mailable
         return $this->parseText($subject);
     }
 
+    protected function parseParts($parts) {
+        foreach ($parts as $part) {
+            $
+        }
+    }
     protected function parseText($text)
     {
         $text = str_replace('{FIRST_NAME}', $this->contact->firstName, $text);
