@@ -1,4 +1,4 @@
-<x-mail::layout>
+<x-teavel::email.layout>
 
 {{-- Body --}}
 {{ $slot }}
@@ -6,9 +6,9 @@
 
 {{-- Footer --}}
 <x-slot:footer>
-<x-mail::footer>
+<x-teavel::email.footer>
     <p style="align-text: center;">@lang('teavel::email.ask_unsubscribe') </p>
     <p style="align-text: center;"><a href="{{ $unsubscribeLink }}">@lang('teavel::email.unsubscribe')</a></p>
-</x-mail::footer>
+</x-teavel::email.footer>
 </x-slot:footer>
-</x-mail::layout>
+</x-teavel::email.layout>
