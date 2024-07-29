@@ -17,20 +17,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class TeavelMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $theme = 'teavel::email.';
 
-    public EmailContent $emailContent;
     public array $parts;
     public string $unsubscribeLink;
+    public array $cta;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(public Contact $contact, $email)
+    public function __construct(public Contact $contact, Email $email)
     {
-        $this->emailContent = Cache::remember($email->emailFile->file, 910, function () use ($email) {
+        $emailContent = Cache::remember($email->emailFile->file, 910, function () use ($email) {
             return $email->getContent();
         });
-        $this->parts = array_map([$this, 'parseText'], $this->emailContent->parts);
-        $this->unsubscribeLink = $this->getUnsubscribeLink();
+
+        $this->parts = array_map([$this, 'parseText'], $emailContent->parts);
+        $this->cta = $emailContent->cta;
+
+        $this->subject = $this->getSubject($emailContent);
+        $this->unsubscribeLink = $this->getUnsubscribeLink($email);
     }
 
     /**
@@ -40,7 +46,7 @@ class TeavelMail extends Mailable
     {
         return new Envelope(
             to: [new Address($this->contact->email, $this->contact->full_name)],
-            subject: $this->getSubject(),
+            subject: $this->subject,
         );
     }
 
@@ -65,14 +71,14 @@ class TeavelMail extends Mailable
     }
 
 
-    protected function getUnsubscribeLink()
+    protected function getUnsubscribeLink($email)
     {
-        return url("/emails/{$this->contact->uuid}/unsubscribe/{$this->emailContent->uuid}");
+        return url("/emails/{$this->contact->uuid}/unsubscribe/{$email->uuid}");
     }
 
-    protected function getSubject()
+    protected function getSubject($emailContent)
     {
-        $subject = $this->emailContent->subject;
+        $subject = $emailContent->subject;
         return $this->parseText($subject);
     }
 

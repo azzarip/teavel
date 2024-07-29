@@ -39,9 +39,17 @@ width: 100% !important;
 <!-- Body content -->
 <tr>
 <td class="content-cell">
-{{ Illuminate\Mail\Markdown::parse($slot) }}
+@foreach ($parts as $part)
+    {{ Illuminate\Mail\Markdown::parse($part) }}
 
-{{ $subcopy ?? '' }}
+@if(!$loop->last)
+    <x-teavel::email.button :url="$cta[$loop->index]['url']">
+        {{ $cta[$loop->index]['text'] }}
+    </x-teavel::email.button>
+@endif
+
+@endforeach
+
 </td>
 </tr>
 </table>
