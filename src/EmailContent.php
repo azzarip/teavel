@@ -19,7 +19,7 @@ class EmailContent
         $text = $email->body();
 
         $this->parts = explode("CTA\n", $text);
-        $this->cta = $email->cta;
+        $this->cta = $email->cta ?? [];
     }
 
 }

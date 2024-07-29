@@ -19,6 +19,8 @@ class TeavelMail extends Mailable
     use Queueable, SerializesModels;
 
     public EmailContent $emailContent;
+    public array $parts;
+    public string $unsubscribeLink;
     /**
      * Create a new message instance.
      */
@@ -28,6 +30,7 @@ class TeavelMail extends Mailable
             return $email->getContent();
         });
         $this->parts = array_map([$this, 'parseText'], $this->emailContent->parts);
+        $this->unsubscribeLink = $this->getUnsubscribeLink();
     }
 
     /**
@@ -75,9 +78,9 @@ class TeavelMail extends Mailable
 
     protected function parseText($text)
     {
-        $text = str_replace('{FIRST_NAME}', $this->contact->firstName, $text);
-        $text = str_replace('{LAST_NAME}', $this->contact->lastName, $text);
-        $text = str_replace('{FULL_NAME}', $this->contact->fullName, $text);
+        $text = str_replace('{FIRST_NAME}', $this->contact->first_name, $text);
+        $text = str_replace('{LAST_NAME}', $this->contact->last_name, $text);
+        $text = str_replace('{FULL_NAME}', $this->contact->full_name, $text);
         $text = str_replace('{EMAIL}', $this->contact->email, $text);
         $text = str_replace('{UUID}', $this->contact->uuid, $text);
         return $text;
