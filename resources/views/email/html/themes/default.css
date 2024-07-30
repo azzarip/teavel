@@ -11,7 +11,7 @@ body *:not(html):not(style):not(br):not(tr):not(code) {
 body {
     -webkit-text-size-adjust: none;
     background-color: #ffffff;
-    color: #718096;
+    color: black;
     height: 100%;
     line-height: 1.4;
     margin: 0;
@@ -38,22 +38,21 @@ a img {
 /* Typography */
 
 h1 {
-    color: #3d4852;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
     margin-top: 0;
     text-align: left;
 }
 
 h2 {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     margin-top: 0;
     text-align: left;
 }
 
 h3 {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     margin-top: 0;
     text-align: left;
@@ -80,7 +79,7 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
+    background-color: #f5f5f4;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -123,9 +122,9 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
-    border-bottom: 1px solid #edf2f7;
-    border-top: 1px solid #edf2f7;
+    background-color: #f5f5f4;
+    border-bottom: 1px solid #f5f5f4;
+    border-top: 1px solid #f5f5f4;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -134,7 +133,7 @@ img {
 .inner-body {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
-    -premailer-width: 570px;
+    -premailer-width: 672px;
     background-color: #ffffff;
     border-color: #e8e5ef;
     border-radius: 2px;
@@ -142,19 +141,7 @@ img {
     box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015);
     margin: 0 auto;
     padding: 0;
-    width: 570px;
-}
-
-/* Subcopy */
-
-.subcopy {
-    border-top: 1px solid #e8e5ef;
-    margin-top: 25px;
-    padding-top: 25px;
-}
-
-.subcopy p {
-    font-size: 14px;
+    width: 672px;
 }
 
 /* Footer */
@@ -162,21 +149,21 @@ img {
 .footer {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
-    -premailer-width: 570px;
+    -premailer-width: 672px;
     margin: 0 auto;
     padding: 0;
     text-align: center;
-    width: 570px;
+    width: 672px;
 }
 
 .footer p {
-    color: #b0adc5;
+    color: #64748b;
     font-size: 12px;
     text-align: center;
 }
 
 .footer a {
-    color: #b0adc5;
+    color: #64748b;
     text-decoration: underline;
 }
 
@@ -265,7 +252,7 @@ img {
 }
 
 .panel-content {
-    background-color: #edf2f7;
+    background-color: #f5f5f4;
     color: #718096;
     padding: 16px;
 }
