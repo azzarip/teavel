@@ -49,11 +49,9 @@ class TeavelServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->register(TeavelPanelProvider::class);
-        config(['mail.markdown.paths' => [
-            base_path('/vendor/azzarip/teavel/resources/views/email/components')
-        ]]);
 
-    }
+        $this->setMarkdownPaths();
+        }
 
     public function packageBooted(): void
     {
@@ -101,5 +99,12 @@ class TeavelServiceProvider extends PackageServiceProvider
             Events\FormSubmitted::class,
             Listeners\FormGoalAchieved::class,
         );
+    }
+
+    protected function setMarkdownPaths(): void
+    {
+        $paths = config('mail.markdown.paths');
+        $paths[] = base_path('/vendor/azzarip/teavel/resources/views/email');
+        config(['mail.markdown.paths' => $paths]);
     }
 }
