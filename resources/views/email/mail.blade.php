@@ -13,9 +13,13 @@
 
 <x-slot:footer>
 <x-mail::footer>
-    @lang('teavel::email.footer_pre') {{ $contact->marketing_at->format(trans('teavel::email.footer_date')) }} @lang('teavel::email.footer_post')
+@lang('teavel::email.footer_pre')
+{{ $contact->marketing_at->format(trans('teavel::email.footer_date')) }}
+@lang('teavel::email.footer_post')
 
-    <a href="{{ $unsubscribeLink }}">@lang('teavel::email.unsubscribe')</a>
+<p><a href="{{ $unsubscribeLink }}">@lang('teavel::email.unsubscribe')</a></p>
+
+<p>{{ config('teavel.company') }}</p>
 </x-mail::footer>
 </x-slot:footer>
 </x-mail::layout>

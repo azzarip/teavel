@@ -6,7 +6,7 @@ return [
     'question' => 'Willst du dich wirklich abmelden?',
     'success' => 'Du hast dich erfolgreich abgemeldet.',
     'back' => 'Zurück zu Startseite',
-    'footer_date' => 'd.m.Y \u\m H:i \U\h\r',
-    'footer_post' => 'registriert haben.\n Wenn Sie diese E-Mails nicht mehr erhalten möchten, können Sie sich abmelden:',
-    'footer_pre' => 'Sie erhalten diese E-Mail, weil Sie sich am '
+    'footer_date' => 'd.m.Y \u\m H:i ',
+    'footer_pre' => 'Sie bekommen diese E-Mail, weil Sie sich am ',
+    'footer_post' => 'Uhr bei uns angemeldet haben. registriert haben.<br> Wenn Sie keine weiteren Nachrichten von uns erhalten möchten, können Sie sich jederzeit über den folgenden Link abmelden:',
 ];
