@@ -86,7 +86,7 @@ class TeavelMail extends Mailable
     {
         $num = 0;
         $ctas = $this->cta;
-        foreach ($ctas as $cta) {
+        foreach ($ctas as &$cta) {
             $cta['link'] = url("/emails/{$email->uuid}/clrd/{$num}/{$this->contact->uuid}");
             $num++;
         }
