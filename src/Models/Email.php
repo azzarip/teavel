@@ -40,6 +40,10 @@ class Email extends Model
         return new EmailContent($this->emailFile, $this->uuid);
     }
 
+    public function getLinks() {
+        return $this->getContent()->getLinks();
+    }
+
     public function emailFile()
     {
         return $this->belongsTo(EmailFile::class, 'file_id');

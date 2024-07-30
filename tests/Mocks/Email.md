@@ -1,7 +1,7 @@
 ---
-subject: 
-cta_text: 
-cta_link:
+subject: Test Subject
+cta:
+  url: https://example.com/
 ---
 
 Hallo $name,

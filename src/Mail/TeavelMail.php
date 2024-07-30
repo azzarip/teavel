@@ -32,7 +32,8 @@ class TeavelMail extends Mailable
         });
 
         $this->parts = array_map([$this, 'parseText'], $emailContent->parts);
-        $this->cta = $emailContent->cta;
+        $this->cta = $emailContent->ctas;
+        $this->cta = $this->redactUrls($email);
 
         $this->subject = $this->getSubject($emailContent);
         $this->unsubscribeLink = $this->getUnsubscribeLink($email);
@@ -70,7 +71,7 @@ class TeavelMail extends Mailable
     }
 
 
-    protected function getUnsubscribeLink($email)
+    protected function getUnsubscribeLink(Email $email)
     {
         return url("/emails/{$this->contact->uuid}/unsubscribe/{$email->uuid}");
     }
@@ -79,6 +80,17 @@ class TeavelMail extends Mailable
     {
         $subject = $emailContent->subject;
         return $this->parseText($subject);
+    }
+
+    protected function redactUrls(Email $email)
+    {
+        $num = 0;
+        $ctas = $this->cta;
+        foreach ($ctas as $cta) {
+            $cta['link'] = url("/emails/{$email->uuid}/clrd/{$num}/{$this->contact->uuid}");
+            $num++;
+        }
+        return $ctas;
     }
 
     protected function parseText($text)

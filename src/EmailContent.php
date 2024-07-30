@@ -8,7 +8,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class EmailContent
 {
     public string $subject;
-    public array $cta;
+    public array $ctas;
     public array $parts;
 
     public function __construct(EmailFile $emailFile, public string $uuid)
@@ -21,10 +21,19 @@ class EmailContent
         $this->parts = explode("CTA\n", $text);
 
         if(array_key_exists('url', $email->cta)) {
-            $this->cta = [$email->cta];
+            $this->ctas = [$email->cta];
         } else {
-            $this->cta = $email->cta ?? [];
+            $this->ctas = $email->cta ?? [];
         }
+    }
+
+    public function getLinks(): array
+    {
+        $urls = [];
+        foreach($this->ctas as $cta) {
+            $urls[] = $cta['url'];
+        }
+        return $urls;
     }
 
 }
