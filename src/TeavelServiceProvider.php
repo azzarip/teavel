@@ -49,6 +49,10 @@ class TeavelServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->register(TeavelPanelProvider::class);
+        config(['mail.markdown.paths' => [
+            base_path('/vendor/azzarip/teavel/resources/views/email/components')
+        ]]);
+
     }
 
     public function packageBooted(): void
