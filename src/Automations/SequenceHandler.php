@@ -11,6 +11,7 @@ use Azzarip\Teavel\Models\Sequence;
 class SequenceHandler
 {
     protected $step;
+    protected int $sequenceId;
 
     public function __construct(
       public ContactSequence $pivot,
@@ -24,7 +25,7 @@ class SequenceHandler
     public function handle()
     {
         try {
-            $automation = (new ($this->automation)($this->contact));
+      $automation = (new ($this->automation)($this->contact, $this->pivot->sequence_id));
             $next = $automation->{$this->step}();
             $this->nextStep($next);
         } catch (\BadMethodCallException $e) {

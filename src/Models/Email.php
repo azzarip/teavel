@@ -14,13 +14,20 @@ class Email extends Model
     protected $fillable = ['file_id', 'sequence_id'];
 
 
-    public static function name(string $file, ?string $sequence_name = null)
+    public static function name(string $file, $sequence = null)
     {
         $emailFile = EmailFile::file($file);
 
-        if($sequence_name) {
-            $sequence = Sequence::name($sequence_name);
-            $email = $emailFile->emails()->where('sequence_id', $sequence->id)->first();
+        if($sequence) {
+
+            if(is_string($sequence)) {
+                $sequenceId = Sequence::name($sequence);
+            }
+            if(is_int($sequence)) {
+                $sequenceId = $sequence;
+            }
+
+            $email = $emailFile->emails()->where('sequence_id', $sequenceId)->first();
 
         } else {
             $email = $emailFile->emails()->whereNull('sequence_id')->first();
@@ -29,7 +36,7 @@ class Email extends Model
         if (! $email) {
             $email = self::create([
                 'file_id' => $emailFile->id,
-                'sequence_id' => $sequence_name ? $sequence->id : null,
+                'sequence_id' => $sequence ? $sequenceId : null,
             ]);
         }
 

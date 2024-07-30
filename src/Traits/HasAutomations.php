@@ -27,10 +27,12 @@ trait HasAutomations
             ->withPivot(['sent_at', 'clicked_at']);
     }
 
-    public function sendEmail(string $email){
+    public function sendEmail(string $email, null | string | int $sequence = null){
         if(! $this->can_market) return;
 
-        $email = Email::name($email);
+        $email = Email::name($email, $sequence);
+
+        Mail::send(new TeavelMail($this, $email));
 
         $pivot = $this->findPivot($email);
 
@@ -40,8 +42,6 @@ trait HasAutomations
         } else {
             $pivot->reset();
         }
-
-        Mail::send(new TeavelMail($this, $email));
 
         return $this;
     }

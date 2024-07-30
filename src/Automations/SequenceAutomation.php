@@ -9,8 +9,11 @@ class SequenceAutomation
 {
     public string $name;
 
-    public function __construct(public Contact $contact)
+    public function __construct(public Contact $contact, protected ?int $sequenceId = null)
     {
+        if(empty($sequenceId)){
+            $this->sequenceId = Sequence::name($this->name)->id;
+        }
     }
 
     public function stopSequence() {
@@ -27,6 +30,10 @@ class SequenceAutomation
 
     protected function detag($tag){
         $this->contact->detag($tag);
+    }
+
+    protected function sendEmail($email){
+        $this->contact->sendEmail($email, $this->sequenceId);
     }
 
 }
