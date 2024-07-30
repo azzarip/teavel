@@ -56,7 +56,7 @@ class TeavelMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'teavel::email.message',
+            view: 'teavel::email.mail',
         );
     }
 
