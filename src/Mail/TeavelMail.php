@@ -17,7 +17,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class TeavelMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $theme = 'teavel::email.';
 
     public array $parts;
     public string $unsubscribeLink;
