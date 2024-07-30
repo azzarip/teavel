@@ -212,18 +212,36 @@ img {
     -webkit-text-size-adjust: none;
     border-radius: 4px;
     color: #fff;
-    display: inline-block;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
     text-decoration: none;
+    overflow: hidden;
+    max-width: 442px;
+    width: 100%;
+    font-weight: 600;
+    padding: 4px 0px;
+    justify-content: space-between;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+.button-text {
+    flex-grow: 1;
+    text-align: center;
+}
+.arrow {
+    stroke: white;
+    width: 2rem;
+    flex-shrink: 1;
+}
 .button-blue,
 .button-primary {
-    background-color: #2d3748;
-    border-bottom: 8px solid #2d3748;
-    border-left: 18px solid #2d3748;
-    border-right: 18px solid #2d3748;
-    border-top: 8px solid #2d3748;
+    background-color: black;
+    border-bottom: 8px solid black;
+    border-left: 18px solid black;
+    border-right: 18px solid black;
+    border-top: 8px solid black;
 }
 
 .button-green,
