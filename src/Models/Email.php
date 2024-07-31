@@ -21,13 +21,13 @@ class Email extends Model
         if($sequence) {
 
             if(is_string($sequence)) {
-                $sequenceId = Sequence::name($sequence);
+                $sequence_id = Sequence::name($sequence)->id;
             }
             if(is_int($sequence)) {
-                $sequenceId = $sequence;
+                $sequence_id = $sequence;
             }
 
-            $email = $emailFile->emails()->where('sequence_id', $sequenceId)->first();
+            $email = $emailFile->emails()->where('sequence_id', $sequence_id)->first();
 
         } else {
             $email = $emailFile->emails()->whereNull('sequence_id')->first();
@@ -36,7 +36,7 @@ class Email extends Model
         if (! $email) {
             $email = self::create([
                 'file_id' => $emailFile->id,
-                'sequence_id' => $sequence ? $sequenceId : null,
+                'sequence_id' => $sequence ? $sequence_id : null,
             ]);
         }
 
