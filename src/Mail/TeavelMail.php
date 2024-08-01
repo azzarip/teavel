@@ -113,11 +113,13 @@ class TeavelMail extends Mailable
                 return $replacement;
             }, $texts[$part]);
 
-            $redactedCtas[] = [
-                'link' => "{$this->url} . {$counter}",
-                'text' => $ctas[$part],
-            ];
-            $counter++;
+            if(array_key_exists($part, $ctas)) {
+                $redactedCtas[] = [
+                    'link' => "{$this->url} . {$counter}",
+                    'text' => $ctas[$part],
+                ];
+                $counter++;
+            }
         }
 
 
