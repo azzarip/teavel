@@ -44,7 +44,7 @@ class Sequence extends Automatable
             $this->contacts()->attach($contact);
             $pivot = $this->findPivot($contact);
 
-            return SequenceHandler::start($pivot, $contact, new $this->getAutomation());
+            return SequenceHandler::start($pivot, $contact, $this->getAutomation());
         }
 
         if ($pivot->is_active) {
@@ -53,7 +53,7 @@ class Sequence extends Automatable
 
         $pivot->reset();
 
-        return SequenceHandler::start($pivot, $contact, new $this->getAutomation());
+        return SequenceHandler::start($pivot, $contact, $this->getAutomation());
     }
 
     public function stop(Contact $contact)

@@ -16,7 +16,7 @@ class SequenceHandler
     public function __construct(
       public ContactSequence $pivot,
       public Contact $contact,
-      protected SequenceAutomation $automation
+      protected $automation
    )
     {
       $this->step = $pivot->step ?? 'start';
@@ -41,7 +41,7 @@ class SequenceHandler
         self::start($pivot, $contact, $automation);
     }
 
-    public static function start(ContactSequence $pivot, Contact $contact, SequenceAutomation $automation)
+    public static function start(ContactSequence $pivot, Contact $contact,  $automation)
     {
         $handler = new self($pivot, $contact, $automation);
         $handler->handle();
