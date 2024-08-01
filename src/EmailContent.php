@@ -18,7 +18,7 @@ class EmailContent
         $email = YamlFrontMatter::parse(file_get_contents(base_path('content/emails/' . $emailFile->file . '.md')));
         $this->subject = $email->subject;
 
-    $this->body = $email->body();
+        $this->body = $email->body();
 
         $this->urls = $email->urls ?? [];
     }
