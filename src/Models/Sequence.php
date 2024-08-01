@@ -53,7 +53,7 @@ class Sequence extends Automatable
 
         $pivot->reset();
 
-        return SequenceHandler::start($pivot, $contact, $this->getAutomation());
+        return SequenceHandler::start($pivot, $contact, new $this->getAutomation());
     }
 
     public function stop(Contact $contact)

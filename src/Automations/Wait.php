@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 class Wait
 {
     public string $step;
-    protected int $randomMinutes;
+    protected ?int $randomMinutes;
 
     public function __construct(public \Carbon\Carbon $timestamp) {}
 
@@ -33,6 +33,11 @@ class Wait
     public function IsPast(): bool
     {
         return Carbon::now()->gte($this->timestamp);
+    }
+
+    public function precise()
+    {
+        $this->randomMinutes = 0;
     }
 
     public function getAdjustedTimestamp()
