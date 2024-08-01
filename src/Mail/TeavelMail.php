@@ -37,11 +37,9 @@ class TeavelMail extends Mailable
         $this->unsubscribeLink = $this->getUnsubscribeLink();
         $this->url = $this->getClickUrl();
 
-
         $body = $this->prepareBody($content->getBody());
         $this->texts = array_map([$this, 'parseText'], $body['texts']);
         $this->ctas = $body['ctas'];
-
     }
 
     /**
@@ -83,7 +81,7 @@ class TeavelMail extends Mailable
 
     protected function getClickUrl()
     {
-        return url("/emails/{$this->emailUuid}/clrd/{$this->contact->uuid}/") . '/';
+        return url("/emails/{$this->emailUuid}/clrd/{$this->contact->uuid}/");
     }
 
     protected function parseText($text)
@@ -108,18 +106,20 @@ class TeavelMail extends Mailable
         $redactedCtas = [];
         while ($part < count($texts)) {
             $redactedTexts[] = preg_replace_callback('/\[DUMMY_URL\]/', function($matches) use (&$counter) {
-                $replacement = "{$this->url} . {$counter}";
+                $replacement = "{$this->url}/{$counter}";
                 $counter++;
                 return $replacement;
             }, $texts[$part]);
 
             if(array_key_exists($part, $ctas)) {
                 $redactedCtas[] = [
-                    'link' => "{$this->url} . {$counter}",
+                    'link' => "{$this->url}/{$counter}",
                     'text' => $ctas[$part],
                 ];
                 $counter++;
             }
+            $part++;
+
         }
 
 
