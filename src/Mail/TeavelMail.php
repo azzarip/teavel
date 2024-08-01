@@ -18,23 +18,29 @@ class TeavelMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public array $parts;
     public string $unsubscribeLink;
-    public array $cta;
 
+    public array $ctas;
+    public array $texts;
+    public string $url;
+
+    public string $emailUuid;
     /**
      * Create a new message instance.
      */
     public function __construct(public Contact $contact, Email $email)
     {
-        $emailContent = $email->getContent();
+        $this->emailUuid = $email->uuid;
 
-        $this->parts = array_map([$this, 'parseText'], $emailContent->parts);
-        $this->cta = $emailContent->ctas;
-        $this->cta = $this->redactUrls($email);
+        $content = $email->getContent();
+        $this->subject = $this->parseText($content->subject);
+        $this->unsubscribeLink = $this->getUnsubscribeLink();
 
-        $this->subject = $this->getSubject($emailContent);
-        $this->unsubscribeLink = $this->getUnsubscribeLink($email);
+        $body = $content->getBody();
+        $this->texts = array_map([$this, 'parseText'], $body['texts']);
+        $this->ctas = $body['ctas'];
+        $this->url = url("/emails/{$email->uuid}/clrd/{$this->contact->uuid}/");
+
     }
 
     /**
@@ -69,23 +75,18 @@ class TeavelMail extends Mailable
     }
 
 
-    protected function getUnsubscribeLink(Email $email)
+    protected function getUnsubscribeLink()
     {
-        return url("/emails/{$this->contact->uuid}/unsubscribe/{$email->uuid}");
+        return url("/emails/{$this->contact->uuid}/unsubscribe/{$this->emailUuid}");
     }
 
-    protected function getSubject($emailContent)
-    {
-        $subject = $emailContent->subject;
-        return $this->parseText($subject);
-    }
 
     protected function redactUrls(Email $email)
     {
         $num = 0;
         $ctas = $this->cta;
         foreach ($ctas as &$cta) {
-            $cta['link'] = url("/emails/{$email->uuid}/clrd/{$num}/{$this->contact->uuid}");
+            $cta['link'] = url("/emails/{$email->uuid}/clrd/{$this->contact->uuid}/{$num}");
             $num++;
         }
         return $ctas;

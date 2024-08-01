@@ -8,32 +8,31 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class EmailContent
 {
     public string $subject;
-    public array $ctas;
-    public array $parts;
+
+    protected $body;
+
+    protected array $urls;
 
     public function __construct(EmailFile $emailFile, public string $uuid)
     {
         $email = YamlFrontMatter::parse(file_get_contents(base_path('content/emails/' . $emailFile->file . '.md')));
         $this->subject = $email->subject;
 
-        $text = $email->body();
+    $this->body = $email->body();
 
-        $this->parts = explode("CTA", $text);
-
-        if(array_key_exists('url', $email->cta)) {
-            $this->ctas = [$email->cta];
-        } else {
-            $this->ctas = $email->cta ?? [];
-        }
+        $this->urls = $email->urls ?? [];
     }
 
     public function getLinks(): array
     {
-        $urls = [];
-        foreach($this->ctas as $cta) {
-            $urls[] = $cta['url'];
-        }
-        return $urls;
+        return $this->urls;
     }
 
+    public function getBody()
+    {
+        preg_match_all('/CTA: (.*?)\\n/', $this->body, $matches);
+        $ctas = $matches[1];
+        $texts = preg_split('/CTA: .*?\\n/', $this->body);
+        return ['ctas' => $ctas, 'texts' => $texts];
+    }
 }

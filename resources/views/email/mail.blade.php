@@ -1,11 +1,11 @@
 <x-mail::layout>
 
-@foreach ($parts as $part)
-    {{ Illuminate\Mail\Markdown::parse($part) }}
+@foreach ($texts as $text)
+    {{ Illuminate\Mail\Markdown::parse($text) }}
 
 @if(!$loop->last)
-    <x-mail::button :url="$cta[$loop->index]['link']">
-        {{ $cta[$loop->index]['text'] }}
+    <x-mail::button>
+        {{ $ctas[$loop->index] }}
     </x-mail::button>
 @endif
 

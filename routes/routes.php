@@ -8,4 +8,4 @@ Route::view('/emails/{contactUuid}/unsubscribe/{emailUuid}', 'teavel::email.unsu
 Route::post('/emails/{contactUuid}/unsubscribe/{emailUuid}',  UnsubscribeController::class);
 Route::view('/emails/unsubscribe/success', 'teavel::email.success');
 
-Route::get('/emails/{emailUuid}/clrd/{num}/{contactUuid}', ClickController::class);
+Route::get('/emails/{emailUuid}/clrd/{contactUuid}/{num}', ClickController::class);
