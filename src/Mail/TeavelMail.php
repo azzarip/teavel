@@ -105,8 +105,8 @@ class TeavelMail extends Mailable
         $redactedTexts = [];
         $redactedCtas = [];
         while ($part < count($texts)) {
-            $redactedTexts[] = preg_replace_callback('/\[DUMMY_URL\]/', function($matches) use (&$counter) {
-                $replacement = "{$this->url}/{$counter}";
+            $redactedTexts[] = preg_replace_callback('/\(DUMMY_URL\)/', function($matches) use (&$counter) {
+                $replacement = "({$this->url}/{$counter})";
                 $counter++;
                 return $replacement;
             }, $texts[$part]);
