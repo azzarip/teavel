@@ -35,11 +35,12 @@ class TeavelMail extends Mailable
         $content = $email->getContent();
         $this->subject = $this->parseText($content->subject);
         $this->unsubscribeLink = $this->getUnsubscribeLink();
+        $this->url = $this->getClickUrl();
 
-        $body = $content->getBody();
+
+        $body = $this->prepareBody($content->getBody());
         $this->texts = array_map([$this, 'parseText'], $body['texts']);
         $this->ctas = $body['ctas'];
-        $this->url = url("/emails/{$email->uuid}/clrd/{$this->contact->uuid}/");
 
     }
 
@@ -80,16 +81,9 @@ class TeavelMail extends Mailable
         return url("/emails/{$this->contact->uuid}/unsubscribe/{$this->emailUuid}");
     }
 
-
-    protected function redactUrls(Email $email)
+    protected function getClickUrl()
     {
-        $num = 0;
-        $ctas = $this->cta;
-        foreach ($ctas as &$cta) {
-            $cta['link'] = url("/emails/{$email->uuid}/clrd/{$this->contact->uuid}/{$num}");
-            $num++;
-        }
-        return $ctas;
+        return url("/emails/{$this->emailUuid}/clrd/{$this->contact->uuid}/") . '/';
     }
 
     protected function parseText($text)
@@ -100,5 +94,36 @@ class TeavelMail extends Mailable
         $text = str_replace('{EMAIL}', $this->contact->email, $text);
         $text = str_replace('{UUID}', $this->contact->uuid, $text);
         return $text;
+    }
+
+    protected function prepareBody($body)
+    {
+        $texts = $body['texts'];
+        $ctas = $body['ctas'];
+
+        $part = 0;
+        $counter = 0;
+
+        $redactedTexts = [];
+        $redactedCtas = [];
+        while ($part < count($texts)) {
+            $redactedTexts[] = preg_replace_callback('/\[DUMMY_URL\]/', function($matches) use (&$counter) {
+                $replacement = "{$this->url} . {$counter}";
+                $counter++;
+                return $replacement;
+            }, $texts[$part]);
+
+            $redactedCtas[] = [
+                'link' => "{$this->url} . {$counter}",
+                'text' => $ctas[$part],
+            ];
+            $counter++;
+        }
+
+
+        return [
+            'texts' => $redactedTexts,
+            'ctas' => $redactedCtas,
+        ];
     }
 }
