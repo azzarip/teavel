@@ -29,7 +29,7 @@ class SequenceHandler
             $next = $automation->{$this->step}();
             $this->nextStep($next);
         } catch (\BadMethodCallException $e) {
-            throw new BadMethodCallException("Sequence ". get_class($this->automation). "does not have a $this->step method!");
+            throw new BadMethodCallException("Sequence ". $this->automation . "does not have a $this->step method!");
         }
     }
 
