@@ -4,8 +4,8 @@
     {{ Illuminate\Mail\Markdown::parse($text) }}
 
 @if(!$loop->last)
-    <x-mail::button>
-        {{ $ctas[$loop->index] }}
+    <x-mail::button :url="$ctas[$loop->index]['link']">
+        {{ $ctas[$loop->index]['text'] }}
     </x-mail::button>
 @endif
 
