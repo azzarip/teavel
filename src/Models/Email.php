@@ -5,7 +5,9 @@ namespace Azzarip\Teavel\Models;
 use Azzarip\Teavel\EmailContent;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\Sequence;
+use Illuminate\Support\Facades\App;
 use Azzarip\Teavel\Models\EmailFile;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class Email extends Model
@@ -44,7 +46,13 @@ class Email extends Model
     }
 
     public function getContent() {
-        return new EmailContent($this->emailFile, $this->uuid);
+        if (App::environment('production')) {
+            return Cache::remember($this->emailFile->file, 910, function () {
+                return new EmailContent($this->emailFile, $this->uuid);
+            });
+        } else {
+            return new EmailContent($this->emailFile, $this->uuid);
+        }
     }
 
     public function getLinks() {

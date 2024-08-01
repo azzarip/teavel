@@ -5,7 +5,7 @@ namespace App\Teavel\Goals\Forms;
 use Azzarip\Teavel\Automations\FormAutomation;
 use App\Teavel\Sequences;
 
-class cNAMEc extends FormAutomation;
+class cNAMEc extends FormAutomation
 {
     public string $name = 'xNAMEx';
 

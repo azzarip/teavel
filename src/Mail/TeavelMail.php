@@ -27,9 +27,7 @@ class TeavelMail extends Mailable
      */
     public function __construct(public Contact $contact, Email $email)
     {
-        $emailContent = Cache::remember($email->emailFile->file, 910, function () use ($email) {
-            return $email->getContent();
-        });
+        $emailContent = $email->getContent();
 
         $this->parts = array_map([$this, 'parseText'], $emailContent->parts);
         $this->cta = $emailContent->ctas;
