@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Automations;
 
+use Azzarip\Teavel\Exceptions\TeavelException;
 use Illuminate\Support\Carbon;
 
 class Wait
@@ -38,14 +39,66 @@ class Wait
     public function precise()
     {
         $this->randomMinutes = 0;
+
+        return $this;
     }
 
-    public function getAdjustedTimestamp()
+    public function getRandomizedTimestamp()
     {
         if(empty($this->randomMinutes)) {
             return $this->timestamp->addMinutes(rand(0, 15));
         }
 
         return $this->timestamp->addMinutes($this->randomMinutes);
+    }
+
+    public static function for(string $timeString)
+    {
+        $timestamp = now();
+        try {
+            $parts = explode(' ', $timeString);
+
+            for ($i = 0; $i < count($parts); $i += 2) {
+                $value = $parts[$i];
+                $unit = $parts[$i + 1];
+
+                switch ($unit) {
+                    case 'hour':
+                    case 'hours':
+                        $timestamp->addHours($value);
+                        break;
+                    case 'minute':
+                    case 'minutes':
+                        $timestamp->addMinutes($value);
+                        break;
+                    case 'second':
+                    case 'seconds':
+                        $timestamp->addSeconds($value);
+                        break;
+                    case 'day':
+                    case 'days':
+                        $timestamp->addDays($value);
+                        break;
+                    case 'week':
+                    case 'weeks':
+                        $timestamp->addWeeks($value);
+                        break;
+                    case 'month':
+                    case 'months':
+                        $timestamp->addMonths($value);
+                        break;
+                    case 'year':
+                    case 'years':
+                        $timestamp->addYears($value);
+                        break;
+                    default:
+                        throw new TeavelException("Invalid time unit: $unit");
+                }
+            }
+        } catch (TeavelException $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+
+        return new self($timestamp);
     }
 }

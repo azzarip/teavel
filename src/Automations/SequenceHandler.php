@@ -53,7 +53,7 @@ class SequenceHandler
             return $this->pivot->stop();
         }
 
-        $this->pivot->execute_at = $next->getAdjustedTimestamp();
+        $this->pivot->execute_at = $next->getRandomizedTimestamp();
         $this->pivot->step = $next->step;
         $this->pivot->save();
     }

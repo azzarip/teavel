@@ -29,5 +29,5 @@ it('adds RandomMinutes', function() {
 
 it('automatically adds random Minutes', function() {
     $wait = Wait::carbon(now());
-    expect($wait->timestamp->format('i'))->not->toBe($wait->getAdjustedTimestamp()->format('i'));
+    expect($wait->timestamp->format('i'))->not->toBe($wait->getRandomizedTimestamp()->format('i'));
 });
