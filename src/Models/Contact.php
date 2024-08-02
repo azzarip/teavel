@@ -102,11 +102,14 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         return $this;
     }
 
-    public function disableMarketing(){
+    public function disableMarketing()
+    {
         if ($this->marketing_at) {
             $this->update(['marketing_at' => null]);
+
             return true;
         }
+
         return false;
     }
 

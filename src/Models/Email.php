@@ -3,29 +3,24 @@
 namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\EmailContent;
-use Azzarip\Teavel\Models\Contact;
-use Azzarip\Teavel\Models\Sequence;
-use Illuminate\Support\Facades\App;
-use Azzarip\Teavel\Models\EmailFile;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class Email extends Model
 {
-
     protected $fillable = ['file_id', 'sequence_id'];
-
 
     public static function name(string $file, $sequence = null)
     {
         $emailFile = EmailFile::file($file);
 
-        if($sequence) {
+        if ($sequence) {
 
-            if(is_string($sequence)) {
+            if (is_string($sequence)) {
                 $sequence_id = Sequence::name($sequence)->id;
             }
-            if(is_int($sequence)) {
+            if (is_int($sequence)) {
                 $sequence_id = $sequence;
             }
 
@@ -45,7 +40,8 @@ class Email extends Model
         return $email;
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         if (App::environment('production')) {
             return Cache::remember($this->emailFile->file, 910, function () {
                 return new EmailContent($this->emailFile, $this->uuid);
@@ -55,7 +51,8 @@ class Email extends Model
         }
     }
 
-    public function getLinks() {
+    public function getLinks()
+    {
         return $this->getContent()->getLinks();
     }
 
@@ -89,5 +86,4 @@ class Email extends Model
             $model->uuid = \Illuminate\Support\Str::uuid();
         });
     }
-
 }

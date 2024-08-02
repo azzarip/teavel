@@ -8,26 +8,34 @@ use Illuminate\Support\Carbon;
 class Wait
 {
     public string $step;
+
     protected ?int $randomMinutes;
 
     public function __construct(public \Carbon\Carbon $timestamp) {}
 
-    public static function until(string $until) {
+    public static function until(string $until)
+    {
         $timestamp = Carbon::parse($until);
+
         return new self($timestamp);
     }
 
-    public static function carbon(\Carbon\Carbon $carbon) {
+    public static function carbon(\Carbon\Carbon $carbon)
+    {
         return new self($carbon);
     }
 
-    public function then(string $step) {
+    public function then(string $step)
+    {
         $this->step = $step;
+
         return $this;
     }
 
-    public function addRandomMinutes(int $max_minutes = 15) {
+    public function addRandomMinutes(int $max_minutes = 15)
+    {
         $this->randomMinutes = rand(0, $max_minutes);
+
         return $this;
     }
 
@@ -45,7 +53,7 @@ class Wait
 
     public function getRandomizedTimestamp()
     {
-        if(empty($this->randomMinutes)) {
+        if (empty($this->randomMinutes)) {
             return $this->timestamp->addMinutes(rand(0, 15));
         }
 
@@ -55,6 +63,7 @@ class Wait
     public static function for(string $timeString)
     {
         $timestamp = now();
+
         try {
             $parts = explode(' ', $timeString);
 
@@ -66,30 +75,37 @@ class Wait
                     case 'hour':
                     case 'hours':
                         $timestamp->addHours($value);
+
                         break;
                     case 'minute':
                     case 'minutes':
                         $timestamp->addMinutes($value);
+
                         break;
                     case 'second':
                     case 'seconds':
                         $timestamp->addSeconds($value);
+
                         break;
                     case 'day':
                     case 'days':
                         $timestamp->addDays($value);
+
                         break;
                     case 'week':
                     case 'weeks':
                         $timestamp->addWeeks($value);
+
                         break;
                     case 'month':
                     case 'months':
                         $timestamp->addMonths($value);
+
                         break;
                     case 'year':
                     case 'years':
                         $timestamp->addYears($value);
+
                         break;
                     default:
                         throw new TeavelException("Invalid time unit: $unit");

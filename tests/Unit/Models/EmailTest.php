@@ -1,10 +1,10 @@
 <?php
 
 use Azzarip\Teavel\Models\Email;
-use Azzarip\Teavel\Models\Sequence;
 use Azzarip\Teavel\Models\EmailFile;
+use Azzarip\Teavel\Models\Sequence;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->f = EmailFile::create(['file' => 'test']);
 });
 
@@ -21,13 +21,12 @@ it('has sequence', function () {
     $email = Email::create([
         'file_id' => 1,
         'sequence_id' => $sequence->id,
-     ]);
+    ]);
 
     $Sequence = $email->sequence;
     expect($Sequence)->not->toBeNull();
     expect($Sequence->id)->toBe($sequence->id);
 });
-
 
 test('name retrieves existing email', function () {
     $email = Email::create(['file_id' => $this->f->id]);

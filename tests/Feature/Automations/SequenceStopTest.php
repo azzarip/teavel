@@ -8,7 +8,7 @@ it('stops the sequence', function () {
     $sequence = Sequence::name('test');
     $mock = \Mockery::mock('alias:Azzarip\Teavel\Automations\SequenceHandler');
     $mock->shouldReceive('start');
-    
+
     $sequence->start($contact);
 
     $sequence->stop($contact);

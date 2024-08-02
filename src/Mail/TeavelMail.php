@@ -2,29 +2,30 @@
 
 namespace Azzarip\Teavel\Mail;
 
+use Azzarip\Teavel\Models\Contact;
+use Azzarip\Teavel\Models\Email;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Azzarip\Teavel\EmailContent;
-use Azzarip\Teavel\Models\Email;
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
 class TeavelMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public string $unsubscribeLink;
 
     public array $ctas;
+
     public array $texts;
+
     public string $url;
 
     public string $emailUuid;
+
     /**
      * Create a new message instance.
      */
@@ -73,7 +74,6 @@ class TeavelMail extends Mailable
         return [];
     }
 
-
     protected function getUnsubscribeLink()
     {
         return url("/emails/{$this->contact->uuid}/unsubscribe/{$this->emailUuid}");
@@ -91,6 +91,7 @@ class TeavelMail extends Mailable
         $text = str_replace('{FULL_NAME}', $this->contact->full_name, $text);
         $text = str_replace('{EMAIL}', $this->contact->email, $text);
         $text = str_replace('{UUID}', $this->contact->uuid, $text);
+
         return $text;
     }
 
@@ -105,13 +106,14 @@ class TeavelMail extends Mailable
         $redactedTexts = [];
         $redactedCtas = [];
         while ($part < count($texts)) {
-            $redactedTexts[] = preg_replace_callback('/\(DUMMY_URL\)/', function($matches) use (&$counter) {
+            $redactedTexts[] = preg_replace_callback('/\(DUMMY_URL\)/', function ($matches) use (&$counter) {
                 $replacement = "({$this->url}/{$counter})";
                 $counter++;
+
                 return $replacement;
             }, $texts[$part]);
 
-            if(array_key_exists($part, $ctas)) {
+            if (array_key_exists($part, $ctas)) {
                 $redactedCtas[] = [
                     'link' => "{$this->url}/{$counter}",
                     'text' => $ctas[$part],
@@ -121,7 +123,6 @@ class TeavelMail extends Mailable
             $part++;
 
         }
-
 
         return [
             'texts' => $redactedTexts,

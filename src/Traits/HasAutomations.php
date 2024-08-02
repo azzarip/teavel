@@ -2,12 +2,12 @@
 
 namespace Azzarip\Teavel\Traits;
 
-use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Mail\TeavelMail;
-use Azzarip\Teavel\Models\Sequence;
-use Illuminate\Support\Facades\Mail;
 use Azzarip\Teavel\Models\ContactEmail;
 use Azzarip\Teavel\Models\ContactSequence;
+use Azzarip\Teavel\Models\Email;
+use Azzarip\Teavel\Models\Sequence;
+use Illuminate\Support\Facades\Mail;
 
 trait HasAutomations
 {
@@ -27,8 +27,11 @@ trait HasAutomations
             ->withPivot(['sent_at', 'clicked_at']);
     }
 
-    public function sendEmail(string $email, null | string | int $sequence = null){
-        if(! $this->can_market) return;
+    public function sendEmail(string $email, null | string | int $sequence = null)
+    {
+        if (! $this->can_market) {
+            return;
+        }
 
         $email = Email::name($email, $sequence);
 
@@ -50,7 +53,9 @@ trait HasAutomations
     {
         $relationship = $this->emails()->where('email_id', $email->id)->first();
 
-        if(!$relationship) return null;
+        if (! $relationship) {
+            return null;
+        }
 
         return $relationship->pivot;
     }

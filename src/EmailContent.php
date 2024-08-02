@@ -33,6 +33,7 @@ class EmailContent
         preg_match_all('/CTA: (.*?)\\n/', $this->body, $matches);
         $ctas = $matches[1];
         $texts = preg_split('/CTA: .*?\\n/', $this->body);
+
         return ['ctas' => $ctas, 'texts' => $texts];
     }
 }

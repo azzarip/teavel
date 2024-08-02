@@ -11,29 +11,33 @@ class SequenceAutomation
 
     public function __construct(public Contact $contact, protected ?int $sequenceId = null)
     {
-        if(empty($sequenceId)){
+        if (empty($sequenceId)) {
             $this->sequenceId = Sequence::name($this->name)->id;
         }
     }
 
-    public function stopSequence() {
+    public function stopSequence()
+    {
         Sequence::name($this->name)->stop($this->contact);
     }
 
-    public function startSequence(){
+    public function startSequence()
+    {
         Sequence::name($this->name)->start($this->contact);
     }
 
-    protected function tag($tag){
+    protected function tag($tag)
+    {
         $this->contact->tag($tag);
     }
 
-    protected function detag($tag){
+    protected function detag($tag)
+    {
         $this->contact->detag($tag);
     }
 
-    protected function sendEmail($email){
+    protected function sendEmail($email)
+    {
         $this->contact->sendEmail($email, $this->sequenceId);
     }
-
 }

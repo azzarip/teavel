@@ -5,7 +5,7 @@ use Azzarip\Teavel\Models\ContactSequence;
 use Azzarip\Teavel\Models\Sequence;
 
 it('has is_stopped attribute', function () {
-    $pivot = new ContactSequence();
+    $pivot = new ContactSequence;
 
     expect($pivot->is_stopped)->toBe(false);
 
@@ -16,7 +16,7 @@ it('has is_stopped attribute', function () {
 });
 
 it('has is_active attribute', function () {
-    $pivot = new ContactSequence();
+    $pivot = new ContactSequence;
 
     expect($pivot->is_active)->toBe(true);
 
@@ -26,7 +26,7 @@ it('has is_active attribute', function () {
 });
 
 it('resets', function () {
-    $pivot = new ContactSequence();
+    $pivot = new ContactSequence;
     $pivot->contact_id = 1;
     $pivot->sequence_id = 1;
 
@@ -44,7 +44,7 @@ it('resets', function () {
 });
 
 it('has is_stalled attribute', function () {
-    $pivot = new ContactSequence();
+    $pivot = new ContactSequence;
 
     $pivot->step = '::step::';
     $pivot->updated_at = now()->subDay();
@@ -53,7 +53,7 @@ it('has is_stalled attribute', function () {
 });
 
 it('has is_working attribute', function () {
-    $pivot = new ContactSequence();
+    $pivot = new ContactSequence;
 
     $pivot->step = '::step::';
     $pivot->updated_at = now()->subMinute();
@@ -62,7 +62,7 @@ it('has is_working attribute', function () {
 });
 
 it('has is_waiting attribute', function () {
-    $pivot = new ContactSequence();
+    $pivot = new ContactSequence;
 
     $pivot->execute_at = now();
     $pivot->step = '::step::';

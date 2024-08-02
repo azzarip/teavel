@@ -1,9 +1,9 @@
 <?php
 
+use Azzarip\Teavel\Exceptions\TeavelException;
 use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Models\EmailFile;
 use Illuminate\Support\Facades\File;
-use Azzarip\Teavel\Exceptions\TeavelException;
 
 it('throws exception if file is missing', function () {
     EmailFile::file('::test::');
@@ -18,7 +18,6 @@ it('retrieves email file', function () {
 it('creates a new one if file exists', function () {
     File::makeDirectory(base_path('content'), 0755, true, true);
     File::makeDirectory(base_path('content/emails'), 0755, true, true);
-
 
     file_put_contents(base_path('content/emails/test.md'), '::content::', 0755);
 

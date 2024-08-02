@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmailFile extends Model
 {
-
     protected $fillable = ['file'];
 
     public static function file(string $filename)
@@ -32,5 +31,4 @@ class EmailFile extends Model
     {
         return $this->hasMany(Email::class, 'file_id');
     }
-
 }

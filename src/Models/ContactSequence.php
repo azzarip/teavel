@@ -34,7 +34,6 @@ class ContactSequence extends Pivot
         return $this;
     }
 
-
     public static function getReadySteps()
     {
         return self::ready()->get();

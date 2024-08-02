@@ -1,19 +1,20 @@
 <?php
 
-use function Pest\Laravel\get;
-use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\ContactEmail;
+use Azzarip\Teavel\Models\Email;
 
-beforeAll(function() {
+use function Pest\Laravel\get;
+
+beforeAll(function () {
     $path = __DIR__ . '/../../../vendor/orchestra/testbench-core/laravel/content/emails';
-    if (!file_exists($path)) {
-        mkdir($path , 0755, true);
+    if (! file_exists($path)) {
+        mkdir($path, 0755, true);
         copy(__DIR__ . '/../../Mocks/Email.md', $path . '/test.md');
     }
 });
 
-beforeEach(function() {
+beforeEach(function () {
     $this->contact = Contact::factory()->create(['marketing_at' => now()]);
     $this->email = Email::name('test');
     ContactEmail::create([
@@ -22,7 +23,6 @@ beforeEach(function() {
         'sent_at' => now()->subDay(),
     ]);
 });
-
 
 it('redirects', function () {
     get("/emails/{$this->email->uuid}/clrd/0/{$this->contact->uuid}")->assertRedirect('https://example.com/');
@@ -38,5 +38,5 @@ it('returns 404 if wrong number', function () {
 
 it('signes the email as clicked', function () {
     get("/emails/{$this->email->uuid}/clrd/0/{$this->contact->uuid}");
-expect(ContactEmail::first()->clicked_at)->not->toBeNull();
+    expect(ContactEmail::first()->clicked_at)->not->toBeNull();
 });

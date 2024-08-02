@@ -18,6 +18,5 @@ class FormSubmitted
     public function __construct(
         public Form $form,
         public Contact $contact
-    ) {
-    }
+    ) {}
 }

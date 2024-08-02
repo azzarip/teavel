@@ -6,28 +6,28 @@ use Azzarip\Teavel\Models\Contact;
 
 class FormAutomation
 {
-    public function __construct(public Contact $contact)
-    {}
+    public function __construct(public Contact $contact) {}
 
     protected array $start = [];
 
     protected array $stop = [];
 
-    public function activate() {
+    public function activate()
+    {
         $this->stopSequences();
         $this->startSequences();
     }
 
     public function stopSequences()
     {
-        foreach($this->stop as $sequence) {
+        foreach ($this->stop as $sequence) {
             (new $sequence($this->contact))->stopSequence();
         }
     }
 
     public function startSequences()
     {
-        foreach($this->start as $automation) {
+        foreach ($this->start as $automation) {
             (new $automation($this->contact))->startSequence();
         }
     }

@@ -3,8 +3,8 @@
 namespace Azzarip\Teavel\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
+use Illuminate\Support\Facades\File;
 
 class CreateFormCommand extends Command implements PromptsForMissingInput
 {

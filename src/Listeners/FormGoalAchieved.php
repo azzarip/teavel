@@ -3,7 +3,6 @@
 namespace Azzarip\Teavel\Listeners;
 
 use Azzarip\Teavel\Events\FormSubmitted;
-use Azzarip\Teavel\Models\Form;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class FormGoalAchieved implements ShouldQueue
@@ -16,7 +15,5 @@ class FormGoalAchieved implements ShouldQueue
         $automation = $event->form->getAutomation();
         $goal = new $automation($event->contact);
         $goal->activate();
-}
-
-
+    }
 }

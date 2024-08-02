@@ -2,8 +2,6 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Illuminate\Support\Facades\File;
-use Azzarip\Teavel\Models\Automatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Form extends Automatable

@@ -51,7 +51,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         $this->app->register(TeavelPanelProvider::class);
 
         $this->setMarkdownPaths();
-        }
+    }
 
     public function packageBooted(): void
     {
