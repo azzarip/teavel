@@ -64,11 +64,12 @@ class Wait
     {
         $timestamp = now();
 
+
         try {
             $parts = explode(' ', $timeString);
 
             for ($i = 0; $i < count($parts); $i += 2) {
-                $value = $parts[$i];
+                $value = (int) $parts[$i];
                 $unit = $parts[$i + 1];
 
                 switch ($unit) {

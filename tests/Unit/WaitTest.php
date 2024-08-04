@@ -14,7 +14,7 @@ it('gets a new step', function () {
     expect($wait->step)->toBe('test');
 });
 
-it('has is_past attribute', function () {
+it('has IsPast()', function () {
     $wait = Wait::until('1.1.2024 19:00');
     expect($wait->IsPast())->toBeTrue();
 
@@ -30,4 +30,15 @@ it('adds RandomMinutes', function () {
 it('automatically adds random Minutes', function () {
     $wait = Wait::carbon(now());
     expect($wait->timestamp->format('i'))->not->toBe($wait->getRandomizedTimestamp()->format('i'));
+});
+
+it('has precise', function() {
+    $wait = Wait::carbon(now())->precise();
+    expect($wait->timestamp->format('i'))->toBe(now()->format('i'));
+});
+
+it('waits for a certain time', function() {
+    $wait = Wait::for('1 minute')->precise();
+
+    expect($wait->timestamp->format('i'))->toBe(now()->addMinute()->format('i'));
 });
