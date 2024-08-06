@@ -32,12 +32,12 @@ it('automatically adds random Minutes', function () {
     expect($wait->timestamp->format('i'))->not->toBe($wait->getRandomizedTimestamp()->format('i'));
 });
 
-it('has precise', function() {
+it('has precise', function () {
     $wait = Wait::carbon(now())->precise();
     expect($wait->timestamp->format('i'))->toBe(now()->format('i'));
 });
 
-it('waits for a certain time', function() {
+it('waits for a certain time', function () {
     $wait = Wait::for('1 minute')->precise();
 
     expect($wait->timestamp->format('i'))->toBe(now()->addMinute()->format('i'));

@@ -64,7 +64,6 @@ class Wait
     {
         $timestamp = now();
 
-
         try {
             $parts = explode(' ', $timeString);
 
