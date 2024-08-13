@@ -24,8 +24,7 @@ class TeavelMail extends Mailable
 
         $this->subject = $this->parseText($content->subject);
 
-        $this->html = $content->html;
-
+        $this->html = $this->parseText($content->html);
     }
 
     /**
