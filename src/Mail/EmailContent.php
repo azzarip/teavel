@@ -14,7 +14,6 @@ class EmailContent
 {
     public string $subject;
 
-
     public $html;
 
     public function __construct(EmailFile $emailFile, public string $uuid)
@@ -58,19 +57,19 @@ class EmailContent
 
     protected function getUnsubscribeLink()
     {
-        return url("/tvl/{! contact.uuid !}/email/{$this->uuid}/unsubscribe");
+        return url("/tvl/{UUID}/email/{$this->uuid}/unsubscribe");
     }
 
     protected function getClickUrl()
     {
-        return url("/tvl/{! contact.uuid !}/email/{$this->uuid}");
+        return url("/tvl/{UUID}/email/{$this->uuid}");
     }
 
     protected function buildFooter()
     {
         $unsubscribe = trans('teavel::email.unsubscribe');
         $footer =  '<p>' .
-            trans('teavel::email.footer_pre') . '{{ footer_date }}' . trans('teavel::email.footer_post') . '</p>';
+            trans('teavel::email.footer_pre') . '{FOOTER_DATE}' . trans('teavel::email.footer_post') . '</p>';
         $footer .= "<a href='{$this->getUnsubscribeLink()}'>{$unsubscribe}</a>";
 
         if(config('teavel.company')) {
