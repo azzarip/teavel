@@ -7,7 +7,7 @@ use Azzarip\Teavel\Models\Email;
 
 class ClickController
 {
-    public function __invoke($emailUuid, $contactUuid, int $num)
+    public function __invoke($contactUuid, $emailUuid, $action)
     {
         $email = Email::findUuid($emailUuid);
 

@@ -8,7 +8,7 @@ use Azzarip\Teavel\Models\EmailUnsubscribe;
 
 class UnsubscribeController
 {
-    public function __invoke($contactUuid, $emailUuid)
+    public function __invoke($emailUuid, $contactUuid)
     {
         $contact = Contact::findUuid($contactUuid);
         if (empty($contact)) {

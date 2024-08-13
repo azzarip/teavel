@@ -4,8 +4,8 @@ use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/emails/{contactUuid}/unsubscribe/{emailUuid}', 'teavel::email.unsubscribe');
-Route::post('/emails/{contactUuid}/unsubscribe/{emailUuid}', UnsubscribeController::class);
-Route::view('/emails/unsubscribe/success', 'teavel::email.success');
+Route::view('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', 'teavel::email.unsubscribe');
+Route::post('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', UnsubscribeController::class);
+Route::view('/tvl/unsubscribe/success', 'teavel::email.success');
 
-Route::get('/emails/{emailUuid}/clrd/{contactUuid}/{num}', ClickController::class);
+Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::class);

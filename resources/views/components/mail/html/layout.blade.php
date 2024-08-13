@@ -39,7 +39,7 @@ width: 100% !important;
 <!-- Body content -->
 <tr>
 <td class="content-cell">
-{{ $slot }}
+{!! Illuminate\Mail\Markdown::parse($slot) !!}
 </td>
 </tr>
 </table>
