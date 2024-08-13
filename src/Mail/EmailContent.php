@@ -93,7 +93,7 @@ class EmailContent
         $css = file_get_contents(__DIR__ . '/../../resources/css/email.css');
 
         if(File::exists(resource_path('css/email.css'))){
-            $css .= '\n' . file_get_contents(resource_path('css/email.css'));
+            $css .= "\n" . file_get_contents(resource_path('css/email.css'));
         }
         return (new CssToInlineStyles())->convert($html, $css);
     }
