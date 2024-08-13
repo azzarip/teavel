@@ -43,7 +43,7 @@ class Email extends Model
     public function getContent()
     {
         if (App::environment('production')) {
-            return Cache::remember($this->emailFile->file, 910, function () {
+            return Cache::remember('teavel_mail_'.$this->emailFile->file, 910, function () {
                 return new EmailContent($this->emailFile, $this->uuid);
             });
         } else {
