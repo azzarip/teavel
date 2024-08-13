@@ -12,12 +12,11 @@ test('email', function () {
     $email = Email::create([
         'file_id' => 1
     ]);
-    
+
     $emailFile = EmailFile::create([
         'file' => 'test'
     ]);
+    dd($email->getContent()->html);
 
-    dd($email->getContent()->getBody());
-    
 
 });

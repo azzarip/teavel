@@ -24,7 +24,8 @@
         "filament/filament": "^3.2",
         "propaganistas/laravel-phone": "^5.3",
         "spatie/laravel-package-tools": "^1.15.0",
-        "spatie/yaml-front-matter": "^2.0"
+        "spatie/yaml-front-matter": "^2.0",
+        "twig/twig": "^3.11"
     },
     "require-dev": {
         "laravel/pint": "^1.0",

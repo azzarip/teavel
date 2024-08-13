@@ -2,7 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
-use Azzarip\Teavel\EmailContent;
+use Azzarip\Teavel\Mail\EmailContent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
