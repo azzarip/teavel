@@ -2,13 +2,14 @@
 
 namespace Azzarip\Teavel;
 
-use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
+use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class TeavelServiceProvider extends PackageServiceProvider
 {
@@ -23,19 +24,19 @@ class TeavelServiceProvider extends PackageServiceProvider
             ->hasCommands($this->getCommands())
             ->hasMigrations($this->getMigrations())
             ->hasRoutes(['routes'])
+            ->hasConfigFile()
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    //->publishConfigFile()
+                    ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
                     ->endWith(function () {
-                        Artisan::call('teavel:contact-model');
-
+                        $this->publishContactModel();
+                        $this->publishEmailCss();
                     })
                     ->askToStarRepoOnGitHub('azzarip/teavel');
             });
 
-        $configFileName = $package->shortName();
 
         if (file_exists($package->basePath('/../resources/lang'))) {
             $package->hasTranslations();
@@ -50,7 +51,6 @@ class TeavelServiceProvider extends PackageServiceProvider
     {
         $this->app->register(TeavelPanelProvider::class);
 
-        $this->setMarkdownPaths();
     }
 
     public function packageBooted(): void
@@ -74,7 +74,6 @@ class TeavelServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            Commands\ContactModelCommand::class,
             Commands\CreateFormCommand::class,
             Commands\CreateSequenceCommand::class,
             Commands\TeavelRunCommand::class,
@@ -101,10 +100,23 @@ class TeavelServiceProvider extends PackageServiceProvider
         );
     }
 
-    protected function setMarkdownPaths(): void
-    {
-        $paths = config('mail.markdown.paths');
-        $paths[] = base_path('/vendor/azzarip/teavel/resources/views/email');
-        config(['mail.markdown.paths' => $paths]);
+    protected function publishContactModel(){
+        $modelPath = app_path('Models/Contact.php');
+
+        if (File::exists($modelPath)) return;
+
+        $stubPath = __DIR__ . '/../../stubs/Contact.php.stub';
+        File::copy($stubPath, $modelPath);
     }
+
+    protected function publishEmailCss(){
+        $filePath = resource_path('css/email.css');
+
+        if (File::exists($filePath)) return;
+
+        $stubPath = __DIR__ . '/../../stubs/email.css.stub';
+        File::copy($stubPath, $filePath);
+
+    }
+
 }
