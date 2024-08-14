@@ -29,22 +29,8 @@ beforeEach(function () {
 
 
 
-it('returns 404 if wrong contact', function () {
-    get("/tvl/WRONG/email/{$this->email->uuid}/click")->assertNotFound();
-});
-
-it('returns 404 if wrong email', function () {
-    get("/tvl/{$this->contact->uuid}/email/WRONG_EMAIL/click")->assertNotFound();
-});
-
 it('returns 404 if wrong action', function () {
-    get("/tvl/{$this->contact->uuid}/email/WRONG_EMAIL/click")->assertNotFound();
-});
-
-it('returns 404 if no sent emai', function () {
-    ContactEmail::truncate();
-
-    get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/click")->assertNotFound();
+    get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/WRONG")->assertNotFound();
 });
 
 it('redirects', function () {
@@ -54,4 +40,12 @@ it('redirects', function () {
 it('signes the email as clicked', function () {
     get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/click");
     expect(ContactEmail::first()->clicked_at)->not->toBeNull();
+});
+
+it('returns 404 if wrong contact', function () {
+    get("/tvl/WRONG/email/{$this->email->uuid}/click")->assertNotFound();
+});
+
+it('returns 404 if wrong email', function () {
+    get("/tvl/{$this->contact->uuid}/email/WRONG_EMAIL/click")->assertNotFound();
 });

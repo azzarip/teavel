@@ -15,11 +15,14 @@ class ClickController
         $contact = Contact::findUuid($contactUuid);
         if (empty($contact)) abort(404);
 
-        $pivot = $email->contacts()->wherePivot('contact_id', $contact->id)->first()?->pivot;
-        if(!$pivot) abort(404);
-        $pivot->click();
+        $email->contacts()->wherePivot('contact_id', $contact->id)->first()?->pivot->click();
 
-        $automation = new ($email->getAutomation())();
+        $automation = new ($email->getAutomation())($contact);
+
+        if(! method_exists($automation, $action)){
+            abort(404);
+        }
+
         $redirect = $automation->$action();
         return redirect($redirect, 301);
     }
