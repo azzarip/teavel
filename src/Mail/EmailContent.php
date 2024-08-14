@@ -42,9 +42,9 @@ class EmailContent
             'footer' => $this->buildFooter(),
         ]);
 
+        $html = $this->renderCss($html);
         $html = $this->redactUrls($html);
         $html = $this->cleanHtml($html);
-        $html = $this->renderCss($html);
         return $html;
     }
 

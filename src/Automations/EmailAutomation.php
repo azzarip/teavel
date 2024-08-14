@@ -12,7 +12,7 @@ class  EmailAutomation extends GoalAutomation
     protected $utm_content;
 
     public static function getContentPath() {
-        $path = app_path(str_replace('App\\', '/', self::class));
+        $path = app_path(str_replace('App\\', '', get_called_class()));
         $file = str_replace(app_path('Teavel\Emails'), base_path('content\emails'), $path) . '.md';
         return $file;
     }
