@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Teavel\Sequences;
+namespace App\Teavel\Sequences{NAMESPACE};
 
 use Azzarip\Teavel\Automations\Wait;
 use Azzarip\Teavel\Automations\SequenceAutomation;
 
-class cNAMEc extends SequenceAutomation
+class {SEQUENCE_NAME} extends SequenceAutomation
 {
-    public string $name = 'xNAMEx';
-
     public function start()
     {
         //start function

@@ -7,23 +7,17 @@ use Azzarip\Teavel\Models\Sequence;
 
 class SequenceAutomation
 {
-    public string $name;
-
     public function __construct(public Contact $contact, protected ?int $sequenceId = null)
     {
-        if (empty($sequenceId)) {
-            $this->sequenceId = Sequence::name($this->name)->id;
-        }
     }
 
-    public function stopSequence()
+    public static function stopSequence(Contact $contact)
     {
-        Sequence::name($this->name)->stop($this->contact);
+        Sequence::name(self::class)->stop($contact);
     }
-
-    public function startSequence()
+    public static function startSequence(Contact $contact)
     {
-        Sequence::name($this->name)->start($this->contact);
+        Sequence::name(self::class)->start($contact);
     }
 
     protected function tag($tag)
