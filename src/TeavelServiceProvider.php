@@ -75,6 +75,7 @@ class TeavelServiceProvider extends PackageServiceProvider
     {
         return [
             Commands\CreateFormCommand::class,
+            Commands\CreateEmailCommand::class,
             Commands\CreateSequenceCommand::class,
             Commands\TeavelRunCommand::class,
         ];

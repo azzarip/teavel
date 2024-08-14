@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Teavel\Emails{NAMESPACE};
+
+use Azzarip\Teavel\Automations\EmailAutomation;
+use App\Teavel\Sequences;
+
+class {EMAIL_NAME} extends EmailAutomation
+{
+    protected array $start = [
+        // Add sequences to start
+    ];
+
+    protected array $stop = [
+        // Add sequences to stop
+    ];
+}
