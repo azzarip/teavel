@@ -69,8 +69,7 @@ class EmailContent
     protected function buildFooter()
     {
         $unsubscribe = trans('teavel::email.unsubscribe');
-        $footer =  '<p>' .
-            trans('teavel::email.footer_pre') . '{FOOTER_DATE}' . trans('teavel::email.footer_post') . '</p>';
+        $footer =  '<p>' . trans('teavel::email.footer_text') . '</p>';
         $footer .= "<a href='{$this->getUnsubscribeLink()}'>{$unsubscribe}</a>";
 
         if(config('teavel.company')) {
