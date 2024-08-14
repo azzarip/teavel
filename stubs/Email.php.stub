@@ -7,11 +7,11 @@ use App\Teavel\Sequences;
 
 class {EMAIL_NAME} extends EmailAutomation
 {
-    protected array $start = [
-        // Add sequences to start
-    ];
+    protected $utm_campaign = '';
 
-    protected array $stop = [
-        // Add sequences to stop
-    ];
+    protected $utm_content = '';
+
+    public function click() {
+
+    }
 }
