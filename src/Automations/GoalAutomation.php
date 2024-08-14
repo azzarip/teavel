@@ -21,14 +21,14 @@ class GoalAutomation
     public function stopSequences()
     {
         foreach ($this->stop as $sequence) {
-            $this->startSequence($sequence);
+            $this->stopSequence($sequence);
         }
     }
 
     public function startSequences()
     {
         foreach ($this->start as $sequence) {
-            $this->stopSequence($sequence);
+            $this->startSequence($sequence);
         }
     }
 

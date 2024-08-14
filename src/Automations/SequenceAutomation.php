@@ -13,11 +13,11 @@ class SequenceAutomation
 
     public static function stopSequence(Contact $contact)
     {
-        Sequence::name(self::class)->stop($contact);
+        Sequence::name(get_called_class())->stop($contact);
     }
     public static function startSequence(Contact $contact)
     {
-        Sequence::name(self::class)->start($contact);
+        Sequence::name(get_called_class())->start($contact);
     }
 
     protected function tag($tag)
