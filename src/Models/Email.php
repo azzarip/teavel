@@ -42,12 +42,13 @@ class Email extends Model
 
     public function getContent()
     {
+        $class = $this->getAutomation();
         if (App::environment('production')) {
-            return Cache::remember('teavel_mail_'.$this->emailFile->file, 910, function () {
-                return new EmailContent($this->emailFile, $this->uuid);
+            return Cache::remember('teavel_mail_'.$class, 910, function () use($class) {
+                return new EmailContent($class, $this->uuid);
             });
         } else {
-            return new EmailContent($this->emailFile, $this->uuid);
+            return new EmailContent($class, $this->uuid);
         }
     }
 

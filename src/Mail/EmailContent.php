@@ -16,16 +16,17 @@ class EmailContent
 
     public $html;
 
-    public function __construct(EmailFile $emailFile, public string $uuid)
+    public function __construct($emailAutomation, public string $uuid)
     {
-        $email = YamlFrontMatter::parse(file_get_contents(base_path('content/emails/' . $emailFile->file . '.md')));
+        $filePath = $emailAutomation::getContentPath();
+        $email = YamlFrontMatter::parse(file_get_contents($filePath));
+
         $this->subject = $email->subject;
         $this->html = $this->getHtml($email->body());
     }
 
     protected function getHtml($body)
     {
-
         $loader = new ArrayLoader([
             'layout' => file_get_contents(__DIR__ . '/../../resources/views/email/html/layout.twig'),
             'email' => Str::markdown($body),

@@ -33,7 +33,7 @@ trait HasAutomations
             return false;
         }
 
-        if(!$this->can_market && ($email)::MARKETING) {
+        if(! $this->can_market && ! $email::TRANSACTIONAL) {
             return false;
         }
 
