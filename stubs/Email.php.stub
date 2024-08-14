@@ -12,6 +12,10 @@ class {EMAIL_NAME} extends EmailAutomation
     protected $utm_content = '';
 
     public function click() {
+<<<<<<< HEAD
         return url('/', $this->getUtms());
+=======
+
+>>>>>>> b087b23ee52f87068251bcbe6ec04bcbd9043844
     }
 }
