@@ -10,23 +10,17 @@ class ClickController
     public function __invoke($contactUuid, $emailUuid, $action)
     {
         $email = Email::findUuid($emailUuid);
+        if (empty($email)) abort(404);
 
-        if (empty($email)) {
-            return abort(404);
-        }
-
-        $links = $email->getLinks();
-        if (! array_key_exists($num, $links)) {
-            return abort(404);
-        }
-        $link = $links[$num];
         $contact = Contact::findUuid($contactUuid);
+        if (empty($contact)) abort(404);
 
-        if ($contact) {
-            $pivot = $email->contacts()->wherePivot('contact_id', $contact->id)->first()->pivot;
-            $pivot->click();
-        }
+        $pivot = $email->contacts()->wherePivot('contact_id', $contact->id)->first()?->pivot;
+        if(!$pivot) abort(404);
+        $pivot->click();
 
-        return redirect($link, 301);
+        $automation = new ($email->getAutomation())();
+        $redirect = $automation->$action();
+        return redirect($redirect, 301);
     }
 }

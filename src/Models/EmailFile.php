@@ -3,6 +3,7 @@
 namespace Azzarip\Teavel\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Azzarip\Teavel\Exceptions\TeavelException;
 
 class EmailFile extends Model
 {
@@ -10,21 +11,7 @@ class EmailFile extends Model
 
     public static function file(string $filename)
     {
-        $email = self::where('file', $filename)->first();
-
-        if (! $email) {
-            $filePath = base_path('content/emails/' . $filename . '.md');
-
-            if (! file_exists($filePath)) {
-                throw new \Azzarip\Teavel\Exceptions\TeavelException("Email file $filename is missing.");
-            }
-
-            $email = self::create([
-                'file' => $filename,
-            ]);
-        }
-
-        return $email;
+        return self::firstOrCreate(['file' => $filename]);
     }
 
     public function emails()

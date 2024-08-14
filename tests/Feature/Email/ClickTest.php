@@ -1,5 +1,6 @@
 <?php
 
+use Azzarip\Teavel\Automations\SequenceAutomation;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\ContactEmail;
 use Azzarip\Teavel\Models\Email;
@@ -15,8 +16,10 @@ beforeAll(function () {
 });
 
 beforeEach(function () {
-    $this->contact = Contact::factory()->create(['marketing_at' => now()]);
-    $this->email = Email::name('test');
+    $this->contact = Contact::factory()->create();
+
+    $this->email = Email::name(Azzarip\Teavel\Tests\Mocks\EmailMock::class);
+
     ContactEmail::create([
         'contact_id' => $this->contact->id,
         'email_id' => $this->email->id,
@@ -24,19 +27,31 @@ beforeEach(function () {
     ]);
 });
 
-it('redirects', function () {
-    get("/emails/{$this->email->uuid}/clrd/0/{$this->contact->uuid}")->assertRedirect('https://example.com/');
+
+
+it('returns 404 if wrong contact', function () {
+    get("/tvl/WRONG/email/{$this->email->uuid}/click")->assertNotFound();
 });
 
 it('returns 404 if wrong email', function () {
-    get("/emails/WRONG/clrd/0/{$this->contact->uuid}")->assertNotFound();
+    get("/tvl/{$this->contact->uuid}/email/WRONG_EMAIL/click")->assertNotFound();
 });
 
-it('returns 404 if wrong number', function () {
-    get("/emails/{$this->email->uuid}/clrd/3/{$this->contact->uuid}")->assertNotFound();
+it('returns 404 if wrong action', function () {
+    get("/tvl/{$this->contact->uuid}/email/WRONG_EMAIL/click")->assertNotFound();
+});
+
+it('returns 404 if no sent emai', function () {
+    ContactEmail::truncate();
+
+    get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/click")->assertNotFound();
+});
+
+it('redirects', function () {
+    get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/click")->assertRedirect();
 });
 
 it('signes the email as clicked', function () {
-    get("/emails/{$this->email->uuid}/clrd/0/{$this->contact->uuid}");
+    get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/click");
     expect(ContactEmail::first()->clicked_at)->not->toBeNull();
 });

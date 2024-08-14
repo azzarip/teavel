@@ -51,6 +51,10 @@ class Email extends Model
         }
     }
 
+    public function getAutomation() {
+        return $this->emailFile->file;
+    }
+
     public function emailFile()
     {
         return $this->belongsTo(EmailFile::class, 'file_id');

@@ -31,6 +31,39 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     ];
 
 
+    public static function get(array $data)
+    {
+        $data = self::processPrivacy($data);
+
+        $contact = self::retrieve($data);
+
+        if (! $contact) {
+            return self::create($data);
+        }
+
+        return $contact->fillMissing($data);
+    }
+
+    public static function register(array $data)
+    {
+        $data = self::processPrivacy($data);
+
+        $clearPassword = $data['password'];
+        $data['password'] = bcrypt($clearPassword);
+
+        $contact = self::retrieve($data);
+
+        if(! $contact) {
+            return self::create($data);
+        }
+
+        if ($contact->isRegistered) {
+            throw ValidationException::withMessages(['email' => 'User already registered.']);
+        }
+
+        return $contact->fillMissing($data);
+    }
+
     public function getNameEmailAttribute(): string
     {
         return $this->FullName . ' (' . $this->email . ')';
@@ -67,29 +100,8 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
     public static function fromData(array $data)
     {
-        return self::process($data);
+        return self::get($data);
     }
-
-    public static function process(array $data)
-    {
-        unset($data['privacy_policy']);
-        $data['privacy_at'] = now();
-        $data['opt_in'] = true;
-
-        if (array_key_exists('marketing', $data)) {
-            $data['marketing_at'] = now();
-            unset($data['marketing']);
-        }
-
-        $contact = self::retrieve($data);
-
-        if (! $contact) {
-            return self::create($data);
-        }
-
-        return $contact->fillMissing($data);
-    }
-
 
     protected function fillMissing(array $data)
     {
@@ -102,33 +114,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         return $this;
     }
 
-    public static function register(array $data)
-    {
-        unset($data['privacy_policy']);
-        $data['privacy_at'] = now();
-        $data['opt_in'] = true;
 
-        if (array_key_exists('marketing', $data)) {
-            $data['marketing_at'] = now();
-            unset($data['marketing']);
-        }
-
-        $clearPassword = $data['password'];
-        $data['password'] = bcrypt($clearPassword);
-
-
-        $contact = self::retrieve($data);
-
-        if(! $contact) {
-            return self::create($data);
-        }
-
-        if ($contact->isRegistered) {
-            throw ValidationException::withMessages(['email' => 'User already registered.']);
-        }
-
-        return $contact->fillMissing($data);
-        }
 
     public static function retrieve(array $data)
     {
@@ -144,6 +130,20 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     public function getIsRegisteredAttribute(): bool
     {
         return (bool) $this->password;
+    }
+
+    protected static function processPrivacy(array $data)
+    {
+        unset($data['privacy_policy']);
+        $data['privacy_at'] = now();
+        $data['opt_in'] = true;
+
+        if (array_key_exists('marketing', $data)) {
+            $data['marketing_at'] = now();
+            unset($data['marketing']);
+        }
+
+        return $data;
     }
 
     protected static function newFactory()
