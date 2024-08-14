@@ -3,35 +3,33 @@
 namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Traits;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class Contact extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable;
     use Authorizable;
     use HasFactory;
+    use Traits\HasPrivacy;
     use Traits\HasAddresses;
     use Traits\HasAutomations;
     use Traits\HasTags;
 
     protected $guarded = [];
 
-    protected function casts()
-    {
-        return [
-            'privacy_at' => 'datetime',
-            'marketing_at' => 'datetime',
-        ];
-    }
+    protected $casts = [
+        'privacy_at' => 'datetime',
+        'marketing_at' => 'datetime',
+        'opt_in' => 'boolean',
+    ];
+
 
     public function getNameEmailAttribute(): string
     {
@@ -69,13 +67,14 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
 
     public static function fromData(array $data)
     {
-        return self::add($data);
+        return self::process($data);
     }
 
-    public static function add(array $data)
+    public static function process(array $data)
     {
         unset($data['privacy_policy']);
         $data['privacy_at'] = now();
+        $data['opt_in'] = true;
 
         if (array_key_exists('marketing', $data)) {
             $data['marketing_at'] = now();
@@ -107,6 +106,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
     {
         unset($data['privacy_policy']);
         $data['privacy_at'] = now();
+        $data['opt_in'] = true;
 
         if (array_key_exists('marketing', $data)) {
             $data['marketing_at'] = now();
@@ -139,42 +139,6 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         if(! config('teavel.check_phone')) return;
 
         return self::findPhone($data['phone']);
-    }
-
-    public function allowMarketing(bool $allow = true): self
-    {
-        if (! $allow) {
-            return $this;
-        }
-
-        if ($this->can_market) {
-            return $this;
-        }
-
-        $this->update(['marketing_at' => now()]);
-
-        return $this;
-    }
-
-    public function disableMarketing()
-    {
-        if ($this->marketing_at) {
-            $this->update(['marketing_at' => null]);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public function getMarketingAtAttribute($value)
-    {
-        return $value ? \Illuminate\Support\Carbon::parse($value) : null;
-    }
-
-    public function getCanMarketAttribute(): bool
-    {
-        return (bool) $this->marketing_at;
     }
 
     public function getIsRegisteredAttribute(): bool

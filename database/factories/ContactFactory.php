@@ -17,6 +17,8 @@ class ContactFactory extends Factory
             'last_name' => fake()->lastName,
             'email' => fake()->unique()->safeEmail(),
             'uuid' => Str::uuid(),
+            'marketing_at' => now(),
+            'opt_in' => true,
         ];
     }
 }

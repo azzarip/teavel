@@ -8,13 +8,14 @@ use Azzarip\Teavel\Models\EmailUnsubscribe;
 
 class UnsubscribeController
 {
-    public function __invoke($emailUuid, $contactUuid)
+    public function __invoke($contactUuid, $emailUuid)
     {
         $contact = Contact::findUuid($contactUuid);
         if (empty($contact)) {
             return redirect('/emails/unsubscribe/success');
         }
-        $contact->disableMarketing();
+
+        $contact->optOut();
 
         $email = Email::findUuid($emailUuid);
         EmailUnsubscribe::create([

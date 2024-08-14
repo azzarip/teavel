@@ -7,29 +7,31 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
 beforeEach(function () {
-    $this->contact = Contact::factory()->create(['marketing_at' => now()]);
+    $this->contact = Contact::factory()->create([]);
     $this->email = Email::create(['file_id' => 1]);
 });
 it('has unsubscribe page', function () {
-    get("/emails/{$this->contact->uuid}/unsubscribe/{$this->email->uuid}")
+    get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/unsubscribe")
         ->assertOk()
         ->assertSee($this->contact->uuid)
         ->assertSee($this->email->uuid);
 });
 
 it('has success page', function () {
-    get('/emails/unsubscribe/success')->assertOk();
+    get('/tvl/unsubscribe/success')->assertOk();
 });
 
+
 it('sets marketing_at to null', function () {
-    post("/emails/{$this->contact->uuid}/unsubscribe/{$this->email->uuid}", []);
+    post("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/unsubscribe", []);
 
     $this->contact->refresh();
     expect($this->contact->can_market)->toBeFalse();
+    expect($this->contact->opt_in)->toBeFalse();
 });
 
 it('creates a email_unsubscribe model', function () {
-    post("/emails/{$this->contact->uuid}/unsubscribe/{$this->email->uuid}", []);
+    post("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/unsubscribe", []);
 
     $this->assertDatabaseHas('email_unsubscribes', [
         'contact_id' => $this->contact->id,
@@ -38,12 +40,11 @@ it('creates a email_unsubscribe model', function () {
 });
 
 it('redirects to emails/success', function () {
-    post("/emails/{$this->contact->uuid}/unsubscribe/{$this->email->uuid}")
+    post("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/unsubscribe")
         ->assertRedirect('emails/unsubscribe/success');
 });
 
-it('returns 500 if contact does not exist', function () {
-    post("/emails/WRONG/unsubscribe/{$this->email->uuid}")
+it('redirects on wrong contact', function () {
+    post("/tvl/WRONG/email/{$this->email->uuid}/unsubscribe")
         ->assertRedirect();
-
 });
