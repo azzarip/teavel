@@ -106,7 +106,7 @@ class TeavelServiceProvider extends PackageServiceProvider
 
         if (File::exists($modelPath)) return;
 
-        $stubPath = __DIR__ . '/../../stubs/Contact.php.stub';
+        $stubPath = __DIR__ . '/../stubs/Contact.php.stub';
         File::copy($stubPath, $modelPath);
     }
 
@@ -115,7 +115,7 @@ class TeavelServiceProvider extends PackageServiceProvider
 
         if (File::exists($filePath)) return;
 
-        $stubPath = __DIR__ . '/../../stubs/email.css.stub';
+        $stubPath = __DIR__ . '/../stubs/email.css.stub';
         File::copy($stubPath, $filePath);
 
     }
