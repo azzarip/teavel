@@ -24,7 +24,7 @@ class SequenceHandler
     public function handle()
     {
         try {
-            $automation = (new ($this->automation)($this->contact, $this->pivot->sequence_id));
+            $automation = new ($this->automation)($this->contact, $this->pivot->sequence_id);
             $next = $automation->{$this->step}();
             $this->nextStep($next);
         } catch (\BadMethodCallException $e) {
@@ -34,10 +34,10 @@ class SequenceHandler
 
     public static function process(ContactSequence $pivot)
     {
-        $automation = Sequence::find($pivot->sequence_id)->getAutomation();
+        $automation = Sequence::find($pivot->sequence_id);
         $contact = Contact::find($pivot->contact_id);
 
-        self::start($pivot, $contact, $automation);
+        self::start($pivot, $contact, $automation->name);
     }
 
     public static function start(ContactSequence $pivot, Contact $contact, $automation)

@@ -19,40 +19,37 @@ class CreateFormCommand extends Command implements PromptsForMissingInput
 
     public function handle()
     {
-        $directory = app_path('Teavel');
+        $classPath = app_path('Teavel/Goals/Forms');
 
-        if (! File::exists($directory)) {
-            File::makeDirectory($directory, 0755, true);
+        $parts = explode('\\', $this->argument('name'));
+        $formName = array_pop($parts);
+
+        if($parts) {
+            $classPath = $classPath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $parts);
+            $namespace = '\\' . implode('\\', $parts);
+        } else {
+            $namespace = null;
         }
 
-        $directory .= '/Goals';
-
-        if (! File::exists($directory)) {
-            File::makeDirectory($directory, 0755, true);
+        if (! File::exists($classPath)) {
+            File::makeDirectory($classPath, 0755, true);
         }
 
-        $directory .= '/Forms';
 
-        if (! File::exists($directory)) {
-            File::makeDirectory($directory, 0755, true);
-        }
-
-        $name = $this->argument('name');
-        $cName = ns_case($name);
-        $filepath = $directory . '/' . $cName . '.php';
-        if (File::exists($filepath)) {
+        $classFile = $classPath . DIRECTORY_SEPARATOR . $formName . '.php';
+        if (File::exists($classFile)) {
+            $this->error('Form Class already exists');
             return 1;
         }
 
-        $stubPath = __DIR__ . '/../../stubs/Form.php.stub';
-        File::copy($stubPath, $filepath);
+        File::copy(__DIR__ . '/../../stubs/Form.php.stub', $classFile);
 
-        $fileContent = File::get($filepath);
-        $modifiedContent = str_replace('cNAMEc', $cName, $fileContent);
-        $modifiedContent = str_replace('xNAMEx', $name, $modifiedContent);
-        File::put($filepath, $modifiedContent);
+        $fileContent = File::get($classFile);
+        $fileContent = str_replace('{FORM_NAME}', $formName, $fileContent);
+        $fileContent = str_replace('{NAMESPACE}', $namespace, $fileContent);
+        File::put($classFile, $fileContent);
 
-        $this->info('Form Goal created successfully.');
+        $this->info('Form created successfully.');
 
         return 0;
     }

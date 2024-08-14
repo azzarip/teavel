@@ -12,7 +12,7 @@ class FormGoalAchieved implements ShouldQueue
      */
     public function handle(FormSubmitted $event): void
     {
-        $automation = $event->form->getAutomation();
+        $automation = $event->form->name;
         $goal = new $automation($event->contact);
         $goal->activate();
     }

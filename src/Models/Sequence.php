@@ -2,16 +2,15 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Azzarip\Teavel\Automations\SequenceHandler;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Sequence extends Automatable
+class Sequence extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
-
-    protected string $automationPath = 'Sequences';
 
     public function contacts()
     {
@@ -42,7 +41,7 @@ class Sequence extends Automatable
             $this->contacts()->attach($contact);
             $pivot = $this->findPivot($contact);
 
-            return SequenceHandler::start($pivot, $contact, $this->getAutomation());
+            return SequenceHandler::start($pivot, $contact, $this->name);
         }
 
         if ($pivot->is_active) {
@@ -51,7 +50,7 @@ class Sequence extends Automatable
 
         $pivot->reset();
 
-        return SequenceHandler::start($pivot, $contact, $this->getAutomation());
+        return SequenceHandler::start($pivot, $contact, $this->name);
     }
 
     public function stop(Contact $contact)

@@ -16,9 +16,9 @@ trait HasGoals
             ->withPivot(['id', 'created_at', 'utm_source_id', 'utm_click_id', 'utm_medium_id', 'utm_campaign_id', 'utm_term_id', 'utm_content_id']);
     }
 
-    public function completeForm(string | Form $name)
+    public function completeForm($name)
     {
-        $form = (is_string($name)) ? Form::name($name) : $name;
+        $form = Form::name($name);
 
         $this->forms()->attach($form->id, $this->retrieveUtm());
 
