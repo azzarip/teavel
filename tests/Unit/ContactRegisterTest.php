@@ -1,7 +1,7 @@
 <?php
 
+use Azzarip\Teavel\Exceptions\RegistrationException;
 use Azzarip\Teavel\Models\Contact;
-use Illuminate\Validation\ValidationException;
 
 beforeEach(function () {
     $this->data = [
@@ -56,7 +56,7 @@ it('throws error when contact already registered', function () {
     Contact::register($this->data);
     $this->data['password'] = 'another_password';
 
-    $this->expectException(ValidationException::class);
+    $this->expectException(RegistrationException::class);
 
     Contact::register($this->data);
 

@@ -6,8 +6,8 @@ use Azzarip\Teavel\Traits;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Azzarip\Teavel\Exceptions\RegistrationException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -58,7 +58,7 @@ class Contact extends Model implements AuthenticatableContract, AuthorizableCont
         }
 
         if ($contact->isRegistered) {
-            throw ValidationException::withMessages(['email' => 'User already registered.']);
+            throw new RegistrationException('User already registered.');
         }
 
         return $contact->fillMissing($data);
