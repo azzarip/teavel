@@ -46,6 +46,7 @@ class TestCase extends Orchestra
             // TablesServiceProvider::class,
             // WidgetsServiceProvider::class,
             TeavelServiceProvider::class,
+            \Propaganistas\LaravelPhone\PhoneServiceProvider::class,
         ];
     }
 
