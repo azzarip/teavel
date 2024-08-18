@@ -19,10 +19,12 @@ class TeavelMailable extends Mailable
 
 
     public function toContact(Contact $contact) {
+        $this->contact = $contact;
+
         $content = new EmailContent($this->getFilename());
 
         $this->subject = $content->subject;
-
+        $this->to = [new Address($this->contact->email, $this->contact->full_name)];
         $this->html = $this->parseText($content->html);
 
         return $this;
@@ -30,14 +32,6 @@ class TeavelMailable extends Mailable
 
     protected function getFilename() {
         return base_path() . '/' . $this->filename;
-    }
-
-
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            to: [new Address($this->contact->email, $this->contact->full_name)],
-        );
     }
 
 
