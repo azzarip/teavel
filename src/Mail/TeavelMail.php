@@ -17,18 +17,18 @@ class TeavelMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Contact $contact, EmailContent $content)
+    public function __construct(public Contact $contact, EmailContent $content, protected array $data = [])
     {
-        $this->subject = $this->parseText($content->subject);
+        $this->subject = $content->subject;
 
         $this->html = $this->parseText($content->html);
     }
 
-    public static function raw(Contact $contact, string $emailPath)
+    public static function raw(Contact $contact, string $emailPath, array $data = [])
     {
         $email = new EmailContent($emailPath);
 
-        return new static($contact, $email);
+        return new static($contact, $email, $data);
     }
 
     /**
@@ -44,13 +44,14 @@ class TeavelMail extends Mailable
 
     protected function parseText($text)
     {
-        $text = str_replace('{FIRST_NAME}', $this->contact->first_name, $text);
-        $text = str_replace('{LAST_NAME}', $this->contact->last_name, $text);
-        $text = str_replace('{FULL_NAME}', $this->contact->full_name, $text);
-        $text = str_replace('{EMAIL}', $this->contact->email, $text);
-        $text = str_replace('{UUID}', $this->contact->uuid, $text);
+        $loader = new \Twig\Loader\ArrayLoader(['email' => $text]);
+        $twig = new \Twig\Environment($loader, ['autoescape' => false]);
 
-        return $text;
+        $html = $twig->render('email', [
+            'contact' => $this->contact,
+        ] + $this->data);
+
+        return $html;
     }
 
 

@@ -87,8 +87,8 @@ class EmailContent
 
     protected function cleanHtml($html)
     {
-        $html = str_replace('{!', '{{', $html);
-        $html = str_replace('!}', '}}', $html);
+        $html = str_replace('(_', '{{ ', $html);
+        $html = str_replace('_)', ' }}', $html);
         $html = str_replace('<p><table', '<table', $html);
         $html = str_replace("</table>\n</p>\n", "</table>\n", $html);
         return $html;
