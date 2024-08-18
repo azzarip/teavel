@@ -90,8 +90,10 @@ class EmailContent
         $html = str_replace('{!', '{{', $html);
         $html = str_replace('!}', '}}', $html);
         $html = str_replace('%7B!!', '{{ ', $html);
-            $html = str_replace('!!%7D', ' }}', $html);
-            $html = str_replace('<p><table', '<table', $html);
+        $html = str_replace('!!%7D', ' }}', $html);
+        $html = str_replace('%7B%21%21', '{{ ', $html);
+        $html = str_replace('%21%21%7D', ' }}', $html);
+        $html = str_replace('<p><table', '<table', $html);
         $html = str_replace("</table>\n</p>\n", "</table>\n", $html);
         return $html;
     }
