@@ -38,8 +38,8 @@ trait HasAutomations
         }
 
         $email = Email::name($email, $sequence);
-
-        Mail::send((new TeavelMail($email->getContent(), $data)->toContact($this));
+        $mailable = (new TeavelMail($email->getContent(), $data))->toContact($this);
+        Mail::send($mailable);
 
         $pivot = $this->findPivot($email);
         if (! $pivot) {
