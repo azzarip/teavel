@@ -24,6 +24,8 @@ class TeavelMailable extends Mailable
         $this->subject = $content->subject;
 
         $this->html = $this->parseText($content->html);
+
+        return $this;
     }
 
     protected function getFilename() {
