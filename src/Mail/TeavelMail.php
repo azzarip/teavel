@@ -14,22 +14,15 @@ class TeavelMail extends Mailable
     use Queueable;
     use SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct(public Contact $contact, EmailContent $content, protected array $data = [])
+    public function __construct(public Contact $contact, string $filename, protected array $data = [])
     {
+        $content = new EmailContent($filename);
+
         $this->subject = $content->subject;
 
         $this->html = $this->parseText($content->html);
     }
 
-    public static function raw(Contact $contact, string $emailPath, array $data = [])
-    {
-        $email = new EmailContent($emailPath);
-
-        return new static($contact, $email, $data);
-    }
 
     /**
      * Get the message envelope.

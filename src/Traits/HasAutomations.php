@@ -27,7 +27,7 @@ trait HasAutomations
             ->withPivot(['sent_at', 'clicked_at']);
     }
 
-    public function sendEmail(string $email, null | string | int $sequence = null): bool
+    public function sendEmail(string $email, null | string | int $sequence = null, array $data = []): bool
     {
         if (! $this->opt_in) {
             return false;
@@ -39,7 +39,7 @@ trait HasAutomations
 
         $email = Email::name($email, $sequence);
 
-        Mail::send(new TeavelMail($this, $email->getContent()));
+        Mail::send(new TeavelMail($this, $email->getContent(), $data));
 
         $pivot = $this->findPivot($email);
         if (! $pivot) {
