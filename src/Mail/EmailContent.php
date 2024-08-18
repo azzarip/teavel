@@ -16,10 +16,9 @@ class EmailContent
 
     public $html;
 
-    public function __construct($emailAutomation, public string $uuid)
+    public function __construct(string $emailPath, public ?string $uuid = '')
     {
-        $filePath = $emailAutomation::getContentPath();
-        $email = YamlFrontMatter::parse(file_get_contents($filePath));
+        $email = YamlFrontMatter::parse(file_get_contents($emailPath));
 
         $this->subject = $email->subject;
         $this->html = $this->getHtml($email->body());
@@ -51,8 +50,11 @@ class EmailContent
 
     protected function redactUrls($html)
     {
-        $url = $this->getClickUrl();
+        if(empty($this->uuid)) {
+            return $html;
+        }
 
+        $url = $this->getClickUrl();
         return str_replace('href="/', 'href="' . $url . '/', $html);
     }
 
@@ -68,12 +70,16 @@ class EmailContent
 
     protected function buildFooter()
     {
-        $unsubscribe = trans('teavel::email.unsubscribe');
-        $footer =  '<p>' . trans('teavel::email.footer_text') . '</p>';
-        $footer .= "<a href='{$this->getUnsubscribeLink()}'>{$unsubscribe}</a>";
+        $footer = '';
+
+        if($this->uuid) {
+            $unsubscribe = trans('teavel::email.unsubscribe');
+            $footer .=  '<p>' . trans('teavel::email.footer_text') . '</p>';
+            $footer .= "<a href='{$this->getUnsubscribeLink()}'>{$unsubscribe}</a>";
+        }
 
         if(config('teavel.company')) {
-            $footer .= "<p>" . config('teavel.company') . "</p>";
+            $footer = "<p>" . config('teavel.company') . "</p>";
         }
 
         return $footer;

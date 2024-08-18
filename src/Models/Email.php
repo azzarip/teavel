@@ -45,10 +45,10 @@ class Email extends Model
         $class = $this->getAutomation();
         if (App::environment('production')) {
             return Cache::remember('teavel_mail_'.$class, 910, function () use($class) {
-                return new EmailContent($class, $this->uuid);
+                return new EmailContent($class::getContentPath(), $this->uuid);
             });
         } else {
-            return new EmailContent($class, $this->uuid);
+            return new EmailContent($class::getContentPath(), $this->uuid);
         }
     }
 

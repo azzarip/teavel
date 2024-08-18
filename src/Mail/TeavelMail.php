@@ -4,7 +4,6 @@ namespace Azzarip\Teavel\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
@@ -18,10 +17,8 @@ class TeavelMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Contact $contact, Email $email)
+    public function __construct(public Contact $contact, EmailContent $content)
     {
-        $content = $email->getContent();
-
         $this->subject = $this->parseText($content->subject);
 
         $this->html = $this->parseText($content->html);
