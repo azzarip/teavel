@@ -24,8 +24,8 @@ class TeavelMailable extends Mailable
         $content = new EmailContent($this->getFilename());
 
         $this->subject = $content->subject;
-        $this->to = [new Address($this->contact->email, $this->contact->full_name)];
-        $this->html = $this->parseText($content->html);
+        $this->to(new Address($this->contact->email, $this->contact->full_name));
+        $this->html = $this->parseEmail($content->html);
 
         return $this;
     }
@@ -35,9 +35,9 @@ class TeavelMailable extends Mailable
     }
 
 
-    protected function parseText($text)
+    protected function parseEmail($email)
     {
-        $loader = new ArrayLoader(['email' => $text]);
+        $loader = new ArrayLoader(['email' => $email]);
         $twig = new Environment($loader, ['autoescape' => false]);
 
         $html = $twig->render('email', [

@@ -60,12 +60,12 @@ class EmailContent
 
     protected function getUnsubscribeLink()
     {
-        return url("/tvl/{UUID}/email/{$this->uuid}/unsubscribe");
+        return url("/tvl/{!!contact.uuid!!}/email/{$this->uuid}/unsubscribe");
     }
 
     protected function getClickUrl()
     {
-        return url("/tvl/{UUID}/email/{$this->uuid}");
+        return url("/tvl/{!!contact.uuid!!}/email/{$this->uuid}");
     }
 
     protected function buildFooter()
@@ -89,9 +89,9 @@ class EmailContent
     {
         $html = str_replace('{!', '{{', $html);
         $html = str_replace('!}', '}}', $html);
-        $html = str_replace('(_', '{{ ', $html);
-        $html = str_replace('_)', ' }}', $html);
-        $html = str_replace('<p><table', '<table', $html);
+        $html = str_replace('%7B!!', '{{ ', $html);
+            $html = str_replace('!!%7D', ' }}', $html);
+            $html = str_replace('<p><table', '<table', $html);
         $html = str_replace("</table>\n</p>\n", "</table>\n", $html);
         return $html;
     }
