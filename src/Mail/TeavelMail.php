@@ -24,6 +24,13 @@ class TeavelMail extends Mailable
         $this->html = $this->parseText($content->html);
     }
 
+    public static function raw(Contact $contact, string $emailPath)
+    {
+        $email = new EmailContent($emailPath);
+
+        return new static($contact, $email);
+    }
+
     /**
      * Get the message envelope.
      */
