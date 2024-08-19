@@ -1,7 +1,8 @@
 ---
 subject: Password Reset Request
 ---
-#Password Reset Request
+
+# Password Reset Request
 
 We received a request to reset the password for your account. To proceed with resetting your password, please click the link below:
 

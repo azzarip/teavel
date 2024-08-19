@@ -4,18 +4,18 @@ use Illuminate\Support\Facades\Route;
 use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\PasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
+Route::middleware('web')->group(function () {
 
-
-//**   AUTOMATION EMAILS  */
+//**   Unsubscribe EMAILS  */
 Route::view('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', 'teavel::email.unsubscribe');
 Route::post('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', UnsubscribeController::class);
 Route::view('/tvl/unsubscribe/success', 'teavel::email.success');
 
+//**   Click on Email  */
 Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::class);
 
 
 //**   AUTH ROUTES  */
-
 Route::middleware(['guest'])->group(function () {
     Route::view('/login', config('teavel.auth_views.login'))->name('login');
     Route::view('/register', config('teavel.auth_views.register'))->name('register');
@@ -26,4 +26,5 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [PasswordController::class, 'request'])->name('password.request');
     });
+});
 });

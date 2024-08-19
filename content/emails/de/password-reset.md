@@ -1,7 +1,7 @@
 ---
 subject: Passwortzurücksetzung
 ---
-#Password Reset Request
+# Passwortzurücksetzungsanfrage
 
 Wir haben eine Anfrage zur Zurücksetzung des Passworts für Ihr Konto erhalten. Um mit der Passwortzurücksetzung fortzufahren, klicken Sie bitte auf den folgenden Link:
 
