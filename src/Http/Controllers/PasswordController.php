@@ -29,7 +29,7 @@ class PasswordController extends Controller
         $pass = Password::tokenExists($contact, $validated['token']);
 
         if(!$pass) {
-            return redirect()->route('password.request_form')->withErrors(['token' => trans('teavel::auth.error.token')]);
+            return redirect()->route('password.request')->withErrors(['token' => trans('teavel::auth.error.token')]);
         }
 
         $contact->forceFill([
@@ -40,7 +40,7 @@ class PasswordController extends Controller
         Password::deleteToken($contact);
 
         return redirect()->route('login')
-            ->with('status', 'password.reset');
+            ->with('status', 'password.reset.post');
     }
 
     public function request(Request $request)

@@ -14,7 +14,7 @@ class PasswordResetMail extends TeavelMailable
 
     protected function setUrl($token)
     {
-        $url = route('password.reset_form', [
+        $url = route('password.reset', [
             'token' => $token,
         ]);
 
