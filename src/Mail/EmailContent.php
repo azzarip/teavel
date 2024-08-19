@@ -8,6 +8,7 @@ use Twig\Loader\ArrayLoader;
 use Azzarip\Teavel\Models\EmailFile;
 use Illuminate\Support\Facades\File;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Azzarip\Teavel\Exceptions\TeavelException;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class EmailContent
@@ -18,9 +19,10 @@ class EmailContent
 
     public function __construct(string $emailPath, public ?string $uuid = '')
     {
-        $email = YamlFrontMatter::parse(file_get_contents($emailPath));
+        $email = $this->loadFile($emailPath);
 
         $this->subject = $email->subject;
+
         $this->html = $this->getHtml($email->body());
     }
 
@@ -37,7 +39,7 @@ class EmailContent
         ]);
 
         $html = $twig->render('layout', [
-            'title' => config('app.name'),
+            'app_name' => config('app.name'),
             'footer' => $this->buildFooter(),
         ]);
 
@@ -108,5 +110,22 @@ class EmailContent
         return (new CssToInlineStyles())->convert($html, $css);
     }
 
+    protected function loadFile($emailPath)
+    {
+        if(! File::exists($emailPath)) {
+            throw new TeavelException("File $emailPath does not exist");
+        }
 
+        $email = YamlFrontMatter::parse(file_get_contents($emailPath));
+
+        if(empty($email->matter())) {
+            throw new TeavelException("Invalid subject in file $emailPath");
+        }
+
+        if(empty($email->body())) {
+            throw new TeavelException("Invalid body in file $emailPath");
+        }
+
+        return $email;
+    }
 }

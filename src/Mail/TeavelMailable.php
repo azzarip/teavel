@@ -4,10 +4,10 @@ namespace Azzarip\Teavel\Mail;
 
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
-use Illuminate\Mail\Mailables\Address;
-use Illuminate\Mail\Mailables\Envelope;
-use Azzarip\Teavel\Models\Contact;
 use Illuminate\Mail\Mailable;
+use Azzarip\Teavel\Models\Contact;
+use Illuminate\Support\Facades\App;
+use Illuminate\Mail\Mailables\Address;
 
 class TeavelMailable extends Mailable
 {
@@ -24,6 +24,7 @@ class TeavelMailable extends Mailable
         $content = new EmailContent($this->getFilename());
 
         $this->subject = $content->subject;
+
         $this->to(new Address($this->contact->email, $this->contact->full_name));
         $this->html = $this->parseEmail($content->html);
 
@@ -31,9 +32,9 @@ class TeavelMailable extends Mailable
     }
 
     protected function getFilename() {
-        return base_path() . '/' . $this->filename;
+        $locale = App::getLocale() ?? 'en';
+        return __DIR__ . "/../../content/emails/$locale/{$this->filename}.md";
     }
-
 
     protected function parseEmail($email)
     {

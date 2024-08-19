@@ -4,18 +4,12 @@ namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Traits;
 use Illuminate\Support\Str;
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Access\Authorizable;
 use Azzarip\Teavel\Exceptions\RegistrationException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class Contact extends Model implements AuthenticatableContract, AuthorizableContract
+class Contact extends AuthContact
 {
-    use Authenticatable;
-    use Authorizable;
     use HasFactory;
     use Traits\HasPrivacy;
     use Traits\HasAddresses;
