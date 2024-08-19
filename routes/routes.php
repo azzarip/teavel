@@ -29,7 +29,7 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [PasswordController::class, 'request'])->name('password.request.post');
         Route::post('/password/reset', [PasswordController::class, 'reset'])->name('password.reset.post');
-        Route::post('/login', LoginController::class)->name('login.post');
+        Route::post('/login', LoginController::class);
     });
 });
 });

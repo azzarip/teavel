@@ -34,11 +34,11 @@ it('validates password', function() {
     post(route('password.reset.post'), $this->data)->assertSessionHasErrors('password');
 });
 
-// it('redirects to request if token expired', function () {
-//     post(route('password.reset.post'), $this->data)
-//         ->assertRedirect(route('password.request'))
-//         ->assertSessionHasErrors('token');
-// });
+it('redirects to request if token expired', function () {
+    post(route('password.reset.post'), $this->data)
+        ->assertRedirect(route('password.request'))
+        ->assertSessionHasErrors('token');
+});
 
 it('changes password', function () {
     $contact = Contact::factory()->create(['email' => 'real@email.com', 'password' => bcrypt('password')]);

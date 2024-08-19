@@ -23,8 +23,7 @@
                     @enderror
             </div>
                     @error('user')
-                    <p class="error-msg">@lang('teavel::auth.error.user')</p>
-                    @enderror
+                    <p class="error-msg">{{ $message }}</p>@enderror
             <div class="pt-4">
                 <button type="submit" class="block w-full max-w-lg py-3 mx-auto text-2xl big-button"> @lang('teavel::auth.login')
                 </button>
