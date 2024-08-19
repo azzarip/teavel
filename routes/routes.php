@@ -21,10 +21,11 @@ Route::middleware(['guest'])->group(function () {
     Route::view('/register', config('teavel.auth_views.register'))->name('register');
     Route::view('/password/request', config('teavel.auth_views.password_request_form'))->name('password.request_form');
     Route::view('/password/success', config('teavel.auth_views.password_request_success'))->name('password.success');
-    Route::view('/password/reset', config('teavel.auth_views.password_reset_form'))->name('password.reset');
+    Route::view('/password/reset', config('teavel.auth_views.password_reset_form'))->name('password.reset_form');
 
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [PasswordController::class, 'request'])->name('password.request');
+        Route::post('/password/reset', [PasswordController::class, 'reset'])->name('password.reset');
     });
 });
 });

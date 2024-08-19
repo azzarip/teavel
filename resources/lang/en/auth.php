@@ -2,6 +2,7 @@
 
 return [
     'login' => 'Login',
+    'register' => 'Register',
     'email' => [
         'placeholder' => 'Your Email'
     ],
@@ -19,6 +20,9 @@ return [
     'error' => [
         'token' => 'The token has expired, please request a new one here.',
         'user' => 'Email and Password do not match. Please try again.',
+    ],
+    'status' => [
+        'reset' => 'The Password has been successfully changed. Please login to continue.'
     ],
     'message' => [
         'request' => 'Type in your email, if you are already registered, you will receive an email to reset your password.',

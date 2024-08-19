@@ -2,9 +2,11 @@
 
 namespace Azzarip\Teavel\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
@@ -15,7 +17,7 @@ class PasswordController extends Controller
 {
     use ValidatesRequests;
 
-    public function update(Request $request){
+    public function reset(Request $request){
         $validated = $request->validate([
             'token' => 'required',
             'password' => 'required|min:8',
@@ -24,25 +26,23 @@ class PasswordController extends Controller
 
         $contact = Contact::findUuid($validated['uuid']);
 
-        $status = Password::reset([
-            'email' => $contact?->email,
-            'password' => $validated['password'],
-            'token' => $validated['token'],
-        ], function ($user, $password) {
-                $user->forceFill([
-                    'password' => \Illuminate\Support\Facades\Hash::make($password)
-                ])->setRememberToken(\Illuminate\Support\Str::random(60));
+        $pass = Password::tokenExists($contact, $validated['token']);
 
-                $user->save();
-        });
-
-        if($status == Password::PASSWORD_RESET) {
-            return redirect()->route('login')
-            ->with('status', 'Password successfully reset. Please Log in here with the new password.');
+        if(!$pass) {
+            return redirect()->route('password.request_form')->withErrors(['token' => trans('teavel::auth.error.token')]);
         }
-        return redirect()->route('password.request')->withErrors(['token' => 'The token has expired, please request a new one here.']);
 
+        $contact->forceFill([
+            'password' => Hash::make($validated['password'])
+        ])->setRememberToken(Str::random(60));
+        $contact->save();
+
+        Password::deleteToken($contact);
+
+        return redirect()->route('login')
+            ->with('status', 'password.reset');
     }
+
     public function request(Request $request)
     {
         $request->validate(['email' => 'required|email']);

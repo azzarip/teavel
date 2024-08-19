@@ -1,41 +1,58 @@
 <?php
 
-use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
 use function Pest\Laravel\post;
 use Azzarip\Teavel\Models\Contact;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Azzarip\Teavel\Mail\Mailables\PasswordRegisterMail;
+use Illuminate\Support\Facades\Password;
 
 beforeEach(function() {
     Mail::fake();
     $this->withoutMiddleware();
+    $this->data = [
+        'uuid' => '::uuid::',
+        'password' => '::password::',
+        'token' => '::token::',
+    ];
 });
 
-it('validates email', function() {
-    post(route('password.request'), [])->assertSessionHasErrors('email');
-    post(route('password.request'), ['email' => 'wrong_email'])->assertSessionHasErrors('email');
+it('requires token', function() {
+    unset($this->data['token']);
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('token');
 });
 
-it('sends no email if contact does not exists', function () {
-    post(route('password.request'), ['email' => 'another@email.com'])->assertRedirect(route('password.success'));
-
-    Mail::assertNothingSent();
+it('requires uuid', function() {
+    unset($this->data['uuid']);
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('uuid');
 });
 
-it('sends registration email if not registered', function () {
-    Contact::factory()->create(['email' => 'example@email.com']);
+it('validates password', function() {
+    unset($this->data['password']);
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('password');
 
-    post(route('password.request'), ['email' => 'example@email.com'])->assertRedirect(route('password.success'));
-
-    Mail::assertSent(PasswordRegisterMail::class);
+    $this->data['password'] = '1234567';
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('password');
 });
 
-it('sends reset email if registered', function () {
-    Contact::factory()->create(['email' => 'real@email.com', 'password' => bcrypt('password')]);
+// it('redirects to request if token expired', function () {
+//     post(route('password.reset'), $this->data)
+//         ->assertRedirect(route('password.request_form'))
+//         ->assertSessionHasErrors('token');
+// });
 
-    post(route('password.request'), ['email' => 'real@email.com'])->assertRedirect(route('password.success'));
+it('changes password', function () {
+    $contact = Contact::factory()->create(['email' => 'real@email.com', 'password' => bcrypt('password')]);
 
-    Mail::assertSent(PasswordResetMail::class);
+    $token = Password::getRepository()->create($contact);
+
+    post(route('password.reset'), [
+        'uuid' => $contact->uuid,
+        'token' => $token,
+        'password' => '::new_password::',
+    ])
+        ->assertRedirect(route('login'))
+        ->assertSessionHas('status');
+
+    $contact->refresh();
+    $this->assertTrue(Hash::check('::new_password::', $contact->password));
 });
-

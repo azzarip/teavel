@@ -6,7 +6,7 @@
         <div class="pt-4 space-y-4">
             @error('token')
                 <p class="px-2 py-1 text-black bg-red-300 rounded-xl"><x-heroicon-o-exclamation-triangle class="inline w-6 aspect-auto" />
-                    @lang('teavel::auth.error.token')</p>
+                    {{ $message }}</p>
             @enderror
 
             <div>
