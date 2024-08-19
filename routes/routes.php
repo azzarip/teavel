@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Azzarip\Teavel\Http\Controllers\LoginController;
+use Azzarip\Teavel\Http\Controllers\LogoutController;
 use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\PasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
+
 Route::middleware('web')->group(function () {
 
 //**   Unsubscribe EMAILS  */
@@ -26,7 +29,9 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [PasswordController::class, 'request'])->name('password.request.post');
         Route::post('/password/reset', [PasswordController::class, 'reset'])->name('password.reset.post');
-        Route::post('/login', [PasswordController::class, 'reset'])->name('login.post');
+        Route::post('/login', LoginController::class)->name('login.post');
     });
 });
 });
+
+Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
