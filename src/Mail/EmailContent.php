@@ -89,8 +89,8 @@ class EmailContent
 
     protected function cleanHtml($html)
     {
-        $html = str_replace('{!', '{{', $html);
-        $html = str_replace('!}', '}}', $html);
+        $html = str_replace('{! ', '{{ ', $html);
+        $html = str_replace(' !}', ' }}', $html);
         $html = str_replace('%7B!!', '{{ ', $html);
         $html = str_replace('!!%7D', ' }}', $html);
         $html = str_replace('%7B%21%21', '{{ ', $html);
