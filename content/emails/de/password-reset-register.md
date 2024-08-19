@@ -15,4 +15,5 @@ Falls Sie glauben, dass dies ein Fehler ist oder Sie diese Anfrage nicht gestell
 Sollten Sie Unterstützung benötigen oder Fragen haben, können Sie uns gerne kontaktieren.
 
 Vielen Dank!
+
 {{ app_name }}

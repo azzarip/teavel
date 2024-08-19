@@ -13,5 +13,6 @@ If you did not request a password reset, you can ignore this email. Your passwor
 For security reasons, this link will expire in **only 60 minutes**. If you have any trouble resetting your password, please contact us.
 
 Thank you!
+
 {{ app_name }}
 
