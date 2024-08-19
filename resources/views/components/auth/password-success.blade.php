@@ -1,6 +1,6 @@
 <div class="mt-2 mb-6">
     <div class="mx-auto w-fit">
-        <x-heroicon-o-envelope class="w-24 h-24 text-center text-black" />
+        <x-heroicon-o-envelope class="w-20 h-20 text-center text-black" />
     </div>
 
     <h1 class="text-3xl leading-normal text-center text-black">Password Reset Sent!</h1>

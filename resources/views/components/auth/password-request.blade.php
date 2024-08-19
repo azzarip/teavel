@@ -12,7 +12,7 @@
             <div>
                 <label for="email" class="">Email:</label>
                 <input type="text" id="email" name="email"
-                    class="w-full p-2 border border-gray-400 rounded-md outline-none hover:border-green-600 focus:border-green-600"
+                    class="w-full p-2 border border-gray-400 rounded-md outline-none hover:border-primary focus:border-primary"
                     placeholder="Your email" aria-label="Email" autocomplete="email" />
             </div>
 
@@ -21,7 +21,7 @@
             @enderror
             <p>Type in your email, if you are already registered, you will receive an email to reset your password.</p>
             <div class="pt-4">
-                <button type="submit" class="block w-full max-w-lg py-3 mx-auto text-2xl button-34"> Reset Password
+                <button type="submit" class="block w-full max-w-lg py-3 mx-auto text-2xl big-button"> Reset Password
                 </button>
             </div>
         </div>
