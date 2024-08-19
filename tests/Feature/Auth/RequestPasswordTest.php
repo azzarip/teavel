@@ -13,12 +13,12 @@ beforeEach(function() {
 });
 
 it('validates email', function() {
-    post(route('password.request.post'), [])->assertSessionHasErrors('email');
-    post(route('password.request.post'), ['email' => 'wrong_email'])->assertSessionHasErrors('email');
+    post(route('password.request'), [])->assertSessionHasErrors('email');
+    post(route('password.request'), ['email' => 'wrong_email'])->assertSessionHasErrors('email');
 });
 
 it('sends no email if contact does not exists', function () {
-    post(route('password.request.post'), ['email' => 'another@email.com'])->assertRedirect(route('password.success'));
+    post(route('password.request'), ['email' => 'another@email.com'])->assertRedirect(route('password.success'));
 
     Mail::assertNothingSent();
 });
@@ -26,7 +26,7 @@ it('sends no email if contact does not exists', function () {
 it('sends registration email if not registered', function () {
     Contact::factory()->create(['email' => 'example@email.com']);
 
-    post(route('password.request.post'), ['email' => 'example@email.com'])->assertRedirect(route('password.success'));
+    post(route('password.request'), ['email' => 'example@email.com'])->assertRedirect(route('password.success'));
 
     Mail::assertSent(PasswordRegisterMail::class);
 });
@@ -34,7 +34,7 @@ it('sends registration email if not registered', function () {
 it('sends reset email if registered', function () {
     Contact::factory()->create(['email' => 'real@email.com', 'password' => bcrypt('password')]);
 
-    post(route('password.request.post'), ['email' => 'real@email.com'])->assertRedirect(route('password.success'));
+    post(route('password.request'), ['email' => 'real@email.com'])->assertRedirect(route('password.success'));
 
     Mail::assertSent(PasswordResetMail::class);
 });

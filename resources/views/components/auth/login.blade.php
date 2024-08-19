@@ -4,6 +4,15 @@
     <form action="{{ route('login') }}" method="POST">
         @csrf
         <div class="space-y-4">
+            @error('user')
+            <p class="px-2 py-1 text-black rounded-xl" style="background-color: #fca5a5;"><x-heroicon-o-exclamation-triangle class="inline w-6 aspect-auto" />
+                {{ $message }}</p>
+            @enderror
+
+            @if(session()->has('info'))
+            <p class="px-2 py-1 text-black rounded-xl" style="background-color: #86efac;"><x-heroicon-o-information-circle class="inline w-6 aspect-auto" />
+                {{ session('info') }}</p>
+            @endeif
             <div>
                 <label for="email" class="">Email:</label>
                 <input type="text" id="email" name="email"
@@ -22,8 +31,7 @@
                     <p class="error-msg">{{ $message }}</p>
                     @enderror
             </div>
-                    @error('user')
-                    <p class="error-msg">{{ $message }}</p>@enderror
+
             <div class="pt-4">
                 <button type="submit" class="block w-full max-w-lg py-3 mx-auto text-2xl big-button"> @lang('teavel::auth.login')
                 </button>

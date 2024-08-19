@@ -27,8 +27,8 @@ Route::middleware(['guest'])->group(function () {
     Route::view('/password/reset', config('teavel.auth_views.password_reset_form'))->name('password.reset');
 
     Route::middleware(['throttle:5'])->group(function () {
-        Route::post('/password/request', [PasswordController::class, 'request'])->name('password.request.post');
-        Route::post('/password/reset', [PasswordController::class, 'reset'])->name('password.reset.post');
+        Route::post('/password/request', [PasswordController::class, 'request']);
+        Route::post('/password/reset', [PasswordController::class, 'reset']);
         Route::post('/login', LoginController::class);
     });
 });

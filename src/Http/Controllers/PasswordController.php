@@ -40,7 +40,7 @@ class PasswordController extends Controller
         Password::deleteToken($contact);
 
         return redirect()->route('login')
-            ->with('status', 'password.reset.post');
+            ->with('info', trans('teavel::auth.status.reset'));
     }
 
     public function request(Request $request)

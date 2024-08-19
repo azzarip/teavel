@@ -18,24 +18,24 @@ beforeEach(function() {
 
 it('requires token', function() {
     unset($this->data['token']);
-    post(route('password.reset.post'), $this->data)->assertSessionHasErrors('token');
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('token');
 });
 
 it('requires uuid', function() {
     unset($this->data['uuid']);
-    post(route('password.reset.post'), $this->data)->assertSessionHasErrors('uuid');
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('uuid');
 });
 
 it('validates password', function() {
     unset($this->data['password']);
-    post(route('password.reset.post'), $this->data)->assertSessionHasErrors('password');
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('password');
 
     $this->data['password'] = '1234567';
-    post(route('password.reset.post'), $this->data)->assertSessionHasErrors('password');
+    post(route('password.reset'), $this->data)->assertSessionHasErrors('password');
 });
 
 it('redirects to request if token expired', function () {
-    post(route('password.reset.post'), $this->data)
+    post(route('password.reset'), $this->data)
         ->assertRedirect(route('password.request'))
         ->assertSessionHasErrors('token');
 });
@@ -45,7 +45,7 @@ it('changes password', function () {
 
     $token = Password::getRepository()->create($contact);
 
-    post(route('password.reset.post'), [
+    post(route('password.reset'), [
         'uuid' => $contact->uuid,
         'token' => $token,
         'password' => '::new_password::',
