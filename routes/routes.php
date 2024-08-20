@@ -22,6 +22,8 @@ Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::cla
 
 
 //**   AUTH ROUTES  */
+Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
+
 Route::middleware(['guest'])->group(function () {
     Route::view('/login', config('teavel.auth_views.login'))->name('login');
 
@@ -37,5 +39,3 @@ Route::middleware(['guest'])->group(function () {
 });
 
 });
-
-Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
