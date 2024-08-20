@@ -2,8 +2,10 @@
 
 return [
 
-
-
+/**
+ *  Domain for all the teavel internal routes
+ */
+    'domain' => '',
 
 
 /**
@@ -12,9 +14,8 @@ return [
  */
     'auth_views' => [
         'login' => '',
-        'register' => '',
-        'password_request_form' => '',
-        'password_request_success' => '',
-        'password_reset_form' => '',
+        'password_request' => '',
+        'password_success' => '',
+        'password_reset' => '',
     ],
 ];

@@ -7,7 +7,10 @@ use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\PasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
 
-Route::middleware('web')->group(function () {
+Route::group([
+    'middleware' => 'web',
+    'domain' => config('teavel.domain')
+], function () {
 
 //**   Unsubscribe EMAILS  */
 Route::view('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', 'teavel::email.unsubscribe');
@@ -33,5 +36,6 @@ Route::middleware(['guest'])->group(function () {
     });
 });
 
-Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
 });
+
+Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
