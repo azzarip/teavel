@@ -3,7 +3,7 @@
         <x-heroicon-o-envelope class="w-20 h-20 text-center text-black" />
     </div>
 
-    <h1 class="mb-2 text-3xl leading-normal text-center text-black">@lang('teavel::auth.title.reset')</h1>
+    <h1 class="mb-2 text-3xl leading-normal text-center text-black">@lang('teavel::auth.title.success')</h1>
     <p>@lang('teavel::auth.message.success_1')</p>
 
     <p class="mt-4">@lang('teavel::auth.message.success_2')</p>

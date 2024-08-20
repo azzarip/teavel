@@ -1,6 +1,5 @@
 <?php
 
-// translations for Azzarip/Teavel
 return [
     'unsubscribe' => 'Abmelden',
     'question' => 'Willst du dich wirklich abmelden?',

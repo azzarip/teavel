@@ -32,6 +32,6 @@ Route::middleware(['guest'])->group(function () {
         Route::post('/login', LoginController::class);
     });
 });
-});
 
 Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
+});

@@ -12,7 +12,7 @@
             @if(session()->has('info'))
             <p class="px-2 py-1 text-black rounded-xl" style="background-color: #86efac;"><x-heroicon-o-information-circle class="inline w-6 aspect-auto" />
                 {{ session('info') }}</p>
-            @endeif
+            @endif
             <div>
                 <label for="email" class="">Email:</label>
                 <input type="text" id="email" name="email"

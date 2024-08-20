@@ -26,9 +26,7 @@ class PasswordController extends Controller
 
         $contact = Contact::findUuid($validated['uuid']);
 
-        $pass = Password::tokenExists($contact, $validated['token']);
-
-        if(!$pass) {
+        if(Password::tokenExists($contact, $validated['token'])) {
             return redirect()->route('password.request')->withErrors(['token' => trans('teavel::auth.error.token')]);
         }
 
@@ -40,7 +38,7 @@ class PasswordController extends Controller
         Password::deleteToken($contact);
 
         return redirect()->route('login')
-            ->with('info', trans('teavel::auth.status.reset'));
+            ->with('info', trans('teavel::auth.info.reset'));
     }
 
     public function request(Request $request)
