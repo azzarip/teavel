@@ -1,5 +1,5 @@
 <div>
-<h1 class="mb-4 text-3xl leading-normal text-center text-black">@lang('teavel::auth')</h1>
+<h1 class="mb-4 text-3xl leading-normal text-center text-black">@lang('teavel::auth.title.reset')</h1>
 
 <form action="{{ route('password.reset') }}" method="POST">
     @csrf

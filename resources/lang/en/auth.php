@@ -16,7 +16,7 @@ return [
     ],
     'title' => [
         'success' => 'Password Reset Sent!',
-        'reset' => 'Create a New Password',
+        'reset' => 'Set a New Password',
     ],
     'error' => [
         'token' => 'The token has expired, please request a new one here.',
@@ -29,7 +29,7 @@ return [
         'reset' => 'The Password has been successfully changed. Please login to continue.'
     ],
     'message' => [
-        'reset' => 'Create a new password to complete the reset. You will be required to login with the newly set password.',
+        'reset' => 'Type in a new password to complete the reset. You will be required to login with the newly set password.',
         'request' => 'Type in your email, if you are already registered, you will receive an email to reset your password.',
         'success_1' => '<span class="font-semibold">Check your inbox</span>, or spam folder. The email contains a link to reset your password.',
         'success_2' => 'If the email does not arrive, probably, you are not registered.',
