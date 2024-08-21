@@ -25,12 +25,12 @@ class LoginController extends Controller
         if(!$contact || !$contact->is_registered) {
             return redirect()
                         ->route('register')
-                        ->withErrors(['user' => 'User not registered'])
+                        ->withErrors(['user' => 'not_registered'])
                         ->withInput($request->only('email'));
         }
 
         if (! Hash::check($request['password'], $contact->password)) {
-            return back()->withErrors(['failed' => true])
+            return back()->withErrors(['user' => 'failed'])
                 ->withInput($request->only('email'));
         }
 
