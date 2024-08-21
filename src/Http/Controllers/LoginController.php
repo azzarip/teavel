@@ -37,7 +37,6 @@ class LoginController extends Controller
         Auth::login($contact, true);
         session()->regenerate();
 
-        session()->has('url.intended');
         if (session()->has('url.intended')) {
             return redirect(session('url.intended'));
         }
