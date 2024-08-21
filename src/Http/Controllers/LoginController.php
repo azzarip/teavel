@@ -30,7 +30,7 @@ class LoginController extends Controller
         }
 
         if (! Hash::check($request['password'], $contact->password)) {
-            return back()->withErrors(['user' => trans('teavel::auth.error.user')])
+            return back()->withErrors(['failed' => true])
                 ->withInput($request->only('email'));
         }
 
