@@ -2,7 +2,7 @@
 subject: Password Reset Request
 ---
 
-Dear {!!contact.first_name!!}, 
+Hi!
 
 We received a request to reset the password using this email address. However, it appears that this email address is not registered.
 

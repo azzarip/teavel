@@ -2,11 +2,11 @@
 subject: Passwortzurücksetzung
 ---
 
-Hi {!!contact.first_name!!}, 
+Hallo! 
 
 Wir haben eine Anfrage zur Zurücksetzung des Passworts mit dieser E-Mail-Adresse erhalten. Es scheint jedoch, dass diese E-Mail-Adresse nicht registriert ist.
 
-Um loszulegen, schliessen Sie bitte Ihre Registrierung ab, indem Sie auf den folgenden Link klicken:
+Um fortzufahren, schliessen Sie bitte Ihre Registrierung ab, indem Sie auf den folgenden Link klicken:
 
 {% include 'button' with { 'text': 'Hier klicken, um die Registrierung abzuschliessen', 'action': '{!!url!!}', 'style': 'primary' } %}
 
