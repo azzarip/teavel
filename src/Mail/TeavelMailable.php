@@ -35,7 +35,6 @@ class TeavelMailable extends Mailable
         if($this->filename) {
             $locale = App::getLocale() ?? 'en';
             $path = __DIR__ . "/../../content/emails/$locale/{$this->filename}.md";
-            dd($path);
             return new EmailContent($path);
         } else {
             return $this->content;

@@ -1,10 +1,9 @@
 <?php
 
-use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
 use function Pest\Laravel\post;
 use Azzarip\Teavel\Models\Contact;
-
 use Illuminate\Support\Facades\Mail;
+use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
 use Azzarip\Teavel\Mail\Mailables\PasswordRegisterMail;
 
 beforeEach(function() {
