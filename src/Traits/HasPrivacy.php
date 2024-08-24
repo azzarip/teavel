@@ -40,7 +40,7 @@ trait HasPrivacy
         return (bool) $this->marketing_at;
     }
 
-    public function optOut()
+    public function emailOptOut()
     {
         $this->update(['marketing_at' => null, 'opt_in' => false]);
 

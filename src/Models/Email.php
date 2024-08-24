@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Cache;
 
 class Email extends Model
 {
-    protected $fillable = ['file_id', 'sequence_id'];
+    protected $fillable = ['automation', 'sequence_id'];
 
-    public static function name(string $file, $sequence = null)
+    public static function name(string $automation, $sequence = null)
     {
-        $emailFile = EmailFile::file($file);
-
         if ($sequence) {
 
             if (is_string($sequence)) {
@@ -24,15 +22,15 @@ class Email extends Model
                 $sequence_id = $sequence;
             }
 
-            $email = $emailFile->emails()->where('sequence_id', $sequence_id)->first();
+            $email = Email::where('automation', $automation)->where('sequence_id', $sequence_id)->first();
 
         } else {
-            $email = $emailFile->emails()->whereNull('sequence_id')->first();
+            $email = Email::where('automation', $automation)->whereNull('sequence_id')->first();
         }
 
         if (! $email) {
             $email = self::create([
-                'file_id' => $emailFile->id,
+                'automation' => $automation,
                 'sequence_id' => $sequence ? $sequence_id : null,
             ]);
         }
@@ -53,12 +51,7 @@ class Email extends Model
     }
 
     public function getAutomation() {
-        return $this->emailFile->file;
-    }
-
-    public function emailFile()
-    {
-        return $this->belongsTo(EmailFile::class, 'file_id');
+        return $this->automation;
     }
 
     public function sequence()

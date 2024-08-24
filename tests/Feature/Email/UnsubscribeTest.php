@@ -8,8 +8,10 @@ use function Pest\Laravel\post;
 
 beforeEach(function () {
     $this->contact = Contact::factory()->create([]);
-    $this->email = Email::create(['file_id' => 1]);
+    $this->email = Email::create(['automation' => '::automation::']);
 });
+
+
 it('has unsubscribe page', function () {
     get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/unsubscribe")
         ->assertOk()

@@ -47,7 +47,7 @@ it('sends an email to contact', function () {
 });
 
 it('does not send if opt_in is false', function () {
-    $this->contact->optOut();
+    $this->contact->emailOptOut();
 
     $this->contact->sendEmail(Azzarip\Teavel\Tests\Mocks\EmailMock::class);
 

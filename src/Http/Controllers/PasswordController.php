@@ -57,7 +57,9 @@ class PasswordController extends Controller
         if( ! $contact) return;
 
         if( ! $contact->is_registered) {
-            Mail::send((new PasswordRegisterMail())->toContact($contact));
+            dd((new PasswordRegisterMail())->toContact($contact));
+            //Mail::send(()->toContact($contact));
+
             return;
         }
 

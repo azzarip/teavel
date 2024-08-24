@@ -15,7 +15,7 @@ class UnsubscribeController
             return redirect('/emails/unsubscribe/success');
         }
 
-        $contact->optOut();
+        $contact->emailOptOut();
 
         $email = Email::findUuid($emailUuid);
         EmailUnsubscribe::create([

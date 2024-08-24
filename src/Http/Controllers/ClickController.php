@@ -2,8 +2,9 @@
 
 namespace Azzarip\Teavel\Http\Controllers;
 
-use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\Email;
+use Azzarip\Teavel\Models\Contact;
+use Illuminate\Support\Facades\Log;
 
 class ClickController
 {
@@ -20,6 +21,7 @@ class ClickController
         $automation = new ($email->getAutomation())($contact);
 
         if(! method_exists($automation, $action)){
+            Log::error("Email {$email->uui} has missing {$action}");
             abort(404);
         }
 

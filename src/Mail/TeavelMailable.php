@@ -14,14 +14,14 @@ class TeavelMailable extends Mailable
     protected $filename;
 
     protected Contact $contact;
-
+    protected $content;
     protected array $data;
 
 
     public function toContact(Contact $contact) {
         $this->contact = $contact;
 
-        $content = new EmailContent($this->getFilename());
+        $content = $this->getContent();
 
         $this->subject = $content->subject;
 
@@ -31,9 +31,15 @@ class TeavelMailable extends Mailable
         return $this;
     }
 
-    protected function getFilename() {
-        $locale = App::getLocale() ?? 'en';
-        return __DIR__ . "/../../content/emails/$locale/{$this->filename}.md";
+    protected function getContent() {
+        if($this->filename) {
+            $locale = App::getLocale() ?? 'en';
+            $path = __DIR__ . "/../../content/emails/$locale/{$this->filename}.md";
+            dd($path);
+            return new EmailContent($path);
+        } else {
+            return $this->content;
+        }
     }
 
     protected function parseEmail($email)
