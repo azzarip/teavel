@@ -64,7 +64,7 @@ class Address extends Model
             $this->name,
             $this->line1,
             $this->line2,
-            $this->plz . ' ' . $this->city,
+            $this->zip . ' ' . $this->city,
         ]);
     }
 
