@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('contact_id');
             $table->string('name');
             $table->string('co')->nullable();
-            $table->string('address');
-            $table->string('additional')->nullable();
+            $table->string('line1');
+            $table->string('line2')->nullable();
             $table->string('city');
-            $table->integer('plz');
+            $table->integer('zip');
             $table->text('info')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -62,10 +62,10 @@ class Address extends Model
     {
         return array_filter([
             $this->name,
-            $this->address,
-            $this->additional,
+            $this->line1,
+            $this->line2,
             $this->plz . ' ' . $this->city,
-        ], fn ($value) => $value != null);
+        ]);
     }
 
     protected static function newFactory()
