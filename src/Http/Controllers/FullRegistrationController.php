@@ -16,7 +16,6 @@ class FullRegistrationController extends Controller
     public function __invoke(FullRegistrationRequest $request)
     {
         $data = $request->validated();
-        $data['marketing'] = true;
 
         try {
         $contact = Contact::register($data);

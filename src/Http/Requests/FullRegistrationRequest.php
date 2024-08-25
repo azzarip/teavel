@@ -15,6 +15,7 @@ class FullRegistrationRequest extends FormRequest
             'phone' => 'phone',
             'password' => 'required|min:8|max:255',
             'privacy_policy' => 'required|accepted',
+            'marketing' => 'nullable',
         ];
     }
 }
