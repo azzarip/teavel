@@ -13,6 +13,8 @@ class LogoutController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $url = session('url.logout') ?? url('/');
+
         Auth::logout();
 
         if ($request->hasSession()) {
@@ -20,7 +22,7 @@ class LogoutController extends Controller
             $request->session()->regenerateToken();
         }
 
-        return redirect(url('/'));
+        return redirect($url);
 
     }
 }
