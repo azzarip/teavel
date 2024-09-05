@@ -50,7 +50,17 @@ class Address extends Model
 
     public function getOneLineAttribute(): string
     {
-        return $this->address . ', ' . $this->plz . ' ' . $this->city;
+        return $this->name . ', ' .  $this->line1 . ', ' . $this->zip . ' ' . $this->city;
+    }
+
+    public function getTwoLinesAttribute(): string
+    {
+        $line1 = $this->name;
+        if($this->co) {
+            $line1 .= ', ' . $this->co;
+        }
+        $line2 =  $this->line1 . ', ' . $this->zip . ' ' . $this->city;
+        return $line1 . "<br>". $line2;
     }
 
     public function getLabelAttribute(): string
@@ -62,6 +72,7 @@ class Address extends Model
     {
         return array_filter([
             $this->name,
+            $this->co,
             $this->line1,
             $this->line2,
             $this->zip . ' ' . $this->city,
