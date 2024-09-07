@@ -40,6 +40,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 //** ADDRESS ROUTES */
-    Route::middleware(['auth'])->post('/address', [AddressController::class, 'store'])->name('address.create');
+    Route::middleware(['auth'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
+    Route::middleware(['auth'])->put('/tvl/address', [AddressController::class, 'update'])->name('address.edit');
 
 });

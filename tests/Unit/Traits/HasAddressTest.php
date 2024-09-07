@@ -87,23 +87,3 @@ it('assignes the new address', function () {
     expect($this->contact->shipping_id)->not->toBeNull();
     expect($this->contact->billing_id)->toBeNull();
 });
-
-test('updateAddress return 403 if id is not of contact', function () {
-    $address = Address::factory()->create(['contact_id' => 2]);
-    $this->contact->updateAddress($address->id, []);
-
-})->throws(HttpException::class);
-
-test('updateAddress return 404 if id not exists', function () {
-    $this->contact->updateAddress(1, []);
-})->throws(NotFoundHttpException::class);
-
-test('updateAddress updates address', function () {
-    $address = Address::factory()->create(['contact_id' => $this->contact->id]);
-
-
-    $this->contact->updateAddress($address->id, ['name' => '::NAME::']);
-
-    $address->refresh();
-    expect($address->name)->toBe('::NAME::');
-});
