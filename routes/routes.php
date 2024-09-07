@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\LoginController;
 use Azzarip\Teavel\Http\Controllers\LogoutController;
-use Azzarip\Teavel\Http\Controllers\ClickController;
+use Azzarip\Teavel\Http\Controllers\AddressController;
 use Azzarip\Teavel\Http\Controllers\PasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
 
@@ -37,5 +38,8 @@ Route::middleware(['guest'])->group(function () {
         Route::post('/login', LoginController::class);
     });
 });
+
+//** ADDRESS ROUTES */
+    Route::middleware(['auth'])->post('/address', [AddressController::class, 'store'])->name('address.create');
 
 });
