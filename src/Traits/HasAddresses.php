@@ -29,4 +29,28 @@ trait HasAddresses
 
         return true;
     }
+
+    public function createAddress(array $address, array $options = [])
+    {
+        $address = Address::create($address + [
+            'contact_id' => $this->id,
+        ]);
+
+        $updates = [];
+
+        if (in_array('shipping', $options)) {
+            $updates['shipping_id'] = $address->id;
+        }
+
+        if (in_array('billing', $options)) {
+            $updates['billing_id'] = $address->id;
+        }
+
+        if (!empty($updates)) {
+            $this->update($updates);
+        }
+
+        return $address;
+
+    }
 }

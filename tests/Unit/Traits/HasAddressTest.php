@@ -52,3 +52,39 @@ test('removing address shifts to the previous', function () {
     expect($contact->shippingAddress->id)->toBe($addressOld->id);
     expect(Address::query()->withTrashed()->where('id', $addressNew->id)->exists())->toBeTrue();
 });
+
+it('creates a new address w/o assigning', function () {
+    $contact = ContactFactory::new()->create();
+    $address = $contact->createAddress([
+        'name' => '::name::',
+        'line1' => '::line1::',
+        'city' => '::city::',
+        'zip' => '1234',
+    ]);
+
+    $this->assertDatabaseHas('addresses', [
+        'name' => '::name::',
+        'line1' => '::line1::',
+        'city' => '::city::',
+        'zip' => '1234',
+        'contact_id' => $contact->id,
+    ]);
+
+    $contact->refresh();
+    expect($contact->shipping_id)->toBeNull();
+    expect($contact->billing_id)->toBeNull();
+
+});
+
+it('assignes the new address', function () {
+    $contact = ContactFactory::new()->create();
+    $address = $contact->createAddress([
+        'name' => '::name::',
+        'line1' => '::line1::',
+        'city' => '::city::',
+        'zip' => '1234',
+    ], ['shipping']);
+    $contact->refresh();
+    expect($contact->shipping_id)->not->toBeNull();
+    expect($contact->billing_id)->toBeNull();
+});
