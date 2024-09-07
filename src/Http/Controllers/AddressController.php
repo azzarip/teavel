@@ -14,6 +14,6 @@ class AddressController
         $options = array_keys($request->only('billing', 'shipping'));
         Auth::user()->createAddress($validated, $options);
 
-        return back();
+        return redirect($request['redirect'] ?? route('address'));
     }
 }

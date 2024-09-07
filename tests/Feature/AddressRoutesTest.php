@@ -40,7 +40,7 @@ it('sets the address as default', function () {
 it('redirects back', function () {
 
     $previousUrl = 'http://example.com/previous-page';
-    $this->withHeader('Referer', $previousUrl)
-        ->post(route('address.create'), $this->data)
-        ->assertRedirect($previousUrl);
+    $this->post(route('address.create'), $this->data +
+        ['redirect' => $previousUrl])
+            ->assertRedirect($previousUrl);
 });
