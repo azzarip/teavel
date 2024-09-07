@@ -53,4 +53,36 @@ trait HasAddresses
         return $address;
 
     }
+
+    public function updateAddress(int $id, array $data, array $options = [])
+    {
+        $address = Address::find($id);
+
+        if(empty($address)) {
+            return abort(404);
+        }
+
+        if($address->contact_id != $this->id){
+            return abort(403);
+        }
+
+        $address->update($data);
+
+        $updates = [];
+
+        if (in_array('shipping', $options)) {
+            $updates['shipping_id'] = $address->id;
+        }
+
+        if (in_array('billing', $options)) {
+            $updates['billing_id'] = $address->id;
+        }
+
+        if (!empty($updates)) {
+            $this->update($updates);
+        }
+
+        return $address;
+
+    }
 }
