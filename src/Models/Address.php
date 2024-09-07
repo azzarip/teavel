@@ -55,12 +55,12 @@ class Address extends Model
 
     public function getTwoLinesAttribute(): string
     {
-        $line1 = $this->name;
+        $row1 = $this->name;
         if($this->co) {
-            $line1 .= ', ' . $this->co;
+            $row1 .= ', ' . $this->co;
         }
-        $line2 =  $this->line1 . ', ' . $this->zip . ' ' . $this->city;
-        return $line1 . "<br>". $line2;
+        $row2 =  $this->line1 . ', ' . $this->zip . ' ' . $this->city;
+        return $row1 . "<br>". $row2;
     }
 
     public function getLabelAttribute(): string
