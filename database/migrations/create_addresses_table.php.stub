@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('line2')->nullable();
             $table->string('city');
             $table->integer('zip');
-            $table->text('info')->nullable();
+            $table->string('info', 510)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -57,3 +57,8 @@ it('does not require line2', function () {
     $this->data['line2'] = null;
     post('/test', $this->data)->assertSessionDoesntHaveErrors('line2');
 });
+
+it('does not require line2', function () {
+    $this->data['info'] = null;
+    post('/test', $this->data)->assertSessionDoesntHaveErrors('info');
+});
