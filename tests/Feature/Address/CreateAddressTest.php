@@ -9,24 +9,24 @@ beforeEach(function() {
 
     $this->data = [
         'name' => '::name::',
+        'co' => '::co::',
         'line1' => '::line1::',
+        'line2' => '::line2::',
         'city' => '::city::',
         'zip' => '1234',
         'shipping' => true,
         'billing' => true,
+        'info' => fake()->sentence(10),
     ];
 });
 
 it('creates a new address', function() {
     post(route('address.create'), $this->data);
 
-    $this->assertDatabaseHas('addresses', [
-        'name' => '::name::',
-        'line1' => '::line1::',
-        'city' => '::city::',
-        'zip' => '1234',
-        'contact_id' => $this->contact->id,
-    ]);
+    unset($this->data['billing']);
+    unset($this->data['shipping']);
+
+    $this->assertDatabaseHas('addresses', $this->data);
 });
 
 it('sets the address as default', function () {
@@ -44,3 +44,4 @@ it('redirects back', function () {
         ['redirect' => $previousUrl])
             ->assertRedirect($previousUrl);
 });
+
