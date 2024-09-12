@@ -13,7 +13,7 @@ class LogoutController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $url = session('url.logout') ?? url('/');
+        $url = session('url.active') ?? url('/');
 
         Auth::logout();
 
