@@ -18,4 +18,6 @@ return [
         'password_success' => '',
         'password_reset' => '',
     ],
+
+    'post_register' => '',
 ];

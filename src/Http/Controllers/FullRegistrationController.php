@@ -29,6 +29,10 @@ class FullRegistrationController extends Controller
         Auth::login($contact, true);
         session()->regenerate();
 
+        if(config('teavel.post_register')) {
+            config('teavel.post_register')::handle($contact);
+        }
+
         if (session()->has('url.intended')) {
             return redirect(session('url.intended'));
         }
