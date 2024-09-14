@@ -2,11 +2,14 @@
 
 namespace Azzarip\Teavel;
 
+use Livewire\Livewire;
 use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Artisan;
 use Spatie\LaravelPackageTools\Package;
+use Azzarip\Teavel\Address\AddressRouter;
+use Azzarip\Teavel\Address\AddressManager;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -45,6 +48,17 @@ class TeavelServiceProvider extends PackageServiceProvider
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
         }
+    }
+
+    public function bootingPackage()
+    {
+        Blade::anonymousComponentPath(
+            $this->getPath() . '/views/forms', 'forms');
+        Blade::anonymousComponentPath(
+                $this->getPath() . '/views/modals', 'modals');
+        Livewire::component('address-manager', AddressManager::class);
+        Blade::component(class: 'address-router', AddressRouter::class);
+
     }
 
     public function packageRegistered(): void
@@ -117,7 +131,11 @@ class TeavelServiceProvider extends PackageServiceProvider
 
         $stubPath = __DIR__ . '/../stubs/email.css.stub';
         File::copy($stubPath, $filePath);
+    }
 
+    protected function getPath()
+    {
+        return base_path() . '/vendor/azzarip/utilities/resources';
     }
 
 }
