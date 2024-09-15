@@ -57,7 +57,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         Blade::anonymousComponentPath(
                 $this->getPath() . '/views/modals', 'modals');
         Livewire::component('address-manager', AddressManager::class);
-        Blade::component(class: 'address-router', AddressRouter::class);
+        Blade::component('address-router', AddressRouter::class);
 
     }
 
