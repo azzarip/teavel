@@ -4,7 +4,7 @@
     <input type="text" id="last_name" name="last_name"
         @if('wire')wire:model="last_name"@endif
         class="input-text"
-        placeholder="@lang('teavel::forms.last_name.placeholder)"
+        placeholder="@lang('teavel::forms.last_name.placeholder')"
         autocomplete="family-name"
         value="{{ old('last_name') }}"
         required />
