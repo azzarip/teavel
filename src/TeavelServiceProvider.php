@@ -26,8 +26,10 @@ class TeavelServiceProvider extends PackageServiceProvider
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
             ->hasMigrations($this->getMigrations())
-            ->hasRoutes(['routes'])
+            ->hasViews()
+            ->hasRoutes('routes')
             ->hasConfigFile()
+            ->hasTranslations()
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
@@ -40,14 +42,6 @@ class TeavelServiceProvider extends PackageServiceProvider
                     ->askToStarRepoOnGitHub('azzarip/teavel');
             });
 
-
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
-        }
-
-        if (file_exists($package->basePath('/../resources/views'))) {
-            $package->hasViews(static::$viewNamespace);
-        }
     }
 
     public function bootingPackage()
@@ -134,7 +128,7 @@ class TeavelServiceProvider extends PackageServiceProvider
 
     protected function getPath()
     {
-        return base_path() . '/vendor/azzarip/utilities/resources';
+        return base_path() . '/vendor/azzarip/teavel/resources';
     }
 
 }

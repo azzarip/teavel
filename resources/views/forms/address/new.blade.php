@@ -1,11 +1,11 @@
 @props(['billing' => false, 'backUrl'])
 <div class="mt-2 mb-4 max-w-xl mx-auto">
     @if($billing)
-    <h1 class="font-head text-3xl font-semibold text-center">@lang('a::address.new_billing')</h1>
+    <h1 class="font-head text-3xl font-semibold text-center">@lang('teavel::address.new_billing')</h1>
     @else
-    <h1 class="font-head text-3xl font-semibold text-center">@lang('a::address.new')</h1>
+    <h1 class="font-head text-3xl font-semibold text-center">@lang('teavel::address.new')</h1>
     @endif
-    <x-forms::base :action="route('address.create')" :button="trans('a::address.save')">
+    <x-forms::base :action="route('address.create')" :button="trans('teavel::address.save')">
         <input type="hidden" name="redirect" value="{{ $backUrl }}">
         <input type="hidden" name="shipping" value="true">
         <input type="hidden" name="billing" value="true">
@@ -13,7 +13,7 @@
         <div>
             <label for="name" class="block text-xl text-left">Name:</label>
             <input type="text" id="name" name="name" class="input-text"
-                placeholder="@lang('a::forms.placeholder.name')""
+                placeholder="@lang('teavel::forms.placeholder.name')""
                     value="{{ old('name') ?? auth()->user()->full_name }}"
                 required autocomplete="name">
             @error('name')
@@ -37,9 +37,9 @@
         </div>
 
         <div>
-            <label for="line1" class="block text-xl text-left">@lang('a::address.line1'):</label>
+            <label for="line1" class="block text-xl text-left">@lang('teavel::address.line1'):</label>
             <input type="text" id="line1" name="line1" value="{{ old('line1') }}" class="input-text"
-            placeholder="@lang('a::address.line1-placeholder')" required autocomplete="address-line1">
+            placeholder="@lang('teavel::address.line1-placeholder')" required autocomplete="address-line1">
             @error('line1')
                 <p class="error-msg"> {{ $message }}</p>
             @enderror
@@ -47,10 +47,10 @@
 
         <div x-data="{ line2: {{ old('line2') ? 'true' : 'false'  }} }">
             <p class="pl-2 text-sm link" x-show="!line2" @click="line2 = true"><x-heroicon-s-plus-circle
-                    class="inline w-5 h-5 mb-1" /> @lang('a::address.line2-label')</p>
+                    class="inline w-5 h-5 mb-1" /> @lang('teavel::address.line2-label')</p>
             <div x-show="line2" x-cloak>
                 <label for="line2" class="block text-xl text-left"><x-heroicon-s-minus-circle
-                        class="inline w-5 h-5 mb-1 link" @click="line2 = false; clear('line2')" />@lang('a::address.line2'):</label>
+                        class="inline w-5 h-5 mb-1 link" @click="line2 = false; clear('line2')" />@lang('teavel::address.line2'):</label>
                 <input type="text" id="line2" name="line2" class="input-text" value="{{ old('line2') }}"
                 placeholder="(Optional)" autocomplete="address-line2">
                 @error('line2')
@@ -61,9 +61,9 @@
 
         <div class="grid grid-cols-4 gap-2">
             <div class="col-span-3 my-2">
-                <label for="city" class="block text-xl text-left">@lang('a::address.city'):</label>
+                <label for="city" class="block text-xl text-left">@lang('teavel::address.city'):</label>
                 <input type="text" id="city" name="city" value="{{ old('city') }}" class="input-text"
-                placeholder="@lang('a::address.city')" required autocomplete="address-level2">
+                placeholder="@lang('teavel::address.city')" required autocomplete="address-level2">
             </div>
 
             <div class="col-span-1 my-2">
@@ -82,10 +82,10 @@
         @if(! $billing)
         <div x-data="{ info: {{ old('info') ? 'true' : 'false'  }} }">
             <p class="pl-2 text-sm link" x-show="!info" @click="info = true"><x-heroicon-s-plus-circle
-                    class="inline w-5 h-5 mb-1" /> @lang('a::address.info')</p>
+                    class="inline w-5 h-5 mb-1" /> @lang('teavel::address.info')</p>
             <div x-show="info" x-cloak>
                 <label for="info" class="block text-xl text-left"><x-heroicon-s-minus-circle
-                        class="inline w-5 h-5 mb-1 link" @click="info = false; clear('info')" />@lang('a::address.info'):</label>
+                        class="inline w-5 h-5 mb-1 link" @click="info = false; clear('info')" />@lang('teavel::address.info'):</label>
                 <textarea type="text" id="info" maxlength="500" name="info" class="input-text" value="{{ old('info') }}"
                 placeholder="(Optional)"></textarea>
                 @error('info')

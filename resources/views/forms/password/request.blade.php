@@ -5,15 +5,15 @@
 
             @error('token')
                 <p style="padding: 0.25rem 0.5rem; color: #000000; background-color: #FCA5A5; border-radius: 0.75rem;" />
-                @lang('a::auth.token')</p>
+                @lang('teavel::auth.token')</p>
             @enderror
 
             <x-forms::field.email />
 
-            <p>@lang('a::auth.message.request')</p>
+            <p>@lang('teavel::auth.message.request')</p>
 
     </x-forms::base>
 
-    <p><a class="block mt-6 text-center underline cursor-pointer" href={{ route('login') }}>@lang('a::auth.link.back')</a></p>
+    <p><a class="block mt-6 text-center underline cursor-pointer" href={{ route('login') }}>@lang('teavel::auth.link.back')</a></p>
 
 </div>

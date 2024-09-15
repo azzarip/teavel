@@ -2,12 +2,12 @@
     @if($backUrl)
     <a href="{{ $backUrl }}" class="block mb-2 ml-2"><x-heroicon-o-arrow-left class="inline w-6 mr-1" />@lang('Back')</a>
     @endif
-    <h1 class="font-head text-3xl font-semibold text-center">@lang('a::address.manage')</h1>
+    <h1 class="font-head text-3xl font-semibold text-center">@lang('teavel::address.manage')</h1>
 
     <div class="w-full my-4 grid gap-x-16 gap-y-2 grid-cols-1 lg:grid-cols-2 max-lg:max-w-lg mx-auto">
 
         <div>
-            <p class="font-head font-semibold py-3 text-2xl">@lang('a::address.shipping')</p>
+            <p class="font-head font-semibold py-3 text-2xl">@lang('teavel::address.shipping')</p>
             <div class="lg:min-h-[120px]">
             <div class="flex w-full items-start">
                 <x-heroicon-o-truck class="w-16 lg:w-1/3 h-20 mx-auto" />
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="order-3 lg:order-2">
-            <p class="font-head font-semibold py-3 text-2xl">@lang('a::address.billing')</p>
+            <p class="font-head font-semibold py-3 text-2xl">@lang('teavel::address.billing')</p>
             <div class="flex w-full items-start lg:h-[120px]">
                 <x-heroicon-o-clipboard-document-list class="w-16 lg:w-1/3 h-20 mx-auto" />
                 <div class="w-2/3 mx-auto pl-6 border-l-2">
@@ -87,7 +87,7 @@
                     <input type="hidden" name="type" value="shipping">
                     <button type="submit"
                         class="w-8/12 text-md mx-auto block border-2 py-1 px-2 border-black hover:bg-black hover:text-white  bg-white text-black"><x-heroicon-s-plus
-                            class="inline w-4 h-5 mr-5 mb-1" />@lang('a::address.new')</button>
+                            class="inline w-4 h-5 mr-5 mb-1" />@lang('teavel::address.new')</button>
                 </form>
             </div>
         </div>
@@ -147,7 +147,7 @@
                     <input type="hidden" name="type" value="shipping">
                     <button type="submit"
                         class="w-8/12 text-md mx-auto block border-2 py-1 px-2 border-black hover:bg-black hover:text-white  bg-white text-black"><x-heroicon-s-plus
-                            class="inline w-4 h-5 mr-5 mb-1" />@lang('a::address.new')</button>
+                            class="inline w-4 h-5 mr-5 mb-1" />@lang('teavel::address.new')</button>
                 </form>
             </div>
         </div>
