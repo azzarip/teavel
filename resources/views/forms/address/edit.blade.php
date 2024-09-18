@@ -1,10 +1,11 @@
 @props(['type' => '', 'address'])
+@php($id = request()->query('aid'))
 <a href="{{ request()->url() }}" class="block mb-2 ml-2"><x-heroicon-o-arrow-left class="inline w-6 mr-1" />@lang('Back')</a>
 
 <div class="max-w-xl mx-auto mt-2 mb-4">
     <h1 class="text-3xl font-semibold text-center font-head">@lang('teavel::address.edit')</h1>
     <x-forms::base :action="route('address.edit')" :button="trans('teavel::address.save')">
-        <input type="hidden" name="redirect" value="{{ request()->url() }}">
+        <input type="hidden" name="redirect" value="{{ $id }}">
         <input type="hidden" name="id" value="{{ request()->query('aid') }}">
         @method('put')
         <div>
@@ -93,14 +94,14 @@
         <div class="flex flex-col justify-around py-4 ml-4 gap-y-4 md:flex-row">
             <div class="flex items-center gap-x-2">
                 <input type="checkbox" name="shipping" id="shipping" class="w-4 h-4 md:w-6 md:h-6"
-                @checked( old('shipping') ?? ($type == 'shipping'))>
+                @checked( old('shipping') ?? (auth()->user()->shipping_id == $id))>
                 <label for="shipping" class="text-xl">
                     <x-heroicon-o-truck class="inline w-6 h-6 mb-1 md:w-8 md:h-8" /> @lang('teavel::address.shipping')
                 </label>
             </div>
             <div class="flex items-center gap-x-2">
                 <input type="checkbox" name="billing" id="billing" class="w-4 h-4 md:w-6 md:h-6"
-                @checked( old('billing') ?? ($type == 'billing'))>
+                @checked( old('billing') ?? (auth()->user()->billing_id == $id))>
                 <label for="billing" class="text-xl">
                     <x-heroicon-o-clipboard-document-list class="inline w-6 h-6 mb-1 md:w-8 md:h-8" /> @lang('teavel::address.billing')
                 </label>
