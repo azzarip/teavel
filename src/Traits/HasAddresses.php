@@ -54,6 +54,14 @@ trait HasAddresses
 
     }
 
+    public function getRecipientAttribute() {
+        if($this->billing_id) {
+            return $this->billingAddress->toArray();
+        } else {
+            return [$this->full_name];
+        }
+    }
+
     public function updateAddress(int $id, array $data, array $options = [])
     {
         $address = Address::find($id);
