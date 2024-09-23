@@ -3,6 +3,7 @@
 namespace Azzarip\Teavel\Filament\Panels;
 
 use Filament\Http\Middleware\Authenticate;
+use Azzarip\Utilities\Filament\Items\BackMain;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
@@ -25,6 +26,8 @@ class TeavelPanelProvider extends PanelProvider
             ->id('teavel')
             ->path('teavel')
             ->login()
+            ->authGuard(config('teavel.panel.auth', 'admin'))
+            ->domain(config('teavel.panel.domain'))
             ->colors([
                 'primary' => Color::Green,
             ])
@@ -33,9 +36,13 @@ class TeavelPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
+            ->navigationItems([
+                BackMain::make(),
+                ])
             ->discoverWidgets(in: base_path('/vendor/azzarip/teavel/src/Filament/Widgets'), for: 'Azzarip\\Teavel\\Filament\\Widgets')
             ->widgets([])
             ->middleware([
+                \Azzarip\Utilities\Http\Middleware\English::class,
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,

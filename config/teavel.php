@@ -7,7 +7,6 @@ return [
  */
     'domain' => '',
 
-
 /**
  * Auth Views
  * The views that will be loaded to handle authentication and password reset logic.
@@ -20,4 +19,11 @@ return [
     ],
 
     'post_register' => '',
+
+
+//Teavel Panel Provider
+    'panel' => [
+        'domain' => '',
+        'guard' => 'admin',
+    ]
 ];
