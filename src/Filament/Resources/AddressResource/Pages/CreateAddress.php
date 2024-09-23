@@ -18,10 +18,10 @@ class CreateAddress extends CreateRecord
     {
         $updates = [];
         if($data['shipping']) {
-            $updates[] = ['shipping'];
+            $updates[] = 'shipping';
         }
         if($data['billing']) {
-            $updates[] = ['billing'];
+            $updates[] = 'billing';
         }
 
         unset($data['billing'], $data['shipping']);
