@@ -18,6 +18,7 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Azzarip\Teavel\Filament\Items\ContactSelect;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Azzarip\Teavel\Filament\Resources\AddressResource\Pages;
 use Azzarip\Teavel\Filament\Resources\AddressResource\RelationManagers;
@@ -32,14 +33,9 @@ class AddressResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('contact_id')
-                    ->relationship('contact')
-                    ->required()
-                    ->preload()
+                ContactSelect::make()
                     ->live()
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $state ? $set('name', Contact::find($state)->full_name) : $set('name', ''))
-                    ->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name_email)
-                    ->searchable(['first_name', 'last_name', 'email']),
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $state ? $set('name', Contact::find($state)->full_name) : $set('name', '')),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('line1')
