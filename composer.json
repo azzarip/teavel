@@ -22,6 +22,7 @@
     "require": {
         "php": "^8.2",
         "filament/filament": "^3.2",
+        "livewire/livewire": "^3.5",
         "propaganistas/laravel-phone": "^5.3",
         "spatie/laravel-package-tools": "^1.15.0",
         "spatie/yaml-front-matter": "^2.0",

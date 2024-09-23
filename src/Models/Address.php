@@ -48,6 +48,14 @@ class Address extends Model
         $contact->save();
     }
 
+    public function getIsShippingAttribute() {
+        return (bool) ($this->contact?->shipping_id === $this->id);
+    }
+
+    public function getIsBillingAttribute() {
+        return (bool) ($this->contact?->billing_id === $this->id);
+    }
+
     public function getOneLineAttribute(): string
     {
         return $this->name . ', ' .  $this->line1 . ', ' . $this->zip . ' ' . $this->city;

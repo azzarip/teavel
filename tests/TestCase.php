@@ -40,7 +40,7 @@ class TestCase extends Orchestra
             // FilamentServiceProvider::class,
             // FormsServiceProvider::class,
             // InfolistsServiceProvider::class,
-            // LivewireServiceProvider::class,
+            LivewireServiceProvider::class,
             // NotificationsServiceProvider::class,
             // SupportServiceProvider::class,
             // TablesServiceProvider::class,
