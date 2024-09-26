@@ -27,9 +27,9 @@ class SwissAddressRequest extends FormRequest
     protected function passedValidation(): void
     {
         $this->replace([
-            'name' => ucfirst($this->name),
-            'line1' => ucwords($this->line1),
-            'city' => ucwords($this->city),
+            'name' => ucwords($this->name),
+            'line1' => ucfirst($this->line1),
+            'city' => ucfirst($this->city),
         ]);
     }
 
