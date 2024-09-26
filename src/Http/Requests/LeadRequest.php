@@ -18,9 +18,13 @@ class LeadRequest extends FormRequest
 
     protected function passedValidation(): void
     {
-        $this->replace([
+        $new = [
             'first_name' => ucwords($this->first_name),
             'last_name' => ucwords($this->last_name),
-        ]);
+        ];
+
+        $this->replace(
+            array_replace($this->all(), $new)
+        );
     }
 }
