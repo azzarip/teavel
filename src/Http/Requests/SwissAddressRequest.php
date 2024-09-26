@@ -24,4 +24,13 @@ class SwissAddressRequest extends FormRequest
             'info' => 'nullable|string|max:500'
         ];
     }
+    protected function passedValidation(): void
+    {
+        $this->replace([
+            'name' => ucfirst($this->name),
+            'line1' => ucwords($this->line1),
+            'city' => ucwords($this->city),
+        ]);
+    }
+
 }
