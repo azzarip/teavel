@@ -32,7 +32,7 @@ trait HasAddresses
 
     public function createAddress(array $address, array $options = [])
     {
-        $address = Address::create($address + [
+        $address = Address::mutateAndCreate($address + [
             'contact_id' => $this->id,
         ]);
 
