@@ -42,7 +42,7 @@ trait HasPrivacy
 
     public function emailOptOut()
     {
-        $this->update(['marketing_at' => null, 'opt_in' => false]);
+        $this->update(['opt_in' => false]);
 
         return $this;
     }
