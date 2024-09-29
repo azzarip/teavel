@@ -133,7 +133,7 @@ class Contact extends AuthContact
         }
 
         if (array_key_exists('password', $data)) {
-            $data['password'] = bcrypt($clearPassword);
+            $data['password'] = bcrypt($data['password']);
         }
 
         if (array_key_exists('first_name', $data)) {

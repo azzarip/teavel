@@ -2,7 +2,7 @@
 
 namespace Azzarip\Teavel\Filament\Resources;
 
-use Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
+use Azzarip\Teavel\Filament\Resources\ContactResource\Pages;
 use Azzarip\Teavel\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -41,7 +41,7 @@ class ContactResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-            ])->defaultSort('name', 'asc')
+            ])
             ->filters([
                 //
             ])
@@ -63,7 +63,7 @@ class ContactResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContactss::route('/'),
+            'index' => Pages\ListContacts::route('/'),
             'create' => Pages\CreateContact::route('/create'),
             'view' => Pages\ViewContact::route('/{record}'),
             'edit' => Pages\EditContact::route('/{record}/edit'),
