@@ -91,4 +91,13 @@ class Address extends Model
     {
         return new \Azzarip\Teavel\Database\Factories\AddressFactory;
     }
+
+    public static function mutateAndCreate(array $data) {
+        
+        $data['name'] = ucwords($data['name']);
+        $data['city'] = ucwords($data['city']);
+        $data['line1'] = ucfirst($data['line1']);
+
+        return self::create($data);
+    }
 }

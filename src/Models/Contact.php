@@ -27,10 +27,9 @@ class Contact extends AuthContact
 
     public static function get(array $data)
     {
-        $data = self::processPrivacy($data);
-
         $contact = self::retrieve($data);
 
+        $data = self::mutate($data);
         if (! $contact) {
             return self::create($data);
         }
@@ -40,13 +39,9 @@ class Contact extends AuthContact
 
     public static function register(array $data)
     {
-        $data = self::processPrivacy($data);
-
-        $clearPassword = $data['password'];
-        $data['password'] = bcrypt($clearPassword);
-
         $contact = self::retrieve($data);
 
+        $data = self::mutate($data);
         if(! $contact) {
             return self::create($data);
         }
@@ -126,8 +121,8 @@ class Contact extends AuthContact
         return (bool) $this->password;
     }
 
-    protected static function processPrivacy(array $data)
-    {
+
+    public static function mutate(array $data) {
         unset($data['privacy_policy']);
         $data['privacy_at'] = now();
         $data['opt_in'] = true;
@@ -135,6 +130,18 @@ class Contact extends AuthContact
         if (array_key_exists('marketing', $data)) {
             $data['marketing_at'] = now();
             unset($data['marketing']);
+        }
+
+        if (array_key_exists('password', $data)) {
+            $data['password'] = bcrypt($clearPassword);
+        }
+
+        if (array_key_exists('first_name', $data)) {
+            $data['first_name'] = ucwords($data['first_name']);
+        }
+
+        if (array_key_exists('last_name', $data)) {
+            $data['last_name'] = ucwords($data['last_name']);
         }
 
         return $data;
