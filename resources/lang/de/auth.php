@@ -38,5 +38,6 @@ return [
     'info' => [
         'reset' => 'Das Passwort wurde erfolgreich geändert. Bitte melden Sie sich an, um fortzufahren.'
     ],
+    'register' => 'Jetzt Registrieren',
 
 ];

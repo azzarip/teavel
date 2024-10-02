@@ -38,5 +38,5 @@ return [
     'info' => [
         'reset' => 'The Password has been successfully changed. Please login to continue.'
     ],
-
+    'register' => 'Sign Up'
 ];
