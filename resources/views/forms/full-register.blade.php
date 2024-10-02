@@ -1,5 +1,5 @@
 @props([
-    'button' => trans('teavel::auth'),
+    'button' => trans('teavel::auth.register'),
     'action' => route('register')
 ])
 <x-forms::base :$action :$button>
