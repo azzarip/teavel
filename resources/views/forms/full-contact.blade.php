@@ -8,6 +8,8 @@
 
         <x-forms::field.email />
 
+        <x-forms::field.phone />
+
         <x-forms::field.privacy_policy />
     </x-forms::base>
 </div>
