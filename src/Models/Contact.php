@@ -58,6 +58,11 @@ class Contact extends AuthContact
         return $this->FullName . ' (' . $this->email . ')';
     }
 
+    public function getNamePhoneAttribute(): string
+    {
+        return $this->FullName . ' (' . $this->phone . ')';
+    }
+
     public function getFullNameAttribute(): string
     {
         return trim($this->first_name . ' ' . $this->last_name);
