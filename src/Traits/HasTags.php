@@ -3,6 +3,7 @@
 namespace Azzarip\Teavel\Traits;
 
 use Azzarip\Teavel\Models\Tag;
+use Illuminate\Database\UniqueConstraintViolationException;
 
 trait HasTags
 {
@@ -15,9 +16,14 @@ trait HasTags
     public function tag(string $name)
     {
         $tag = Tag::name($name);
-        $this->tags()->attach($tag->id);
+        try{
+            $this->tags()->attach($tag->id);
+        } catch (UniqueConstraintViolationException $e) {
+            //
+        } finally {
+            return $this;
+        }
 
-        return $this;
     }
 
     public function detag(string $name)
