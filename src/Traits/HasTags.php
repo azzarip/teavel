@@ -27,4 +27,9 @@ trait HasTags
 
         return $this;
     }
+
+    public function hasTag(string $name): bool
+    {
+        return $this->tags()->where('name', $name)->exists();
+    }
 }
