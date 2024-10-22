@@ -34,4 +34,9 @@ class SequenceAutomation
     {
         $this->contact->sendEmail($email, $this->sequenceId);
     }
+
+    protected function owner()
+    {
+        return \App\Models\User::first();
+    }
 }
