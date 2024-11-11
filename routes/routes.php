@@ -6,6 +6,7 @@ use Azzarip\Teavel\Http\Controllers\LoginController;
 use Azzarip\Teavel\Http\Controllers\LogoutController;
 use Azzarip\Teavel\Http\Controllers\AddressController;
 use Azzarip\Teavel\Http\Controllers\PasswordController;
+use Azzarip\Teavel\Http\Controllers\SetPasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
 
 Route::group([
@@ -35,6 +36,7 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [PasswordController::class, 'request']);
         Route::post('/password/reset', [PasswordController::class, 'reset']);
+        Route::post('/password/set', SetPasswordController::class)->name('password');
         Route::post('/login', LoginController::class);
     });
 });
