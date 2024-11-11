@@ -152,6 +152,16 @@ class Contact extends AuthContact
         return $data;
     }
 
+    public static function emailStatus(string $email) {
+        $contact = self::findEmail($email);
+
+        if(! $contact) return 'new';
+
+        if($contact->isRegistered) return 'login';
+
+        return 'password';
+    }
+
     protected static function newFactory()
     {
         return new \Azzarip\Teavel\Database\Factories\ContactFactory;
