@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('auth_tokens', function (Blueprint $table) {
             $table->uuid()->primary()->index();
-            $table->foreignId('contact_id')->unique();
+            $table->foreignId('contact_id');
             $table->timestamp('expires_at');
         });
 

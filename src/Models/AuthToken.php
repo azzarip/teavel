@@ -20,7 +20,7 @@ class AuthToken extends Model
     protected function casts() 
     {
         return [
-            'expires_at' => 'timestamp',
+            'expires_at' => 'datetime',
         ];
     }
 
