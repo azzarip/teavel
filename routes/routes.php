@@ -6,6 +6,7 @@ use Azzarip\Teavel\Http\Controllers\LoginController;
 use Azzarip\Teavel\Http\Controllers\LogoutController;
 use Azzarip\Teavel\Http\Controllers\AddressController;
 use Azzarip\Teavel\Http\Controllers\PasswordController;
+use Azzarip\Teavel\Http\Controllers\TokenLoginController;
 use Azzarip\Teavel\Http\Controllers\SetPasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
 
@@ -25,6 +26,7 @@ Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::cla
 
 //**   AUTH ROUTES  */
 Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
+Route::get('/login/{token}', TokenLoginController::class);
 
 Route::middleware(['guest'])->group(function () {
     Route::view('/login', config('teavel.auth_views.login'))->name('login');
