@@ -36,8 +36,8 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [PasswordController::class, 'request']);
         Route::post('/password/reset', [PasswordController::class, 'reset']);
-        Route::post('/password/set', SetPasswordController::class)->name('password');
         Route::post('/login', LoginController::class);
+        Route::post('/password/set', SetPasswordController::class)->name('password');
     });
 });
 
@@ -46,3 +46,5 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['auth'])->put('/tvl/address', [AddressController::class, 'update'])->name('address.edit');
 
 });
+
+Route::post('/auth/password', SetPasswordController::class)->middleware(['web', 'throttle:5']);
