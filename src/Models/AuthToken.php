@@ -30,7 +30,7 @@ class AuthToken extends Model
             'uuid' => Uuid::uuid4()->toString(),
             'contact_id' => $contact->id,
             'expires_at' => now()->addMinute(),
-        ]);
+        ])->uuid;
     }
     
     public static function redeem(string $token) 

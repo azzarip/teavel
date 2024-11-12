@@ -17,7 +17,7 @@ it('creates from contact', function () {
 it('finds contact from token and deletes', function () {
     $contact1 = Contact::factory()->create();
     
-    $token = AuthToken::generate($contact1)->getToken();
+    $token = AuthToken::generate($contact1);
 
     $contact2 = AuthToken::redeem($token);
     
@@ -36,7 +36,7 @@ it('returns null if token does not exist', function () {
 
 it('finds contact from token', function () {
     $contact1 = Contact::factory()->create();
-    $token = AuthToken::generate($contact1)->getToken();
+    $token = AuthToken::generate($contact1);
 
     $futureDate = Carbon::now()->addDays(7);
     Carbon::setTestNow($futureDate);

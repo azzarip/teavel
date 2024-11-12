@@ -3,11 +3,9 @@
 namespace Azzarip\Teavel\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Azzarip\Teavel\Models\Contact;
 use Illuminate\Routing\Controller;
 use Azzarip\Teavel\Models\AuthToken;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class TokenLoginController extends Controller
 {
@@ -16,8 +14,8 @@ class TokenLoginController extends Controller
      */
     public function __invoke(Request $request, string $token)
     {
-        $contact = AuthToken::find($token);
-
+        $contact = AuthToken::redeem($token);
+        
         if( ! $contact) {
             return to_route('my');
         }
