@@ -10,7 +10,8 @@ class PasswordRegisterMail extends TeavelMailable
     protected $filename = 'password-reset-register';
 
     protected array $data = [
-        'url' => route('register'),
+        'url' => '/register',
     ];
+
 
 }
