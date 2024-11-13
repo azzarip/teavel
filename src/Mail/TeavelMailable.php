@@ -15,13 +15,15 @@ class TeavelMailable extends Mailable
     protected array $data = [];
 
     public function __construct(protected Contact $contact) {
-
-    }
-
-    protected function getContent() {
         $locale = App::getLocale() ?? 'en';
         $path = __DIR__ . "/../../content/emails/$locale/{$this->filename}.md";
-        return new EmailContent($path, $this->contact, $this->data);
+        $this->content = new EmailContent($path, $this->contact, $this->data);
+    }
+
+    protected function loadContent() {
+        $this->subject = $this->content->subject;
+        $this->html = $this->content->html;
+        $this->to($this->content->getAddress());
     }
 
 }

@@ -9,7 +9,7 @@ class PasswordResetMail extends TeavelMailable
 {
     protected $filename = 'password-reset';
 
-    public function with(string $token) {
+    public function token(string $token) {
         $url = route('password.reset', [
             'token' => $token,
         ]);
