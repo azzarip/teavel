@@ -32,9 +32,9 @@ class SequenceAutomation
         $this->contact->detag($tag);
     }
 
-    protected function sendEmail($email)
+    protected function email($email)
     {
-        $this->contact->sendEmail($email, $this->sequenceId);
+        $this->contact->email($email, $this->sequenceId);
     }
 
     protected function owner()

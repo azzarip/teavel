@@ -38,7 +38,7 @@ class PasswordController extends Controller
         Password::deleteToken($contact);
 
         return redirect()->route('login')
-            ->with('info', value: trans('teavel::auth.info.reset'));
+            ->with('info', trans('teavel::auth.info.reset'));
     }
 
     public function request(Request $request)
@@ -57,16 +57,14 @@ class PasswordController extends Controller
         if( ! $contact) return;
 
         if( ! $contact->is_registered) {
-            Mail::send((new PasswordRegisterMail())->toContact($contact));
+            Mail::send((new PasswordRegisterMail($contact)));
 
             return;
         }
 
         $token = Password::getRepository()->create($contact);
 
-        Mail::send((new PasswordResetMail($token))->toContact($contact));
-
-        return;
+        Mail::send(new PasswordResetMail($contact, $token));
     }
 
     public function change(Request $request)

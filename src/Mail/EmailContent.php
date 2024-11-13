@@ -5,8 +5,9 @@ namespace Azzarip\Teavel\Mail;
 use Twig\Environment;
 use Illuminate\Support\Str;
 use Twig\Loader\ArrayLoader;
-use Azzarip\Teavel\Models\EmailFile;
+use Azzarip\Teavel\Models\Contact;
 use Illuminate\Support\Facades\File;
+use Illuminate\Mail\Mailables\Address;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Azzarip\Teavel\Exceptions\TeavelException;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
@@ -17,57 +18,55 @@ class EmailContent
 
     public $html;
 
-    public function __construct(string $emailPath, public ?string $uuid = '')
+    public function __construct(string $emailPath, public Contact $contact, protected array $data = [], public ?string $uuid = '')
     {
         $email = $this->loadFile($emailPath);
 
         $this->subject = $email->subject;
 
-        $this->html = $this->getHtml($email->body());
+         $this->renderHtml($email->body());
     }
 
-    protected function getHtml($body)
+    protected function renderHtml($body)
     {
         $loader = new ArrayLoader([
             'layout' => file_get_contents(__DIR__ . '/../../resources/views/email/html/layout.twig'),
             'email' => Str::markdown($body),
             'button' => file_get_contents(__DIR__ . '/../../resources/views/email/html/button.twig'),
-        ]);
+            ]);
 
-        $twig = new Environment($loader, [
-            'autoescape' => false,
-        ]);
+        $twig = new Environment($loader, ['autoescape' => false]);
 
-        $html = $twig->render('layout', [
+        $this->html = $twig->render('layout', [
+            'contact' => $this->contact,
             'app_name' => config('app.name'),
             'footer' => $this->buildFooter(),
-        ]);
+        ] + $this->data);
 
-        $html = $this->renderCss($html);
-        $html = $this->redactUrls($html);
-        $html = $this->cleanHtml($html);
-        return $html;
+        $this->renderCss();
+        $this->redactUrls();
+        $this->cleanHtml();
     }
 
 
-    protected function redactUrls($html)
+    protected function redactUrls()
     {
         if(empty($this->uuid)) {
-            return $html;
+            return;
         }
 
         $url = $this->getClickUrl();
-        return str_replace('href="/', 'href="' . $url . '/', $html);
+        $this->html = str_replace('href="/', 'href="' . $url . '/', $this->html);
     }
 
     protected function getUnsubscribeLink()
     {
-        return url("/tvl/{!!contact.uuid!!}/email/{$this->uuid}/unsubscribe");
+        return url("/tvl/{$this->contact->uuid}/email/{$this->uuid}/unsubscribe");
     }
 
     protected function getClickUrl()
     {
-        return url("/tvl/{!!contact.uuid!!}/email/{$this->uuid}");
+        return url("/tvl/{$this->contact->uuid}/email/{$this->uuid}");
     }
 
     protected function buildFooter()
@@ -87,27 +86,20 @@ class EmailContent
         return $footer;
     }
 
-    protected function cleanHtml($html)
+    protected function cleanHtml()
     {
-        $html = str_replace('{! ', '{{ ', $html);
-        $html = str_replace(' !}', ' }}', $html);
-        $html = str_replace('%7B!!', '{{ ', $html);
-        $html = str_replace('!!%7D', ' }}', $html);
-        $html = str_replace('%7B%21%21', '{{ ', $html);
-        $html = str_replace('%21%21%7D', ' }}', $html);
-        $html = str_replace('<p><table', '<table', $html);
-        $html = str_replace("</table>\n</p>\n", "</table>\n", $html);
-        return $html;
+        $this->html = str_replace('<p><table', '<table', $this->html);
+        $this->html = str_replace("</table>\n</p>\n", "</table>\n", $this->html);
     }
 
-    protected function renderCss($html)
+    protected function renderCss()
     {
         $css = file_get_contents(__DIR__ . '/../../resources/css/email.css');
 
         if(File::exists(resource_path('css/email.css'))){
             $css .= "\n" . file_get_contents(resource_path('css/email.css'));
         }
-        return (new CssToInlineStyles())->convert($html, $css);
+        $this->html = (new CssToInlineStyles())->convert($this->html, $css);
     }
 
     protected function loadFile($emailPath)
@@ -127,5 +119,10 @@ class EmailContent
         }
 
         return $email;
+    }
+
+    public function getAddress()
+    {
+        return new Address($this->contact->email, $this->contact->full_name);
     }
 }

@@ -38,16 +38,10 @@ class Email extends Model
         return $email;
     }
 
-    public function getContent()
+    public function getContent(Contact $contact, array $data = [])
     {
         $class = $this->getAutomation();
-        if (App::environment('production')) {
-            return Cache::remember('teavel_mail_'.$class, 910, function () use($class) {
-                return new EmailContent($class::getContentPath(), $this->uuid);
-            });
-        } else {
-            return new EmailContent($class::getContentPath(), $this->uuid);
-        }
+        return new EmailContent($class::getContentPath(), $contact, $data, $this->uuid);
     }
 
     public function getAutomation() {
