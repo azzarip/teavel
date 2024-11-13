@@ -64,7 +64,7 @@ class PasswordController extends Controller
 
         $token = Password::getRepository()->create($contact);
 
-        Mail::send(new PasswordResetMail($contact, $token));
+        Mail::send((new PasswordResetMail($contact))->with($token));
     }
 
     public function change(Request $request)

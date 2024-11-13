@@ -10,10 +10,13 @@ class TeavelMailable extends Mailable
 {
     protected $filename;
 
-    protected Contact $contact;
     protected $content;
     
     protected array $data = [];
+
+    public function __construct(protected Contact $contact) {
+
+    }
 
     protected function getContent() {
         $locale = App::getLocale() ?? 'en';

@@ -9,8 +9,8 @@ class PasswordRegisterMail extends TeavelMailable
 {
     protected $filename = 'password-reset-register';
 
-    public function __construct(protected Contact $contact) {
-        $this->data['url'] = route('register');
-    }
+    protected array $data = [
+        'url' => route('register'),
+    ];
 
 }
