@@ -8,7 +8,7 @@ We received a request to reset the password using this email address. However, i
 
 To get started, please complete your registration by clicking the link below:
 
-{% include 'button' with { 'text': 'Click here to complete the registration', 'action': '{{ url }}', 'style': 'primary' } %}
+{% include 'button' with { 'text': 'Click here to complete the registration', 'action': 'url', 'style': 'primary' } %}
 
 If you believe this is an error or if you did not make this request, you can ignore this email.
 

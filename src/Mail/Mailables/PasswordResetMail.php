@@ -11,6 +11,7 @@ class PasswordResetMail extends MailableTemplate
     public function token(string $token) {
         $url = route('password.reset', [
             'token' => $token,
+            'uuid' => $this->contact->uuid,
         ]);
 
         $this->data['url'] = $url;

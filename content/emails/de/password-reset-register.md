@@ -8,7 +8,7 @@ Wir haben eine Anfrage zur Zurücksetzung des Passworts mit dieser E-Mail-Adress
 
 Um fortzufahren, schliessen Sie bitte Ihre Registrierung ab, indem Sie auf den folgenden Link klicken:
 
-{% include 'button' with { 'text': 'Hier klicken, um die Registrierung abzuschliessen', 'action': '{{ url }}', 'style': 'primary' } %}
+{% include 'button' with { 'text': 'Hier klicken, um die Registrierung abzuschliessen', 'action': url, 'style': 'primary' } %}
 
 Falls Sie glauben, dass dies ein Fehler ist oder Sie diese Anfrage nicht gestellt haben, können Sie diese E-Mail ignorieren.
 
