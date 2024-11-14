@@ -28,7 +28,7 @@ Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::cla
 Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
 Route::get('/login/{token}', TokenLoginController::class)->name('login.token');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['guest'])->group(function () {
     Route::view('/login', config('teavel.auth_views.login'))->name('login');
 
     Route::view('/password/request', config('teavel.auth_views.password_request'))->name('password.request');
