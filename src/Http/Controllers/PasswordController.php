@@ -57,14 +57,16 @@ class PasswordController extends Controller
         if( ! $contact) return;
 
         if( ! $contact->is_registered) {
-            Mail::send(new PasswordRegisterMail($contact));
+            PasswordRegisterMail::to($contact)->send();
 
             return;
         }
 
         $token = Password::getRepository()->create($contact);
 
-        Mail::send((new PasswordResetMail($contact))->token($token));
+        PasswordResetMail::to($contact)
+            ->token($token)
+            ->send();
     }
 
     public function change(Request $request)

@@ -14,13 +14,11 @@ class TeavelMail extends Mailable
 
     public function __construct(protected EmailContent $emailContent)
     {
-        $content = $emailContent;
-
         $this->html = $emailContent->html;
  
         $this->subject = $emailContent->subject;
 
-        $this->to = $emailContent->getAddress();
+        $this->setAddress($emailContent->contact->email, $emailContent->contact->full_name);
     }
 
 }

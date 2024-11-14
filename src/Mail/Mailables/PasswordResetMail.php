@@ -14,5 +14,7 @@ class PasswordResetMail extends MailableTemplate
         ]);
 
         $this->data['url'] = $url;
+        
+        return $this;
     }
 }
