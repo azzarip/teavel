@@ -5,7 +5,7 @@ subject: Passwortzurücksetzung
 
 Wir haben eine Anfrage zur Zurücksetzung des Passworts für Ihr Konto erhalten. Um mit der Passwortzurücksetzung fortzufahren, klicken Sie bitte auf den folgenden Link:
 
-{% include 'button' with { 'text': 'Klicken Sie hier, um das Passwort zurückzusetzen', 'action': '{!!url!!}&uuid={!!contact.uuid!!}', 'style': 'primary' } %}
+{% include 'button' with { 'text': 'Klicken Sie hier, um das Passwort zurückzusetzen', 'action': '{{ url }}&uuid={{ contact.uuid }}', 'style': 'primary' } %}
 
 Falls Sie diese Anfrage nicht gestellt haben, können Sie diese E-Mail ignorieren. Ihr Passwort bleibt unverändert.
 
