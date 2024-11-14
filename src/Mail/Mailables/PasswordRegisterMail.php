@@ -2,16 +2,14 @@
 
 namespace Azzarip\Teavel\Mail\Mailables;
 
-use Azzarip\Teavel\Models\Contact;
-use Azzarip\Teavel\Mail\TeavelMailable;
+use Azzarip\Teavel\Mail\MailableTemplate;
 
-class PasswordRegisterMail extends TeavelMailable
+
+class PasswordRegisterMail extends MailableTemplate
 {
     protected $filename = 'password-reset-register';
 
-    protected array $data = [
-        'url' => '/register',
-    ];
-
-
+    protected function loadData() {
+        $this->data['url'] = route('register');
+    }
 }

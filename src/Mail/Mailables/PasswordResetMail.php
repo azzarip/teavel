@@ -2,10 +2,9 @@
 
 namespace Azzarip\Teavel\Mail\Mailables;
 
-use Azzarip\Teavel\Models\Contact;
-use Azzarip\Teavel\Mail\TeavelMailable;
+use Azzarip\Teavel\Mail\MailableTemplate;
 
-class PasswordResetMail extends TeavelMailable
+class PasswordResetMail extends MailableTemplate
 {
     protected $filename = 'password-reset';
 
@@ -16,6 +15,4 @@ class PasswordResetMail extends TeavelMailable
 
         $this->data['url'] = $url;
     }
-
-
 }

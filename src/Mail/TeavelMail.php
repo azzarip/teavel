@@ -3,9 +3,10 @@
 namespace Azzarip\Teavel\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TeavelMail extends TeavelMailable
+class TeavelMail extends Mailable
 
 {
     use Queueable;
@@ -13,8 +14,13 @@ class TeavelMail extends TeavelMailable
 
     public function __construct(protected EmailContent $emailContent)
     {
-        $this->content = $emailContent;
-        $this->loadContent();
+        $content = $emailContent;
+
+        $this->html = $emailContent->html;
+ 
+        $this->subject = $emailContent->subject;
+
+        $this->to = $emailContent->getAddress();
     }
 
 }
