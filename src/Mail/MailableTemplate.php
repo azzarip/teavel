@@ -21,7 +21,7 @@ class MailableTemplate
     }
 
     public static function to(Contact $contact) {
-        return new self($contact);
+        return new static($contact);
     }
 
     protected function loadData() {

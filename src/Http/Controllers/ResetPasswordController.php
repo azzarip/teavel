@@ -13,7 +13,7 @@ use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
 use Azzarip\Teavel\Mail\Mailables\PasswordRegisterMail;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-class PasswordController extends Controller
+class ResetPasswordController extends Controller
 {
     use ValidatesRequests;
 

@@ -5,7 +5,7 @@ use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\LoginController;
 use Azzarip\Teavel\Http\Controllers\LogoutController;
 use Azzarip\Teavel\Http\Controllers\AddressController;
-use Azzarip\Teavel\Http\Controllers\PasswordController;
+use Azzarip\Teavel\Http\Controllers\ResetPasswordController;
 use Azzarip\Teavel\Http\Controllers\TokenLoginController;
 use Azzarip\Teavel\Http\Controllers\SetPasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
@@ -36,8 +36,8 @@ Route::group([], function () {
     Route::view('/password/reset', config('teavel.auth_views.password_reset'))->name('password.reset');
 
     Route::middleware(['throttle:5'])->group(function () {
-        Route::post('/password/request', [PasswordController::class, 'request']);
-        Route::post('/password/reset', [PasswordController::class, 'reset']);
+        Route::post('/password/request', [ResetPasswordController::class, 'request']);
+        Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
         Route::post('/login', LoginController::class);
         Route::post('/password/set', [SetPasswordController::class, 'internal'])->name('password');
     });
