@@ -22,7 +22,7 @@ class Tag extends Model
             ->withPivot('created_at');
     }
 
-    public function getCountContactsAttribute()
+    public function getCountContactsAttribute(): int
     {
         return $this->contacts()->count();
     }
@@ -42,4 +42,9 @@ class Tag extends Model
 
         return $tag;
     }
+
+    public function getHasAutomationAttribute(): bool 
+    {
+        return (bool) $this->automation;
+    } 
 }
