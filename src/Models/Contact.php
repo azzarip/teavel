@@ -97,7 +97,7 @@ class Contact extends AuthContact
         return self::get($data);
     }
 
-    protected function fillMissing(array $data)
+    public function fillMissing(array $data)
     {
         foreach ($data as $key => $value) {
             if (empty($this->$key)) {
