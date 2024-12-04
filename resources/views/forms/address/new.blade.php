@@ -1,10 +1,5 @@
-@props(['billing' => false, 'backUrl'])
-<div class="mt-2 mb-4 max-w-xl mx-auto">
-    @if($billing)
-    <h1 class="font-head text-3xl font-semibold text-center">@lang('teavel::address.new_billing')</h1>
-    @else
-    <h1 class="font-head text-3xl font-semibold text-center">@lang('teavel::address.new')</h1>
-    @endif
+@props(['billing' => false, 'backUrl' => url()->previous()])
+<div class="max-w-xl mx-auto mt-2 mb-4">
     <x-forms::base :action="route('address.create')" :button="trans('teavel::address.save')">
         <input type="hidden" name="redirect" value="{{ $backUrl }}">
         <input type="hidden" name="shipping" value="true">
