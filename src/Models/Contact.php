@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Actions\Contact\MutateData;
 use Azzarip\Teavel\Traits;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -41,7 +42,7 @@ class Contact extends AuthContact
     {
         $contact = self::retrieve($data);
 
-        $data = self::mutate($data);
+        $data = MutateData::mutate($data);
         if(! $contact) {
             return self::create($data);
         }
@@ -124,32 +125,6 @@ class Contact extends AuthContact
     public function getIsRegisteredAttribute(): bool
     {
         return (bool) $this->password;
-    }
-
-
-    public static function mutate(array $data) {
-        unset($data['privacy_policy']);
-        $data['privacy_at'] = now();
-        $data['opt_in'] = true;
-
-        if (array_key_exists('marketing', $data)) {
-            $data['marketing_at'] = now();
-            unset($data['marketing']);
-        }
-
-        if (array_key_exists('password', $data)) {
-            $data['password'] = bcrypt($data['password']);
-        }
-
-        if (array_key_exists('first_name', $data)) {
-            $data['first_name'] = ucwords($data['first_name']);
-        }
-
-        if (array_key_exists('last_name', $data)) {
-            $data['last_name'] = ucwords($data['last_name']);
-        }
-
-        return $data;
     }
 
     public static function emailStatus(string $email) {
