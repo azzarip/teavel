@@ -1,4 +1,4 @@
-@props(['billing' => false, 'backUrl' => url()->previous()])
+@props(['shipping' => true, 'backUrl' => url()->previous()])
 <div class="max-w-xl mx-auto mt-2 mb-4">
     <x-forms::base :action="route('address.create')" :button="trans('teavel::address.save')">
         <input type="hidden" name="redirect" value="{{ $backUrl }}">
@@ -74,7 +74,7 @@
             <p class="error-msg"> {{ $message }}</p>
         @enderror
 
-        @if(! $billing)
+        @if($shipping)
         <div x-data="{ info: {{ old('info') ? 'true' : 'false'  }} }">
             <p class="pl-2 text-sm cursor-pointer link" x-show="!info" @click="info = true"><x-heroicon-s-plus-circle
                     class="inline w-5 h-5 mb-1" /> @lang('teavel::address.info')</p>
