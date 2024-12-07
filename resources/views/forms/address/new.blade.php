@@ -17,7 +17,7 @@
         </div>
 
         <div x-data="{ co: {{ old('co')  ? 'true' : 'false'  }} }">
-            <p class="pl-2 text-sm link" x-show="!co" @click="co = true"><x-heroicon-s-plus-circle
+            <p class="pl-2 text-sm cursor-pointer link" x-show="!co" @click="co = true"><x-heroicon-s-plus-circle
                     class="inline w-5 h-5 mb-1" /> c/o</p>
             <div x-show="co" x-cloak>
                 <label for="co" class="block text-xl text-left"><x-heroicon-s-minus-circle
@@ -41,7 +41,7 @@
         </div>
 
         <div x-data="{ line2: {{ old('line2') ? 'true' : 'false'  }} }">
-            <p class="pl-2 text-sm link" x-show="!line2" @click="line2 = true"><x-heroicon-s-plus-circle
+            <p class="pl-2 text-sm cursor-pointer link" x-show="!line2" @click="line2 = true"><x-heroicon-s-plus-circle
                     class="inline w-5 h-5 mb-1" /> @lang('teavel::address.line2-label')</p>
             <div x-show="line2" x-cloak>
                 <label for="line2" class="block text-xl text-left"><x-heroicon-s-minus-circle
@@ -76,7 +76,7 @@
 
         @if(! $billing)
         <div x-data="{ info: {{ old('info') ? 'true' : 'false'  }} }">
-            <p class="pl-2 text-sm link" x-show="!info" @click="info = true"><x-heroicon-s-plus-circle
+            <p class="pl-2 text-sm cursor-pointer link" x-show="!info" @click="info = true"><x-heroicon-s-plus-circle
                     class="inline w-5 h-5 mb-1" /> @lang('teavel::address.info')</p>
             <div x-show="info" x-cloak>
                 <label for="info" class="block text-xl text-left"><x-heroicon-s-minus-circle
