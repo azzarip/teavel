@@ -97,6 +97,7 @@ class TeavelServiceProvider extends PackageServiceProvider
             'create_forms_table',
             'create_sequences_table',
             'create_emails_table',
+            'create_offers_table',
         ];
     }
 
