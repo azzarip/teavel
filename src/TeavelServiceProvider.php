@@ -107,6 +107,10 @@ class TeavelServiceProvider extends PackageServiceProvider
             Events\FormSubmitted::class,
             Listeners\FormGoalAchieved::class,
         );
+        Event::listen(
+            Events\OfferPurchased::class,
+            Listeners\OfferGoalAchieved::class,
+        );
     }
 
     protected function publishContactModel(){

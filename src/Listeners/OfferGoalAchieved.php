@@ -2,17 +2,17 @@
 
 namespace Azzarip\Teavel\Listeners;
 
-use Azzarip\Teavel\Events\FormSubmitted;
+use Azzarip\Teavel\Events\OfferPurchased;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OfferPurchasedAchieved implements ShouldQueue
+class OfferGoalAchieved implements ShouldQueue
 {
     /**
      * Handle the event.
      */
-    public function handle(FormSubmitted $event): void
+    public function handle(OfferPurchased $event): void
     {
-        $automation = $event->form->name;
+        $automation = $event->offer->getPurchasedGoal();
         $goal = new $automation($event->contact);
         $goal->activate();
     }
