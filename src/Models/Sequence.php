@@ -57,7 +57,7 @@ class Sequence extends Model
     {
         $pivot = $this->findPivot($contact);
 
-        if ($pivot->is_active) {
+        if ($pivot?->is_active) {
             $this->contacts()->updateExistingPivot($contact->id, ['stopped_at' => now()]);
         }
     }

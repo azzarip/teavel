@@ -2,7 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
-use App\Models\Offer;
+use Azzarip\Teavel\Models\Offer;
 use Azzarip\Utilities\CHF\CHFCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
