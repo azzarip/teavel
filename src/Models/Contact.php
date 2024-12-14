@@ -30,7 +30,7 @@ class Contact extends AuthContact
     {
         $contact = self::retrieve($data);
 
-        $data = self::mutate($data);
+        $data = MutateData::mutate($data);
         if (! $contact) {
             return self::create($data);
         }
