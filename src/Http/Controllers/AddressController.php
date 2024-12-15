@@ -15,10 +15,10 @@ class AddressController
 
         $options = array_keys($request->only('billing', 'shipping'));
 
-        if($request->has('uuid')) {
-            Contact::findUuid($request['uuid'])->createAddress($validated, $options);
-        } elseif (Auth::check()) {
+        if(Auth::check()) {
             Auth::user()->createAddress($validated, $options);
+        } elseif ($request->has('uuid')) {
+            Contact::findUuid($request['uuid'])->createAddress($validated, $options);
         } else {
             abort(403);
         }
