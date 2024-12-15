@@ -3,6 +3,7 @@
 namespace Azzarip\Teavel\Http\Controllers;
 
 use Azzarip\Teavel\Models\Address;
+use Azzarip\Teavel\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use Azzarip\Teavel\Http\Requests\SwissAddressRequest;
 
@@ -14,7 +15,13 @@ class AddressController
 
         $options = array_keys($request->only('billing', 'shipping'));
 
-        Auth::user()->createAddress($validated, $options);
+        if($request->has('uuid')) {
+            Contact::findUuid($request['uuid'])->createAddress($validated, $options);
+        } elseif (Auth::check()) {
+            Auth::user()->createAddress($validated, $options);
+        } else {
+            abort(403);
+        }
 
         return redirect($request['redirect'] ?? route('address'));
     }

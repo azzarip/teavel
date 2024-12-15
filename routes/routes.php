@@ -44,9 +44,10 @@ Route::middleware(['guest'])->group(function () {
 });
 
 //** ADDRESS ROUTES */
-    Route::middleware(['auth'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
     Route::middleware(['auth'])->put('/tvl/address', [AddressController::class, 'update'])->name('address.edit');
 
 });
 
 Route::post('/auth/password', [SetPasswordController::class, 'external'])->middleware(['web', 'throttle:5'])->name('set.password');
+
+Route::middleware(['web'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
