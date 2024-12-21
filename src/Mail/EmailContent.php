@@ -14,24 +14,65 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class EmailContent
 {
-    public string $subject;
+    public Contact $contact;
 
-    public $html;
+    protected array $data = [];
 
-    public function __construct(string $emailPath, public Contact $contact, protected array $data = [], public ?string $uuid = '')
-    {
-        $email = $this->loadFile($emailPath);
+    public string $html;
+    protected ?string $uuid = '';
 
-        $this->subject = $email->subject;
-
-         $this->renderHtml($email->body());
+    public static function raw(string $subject, string $body) {
+        return new self($subject, $body);
     }
 
-    protected function renderHtml($body)
+    public static function fromFile(string $emailPath) {
+        if(! File::exists($emailPath)) {
+            throw new TeavelException("File $emailPath does not exist");
+        }
+
+        $email = YamlFrontMatter::parse(file_get_contents($emailPath));
+
+        if(empty($email->matter())) {
+            throw new TeavelException("Invalid subject in file $emailPath");
+        }
+
+        if(empty($email->body())) {
+            throw new TeavelException("Invalid body in file $emailPath");
+        }
+
+        return new self($email->subject, $email->body());
+    }
+
+    public function __construct(public string $subject, public string $body) {}
+
+    public function to(Contact $contact)
     {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    public function with(array $data) 
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function emailUuid(string $uuid) {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function render()
+    {
+        if(empty($this->contact)) {
+            throw new TeavelException("Contact Not Set");
+        }
         $loader = new ArrayLoader([
             'layout' => file_get_contents(__DIR__ . '/../../resources/views/email/html/layout.twig'),
-            'email' => Str::markdown($body),
+            'email' => Str::markdown($this->body),
             'button' => file_get_contents(__DIR__ . '/../../resources/views/email/html/button.twig'),
             ]);
 
@@ -46,6 +87,8 @@ class EmailContent
         $this->renderCss();
         $this->redactUrls();
         $this->cleanHtml();
+
+        return $this->html;
     }
 
 
@@ -102,24 +145,6 @@ class EmailContent
         $this->html = (new CssToInlineStyles())->convert($this->html, $css);
     }
 
-    protected function loadFile($emailPath)
-    {
-        if(! File::exists($emailPath)) {
-            throw new TeavelException("File $emailPath does not exist");
-        }
-
-        $email = YamlFrontMatter::parse(file_get_contents($emailPath));
-
-        if(empty($email->matter())) {
-            throw new TeavelException("Invalid subject in file $emailPath");
-        }
-
-        if(empty($email->body())) {
-            throw new TeavelException("Invalid body in file $emailPath");
-        }
-
-        return $email;
-    }
 
     public function getAddress()
     {

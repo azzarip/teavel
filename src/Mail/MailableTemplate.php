@@ -34,7 +34,9 @@ class MailableTemplate
 
         $this->loadData();
 
-        $content = new EmailContent($path, $this->contact, $this->data);
+        $content = EmailContent::fromFile($path)
+            ->to( $this->contact)
+            ->with($this->data);
         
         Mail::send(new TeavelMail($content));
     }

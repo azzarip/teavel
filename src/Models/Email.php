@@ -41,7 +41,10 @@ class Email extends Model
     public function getContent(Contact $contact, array $data = [])
     {
         $class = $this->getAutomation();
-        return new EmailContent($class::getContentPath(), $contact, $data, $this->uuid);
+        return EmailContent::fromFile($class::getContentPath())
+                ->to($contact)
+                ->with($data)
+                ->emailUuid($this->uuid);
     }
 
     public function getAutomation() {
