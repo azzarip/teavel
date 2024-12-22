@@ -21,6 +21,7 @@
     ],
     "require": {
         "php": "^8.2",
+        "azzarip/utilities": "main-dev",
         "filament/filament": "^3.2",
         "livewire/livewire": "^3.5",
         "propaganistas/laravel-phone": "^5.3",

@@ -38,7 +38,7 @@ class TeavelPanelProvider extends PanelProvider
             ])
             ->navigationItems([
                 BackMain::make(),
-                ])
+            ])
             ->discoverWidgets(in: base_path('/vendor/azzarip/teavel/src/Filament/Widgets'), for: 'Azzarip\\Teavel\\Filament\\Widgets')
             ->widgets([])
             ->middleware([
