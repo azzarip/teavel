@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Pages;
+namespace Azzarip\Teavel\Filament\Pages;
 
 use App\Models\Contact;
 use Filament\Forms\Get;
