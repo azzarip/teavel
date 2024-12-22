@@ -31,7 +31,7 @@ class EmailBroadcast extends Page
     
     protected static ?string $navigationIcon = 'heroicon-o-envelope-open';
 
-    protected static string $view = 'teavel::filament.pages.email-contact';
+    protected static string $view = 'teavel::filament.pages.email-broadcast';
 
     protected static ?string $navigationLabel = 'Email Broadcast';
 
