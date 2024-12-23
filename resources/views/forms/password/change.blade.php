@@ -1,4 +1,4 @@
-<x-forms::base :action="route('password.change')" :button="trans('teavel::auth.reset-password')" >
+<x-forms::base :action="route('password.change')" :button="trans('teavel::auth.reset_password')" >
 
     @if ($errors->any())
     @foreach ($errors->all() as $error)
@@ -18,7 +18,7 @@
         <label for="new_password" class="block">@lang('teavel::forms.new-password.placeholder'):</label>
         <input type="password" id="new_password" name="new_password"
             class="input-text"
-            placeholder="@lang('teavel::teavel::forms.new-password.placeholder')" required autocomplete="new-password" />
+            placeholder="@lang('teavel::forms.new-password.placeholder')" required autocomplete="new-password" />
     </div>
 
 </x-forms::base>
