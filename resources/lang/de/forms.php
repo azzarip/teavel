@@ -24,6 +24,7 @@ return [
     ],
     'current-password' => [
         'placeholder' => 'Password',
+        'current' => 'Aktuelles  Password',
     ],
 
     'privacy_policy' => 'Ja, ich stimme der :link zu.',

@@ -25,6 +25,7 @@ return [
         'request' => 'Geben Sie Ihre E-Mail-Adresse ein. Wenn Sie bereits registriert sind, erhalten Sie eine E-Mail, um Ihr Passwort zurückzusetzen.',
         'success_1' => '<span style="font-weight: 600;">Kontrollieren Sie Ihren Posteingang</span> oder den Spam-Ordner. Die E-Mail enthält einen Link, um Ihr Passwort zurückzusetzen.',
         'success_2' => 'Wenn die E-Mail nicht ankommt, sind Sie wahrscheinlich nicht registriert.',
+        'change' => 'Geben Sie Ihr aktuelles und neues Passwort ein, um Ihre Anmeldedaten zu ändern.',
     ],
     'link' => [
         'forgot' => 'Passwort vergessen',

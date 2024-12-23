@@ -25,6 +25,7 @@ return [
         'request' => 'Type in your email, if you are already registered, you will receive an email to reset your password.',
         'success_1' => '<span style="font-weight: 600;">Check your inbox</span>, or spam folder. The email contains a link to reset your password.',
         'success_2' => 'If the email does not arrive, probably, you are not registered.',
+        'change' => 'Type in your current and new password, to change your login credentials.',
     ],
     'link' => [
         'forgot' => 'Forgot Password',
