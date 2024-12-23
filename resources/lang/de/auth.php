@@ -37,7 +37,8 @@ return [
         'reset' => 'Neues Passwort setzen',
     ],
     'info' => [
-        'reset' => 'Das Passwort wurde erfolgreich geändert. Bitte melden Sie sich an, um fortzufahren.'
+        'reset' => 'Das Passwort wurde erfolgreich geändert. Bitte melden Sie sich an, um fortzufahren.',
+        'change' => 'Das Passwort wurde erfolgreich geändert.'
     ],
     'register' => 'Jetzt Registrieren',
 
