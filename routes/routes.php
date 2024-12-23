@@ -38,6 +38,7 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [ResetPasswordController::class, 'request']);
         Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
+        Route::post('/password/change', [ResetPasswordController::class, 'change'])->name('password.change');
         Route::post('/login', LoginController::class);
         Route::post('/password/set', [SetPasswordController::class, 'internal'])->name('password');
     });
