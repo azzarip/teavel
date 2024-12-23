@@ -1,5 +1,11 @@
 <x-forms::base :action="route('password.change')" :button="trans('teavel::auth.reset_password')" >
 
+@if(session('info'))
+<p style="padding: 0.25rem 0.5rem; color: #000000; background-color: #61ffb5; border-radius: 0.75rem;">
+{{ session('info') }}
+</p>
+@endif
+
     @if ($errors->any())
     @foreach ($errors->all() as $error)
         <p style="padding: 0.25rem 0.5rem; color: #000000; background-color: #FCA5A5; border-radius: 0.75rem;">{{ $error }}</p>

@@ -86,7 +86,7 @@ class ResetPasswordController extends Controller
             'password' => Hash::make($validated['new_password']),
         ]);
 
-        return redirect()->back()->with(['info' => trans('teavel::auth.password')]);
+        return redirect()->back()->with(['info' => trans('teavel::auth.info.reset')]);
 
     }
 }

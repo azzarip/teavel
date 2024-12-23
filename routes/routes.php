@@ -25,11 +25,11 @@ Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::cla
 
 
 //**   AUTH ROUTES  */
-Route::middleware(['auth'])->post('/logout', LogoutController::class)->name('logout');
 Route::get('/login/{token}', TokenLoginController::class)->name('login.token');
 
 Route::middleware(['guest'])->group(function () {
     Route::view('/login', config('teavel.auth_views.login'))->name('login');
+    Route::post('/auth/password', [SetPasswordController::class, 'external'])->middleware(['web', 'throttle:5'])->name('set.password');
 
     Route::view('/password/request', config('teavel.auth_views.password_request'))->name('password.request');
     Route::view('/password/success', config('teavel.auth_views.password_success'))->name('password.success');
@@ -38,17 +38,17 @@ Route::middleware(['guest'])->group(function () {
     Route::middleware(['throttle:5'])->group(function () {
         Route::post('/password/request', [ResetPasswordController::class, 'request']);
         Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
-        Route::post('/password/change', [ResetPasswordController::class, 'change'])->name('password.change');
         Route::post('/login', LoginController::class);
         Route::post('/password/set', [SetPasswordController::class, 'internal'])->name('password');
     });
 });
 
-//** ADDRESS ROUTES */
-    Route::middleware(['auth'])->put('/tvl/address', [AddressController::class, 'update'])->name('address.edit');
-
+Route::middleware(['auth'])->group(function () {
+    Route::put('/tvl/address', [AddressController::class, 'update'])->name('address.edit');
+    Route::post('/password/change', [ResetPasswordController::class, 'change'])->name('password.change');
+    Route::post('/logout', LogoutController::class)->name('logout');
 });
 
-Route::post('/auth/password', [SetPasswordController::class, 'external'])->middleware(['web', 'throttle:5'])->name('set.password');
-
 Route::middleware(['web'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
+
+});
