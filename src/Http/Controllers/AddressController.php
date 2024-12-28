@@ -5,6 +5,7 @@ namespace Azzarip\Teavel\Http\Controllers;
 use Azzarip\Teavel\Models\Address;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Azzarip\Teavel\Http\Requests\SwissAddressRequest;
 
 class AddressController
@@ -17,8 +18,8 @@ class AddressController
 
         if(Auth::check()) {
             Auth::user()->createAddress($validated, $options);
-        } elseif ($request->has('uuid')) {
-            Contact::findUuid($request['uuid'])->createAddress($validated, $options);
+        } elseif (Session::has('contact')) {
+            Contact::find(Session::get('contact'))->createAddress($validated, $options);
         } else {
             abort(403);
         }

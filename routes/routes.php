@@ -49,6 +49,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', LogoutController::class)->name('logout');
 });
 
-Route::middleware(['web'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
-
 });
+
+Route::middleware(['web'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
