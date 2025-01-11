@@ -28,12 +28,14 @@ class ContactSequence extends Pivot
 
     public function stop()
     {
-        $this->stopped_at = now();
-        $this->save();
+        $this->where('contact_id', $this->contact_id)
+        ->where('sequence_id', $this->sequence_id)
+        ->update([
+            'stopped_at' => now()
+        ]);
 
         return $this;
     }
-
     public static function getReadySteps()
     {
         return self::ready()->get();

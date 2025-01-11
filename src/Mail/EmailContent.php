@@ -118,8 +118,8 @@ class EmailContent
 
         if($this->uuid) {
             $unsubscribe = trans('teavel::email.unsubscribe');
-            $footer .=  '<p>' . trans('teavel::email.footer_text') . '</p>';
-            $footer .= "<a href='{$this->getUnsubscribeLink()}'>{$unsubscribe}</a>";
+            $footer .=  "<p style='font-size: 12px; color: gray;'>" . trans('teavel::email.footer_text') . '</p>';
+            $footer .= "<a href='{$this->getUnsubscribeLink()}' style='font-size: 12px; color: gray;'>{$unsubscribe}</a>";
         }
 
         if(config('teavel.company')) {
