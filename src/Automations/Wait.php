@@ -53,7 +53,7 @@ class Wait
 
     public function getRandomizedTimestamp()
     {
-        if (empty($this->randomMinutes)) {
+        if ($this->randomMinutes === null) {
             return $this->timestamp->addMinutes(rand(0, 15));
         }
 
