@@ -2,11 +2,12 @@
 
 namespace Azzarip\Teavel\Traits;
 
-use Azzarip\Teavel\Events\FormSubmitted;
-use Azzarip\Teavel\Models\CompiledForm;
 use Azzarip\Teavel\Models\Form;
 use Azzarip\Teavel\Models\UTMString;
+use Illuminate\Support\Facades\Cache;
+use Azzarip\Teavel\Models\CompiledForm;
 use Illuminate\Support\Facades\Session;
+use Azzarip\Teavel\Events\FormSubmitted;
 
 trait HasGoals
 {
@@ -31,29 +32,31 @@ trait HasGoals
     {
         $utm = [];
 
-        if (! Session::has('utm.source')) {
+        if (Session::has('utm')) {
+            $data = Cache::get(Session::get('utm'));
+        } else {
             return [];
         }
 
-        $utm['utm_source_id'] = $this->getStringId('utm.source');
-        $utm['utm_medium_id'] = $this->getStringId('utm.medium');
-        $utm['utm_campaign_id'] = $this->getStringId('utm.campaign');
-        $utm['utm_content_id'] = $this->getStringId('utm.content');
-        $utm['utm_term_id'] = $this->getStringId('utm.term');
+        $utm['utm_source_id'] = $this->getStringId($data, 'source');
+        $utm['utm_medium_id'] = $this->getStringId($data, 'medium');
+        $utm['utm_campaign_id'] = $this->getStringId($data, 'campaign');
+        $utm['utm_content_id'] = $this->getStringId($data, 'content');
+        $utm['utm_term_id'] = $this->getStringId($data, 'term');
 
-        $utm['utm_click_id'] = Session::get('utm.click_id');
+        $utm['utm_click_id'] = $data['click_id'];
 
         return $utm;
     }
 
-    protected function getStringId(string $field): ?int
+    protected function getStringId(array $data, string $field): ?int
     {
-        $string = Session::get($field);
-        if (! $string) {
+
+        if (! array_key_exists($field, $data)) {
             return null;
         }
 
-        $utm_string = UTMString::firstOrCreate(['string' => $string]);
+        $utm_string = UTMString::firstOrCreate(['string' => $data[$field]]);
 
         return $utm_string->id;
     }
