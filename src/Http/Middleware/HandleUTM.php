@@ -15,7 +15,6 @@ class HandleUTM
         $data = [];
 
         if ($request->has('utm_source')) {
-
             $data = [
                 'source' => $request->get('utm_source'),
                 'medium' => $request->get('utm_medium'),
@@ -34,7 +33,9 @@ class HandleUTM
                 'source' => 'google',
                 'medium' => 'cpc',
                 'click_id' => $request->get('gclid'),
-            ];
+            ];      
+        } elseif($request->has('utt')) {
+            Session::store('utm', $request->get('utt'));
         }
 
         StoreUTM::store($data);
