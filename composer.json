@@ -27,6 +27,7 @@
         "propaganistas/laravel-phone": "^5.3",
         "spatie/laravel-package-tools": "^1.15.0",
         "spatie/yaml-front-matter": "^2.0",
+        "stripe/stripe-php": "^16.4",
         "twig/twig": "^3.11"
     },
     "require-dev": {
