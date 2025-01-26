@@ -6,7 +6,7 @@ return [
     'line1-placeholder' => 'Strasse und Hausnr.',
     'line2' => 'Zusätzliche Adresse',
     'line2-label' => 'zusätzliche Adresse',
-    'city' => 'Stadt',
+    'city' => 'Ort',
     'billing' => 'Rechnungsadresse',
     'shipping' => 'Versandadresse',
     'edit' => 'Adresse Bearbeiten',
