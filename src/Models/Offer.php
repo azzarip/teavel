@@ -38,7 +38,7 @@ class Offer extends Model
 
     public function getIsFreeAttribute(): bool
     {
-        return true;
+        return is_null($this->price) || $this->price->int == 0;
     }
 
     public function getInterestedGoal()
@@ -46,7 +46,7 @@ class Offer extends Model
         return $this->class::INTERESTED_GOAL;
     }
 
-    public function getPurchasedGoal()
+    public function getCompletedGoal()
     {
         return $this->class::PURCHASED_GOAL;
     }

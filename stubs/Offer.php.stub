@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Offers\Event;
+
+use Azzarip\Utilities\CHF\CHF;
+
+class {OFFER_NAME}
+{
+    const NAME = '{OFFER_NAME}';
+
+
+
+}
