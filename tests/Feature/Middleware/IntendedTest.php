@@ -18,6 +18,11 @@ it('puts the url in session if not authenticated', function () {
     expect(session('url.intended'))->toBe('http://localhost/test');
 });
 
+it('does not store the queries', function () {
+    get('/test?query=not')->assertOk();
+
+    expect(session('url.intended'))->toBe('http://localhost/test');
+});
 
 it('does nothing if authenticated', function () {
     $this->actingAs(\Azzarip\Teavel\Models\Contact::factory()->create());
