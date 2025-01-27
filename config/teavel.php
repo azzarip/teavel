@@ -8,6 +8,11 @@ return [
     'domain' => '',
 
 /**
+ * Domain Key of the domain for offers 
+ */    
+    'offer_domain_key' => '',
+
+/**
  * Auth Views
  * The views that will be loaded to handle authentication and password reset logic.
  */

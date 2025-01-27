@@ -53,6 +53,6 @@ class Offer extends Model
 
     public function getUrlAttribute()
     {
-        return durl($this->slug, 'shop')->url();
+        return durl($this->slug, config('teavel.offer_domain_key'))->url();
     }
 }
