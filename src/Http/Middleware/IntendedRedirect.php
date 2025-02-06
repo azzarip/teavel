@@ -12,7 +12,7 @@ class IntendedRedirect
 {
     public function handle(Request $request, Closure $next): Response
     {        
-        if( ! Auth::check()) {
+        if(Auth::guest()) {
             Session::put('url.intended', $request->url());
         }
 
