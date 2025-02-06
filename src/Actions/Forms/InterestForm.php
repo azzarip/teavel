@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Actions\Forms;
 
+use Azzarip\Teavel\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -9,7 +10,7 @@ class InterestForm
 {
     public static function achieve(string $form, string $slug)
     {
-        $contact = Auth::user();
+        $contact = Auth::check() ? Auth::user() : Contact::fromSession();
         
         if(empty($contact)) return;
 
