@@ -21,6 +21,10 @@ class Offer extends Model
         return (new $this->class)->getPrice();
     }
 
+    public function getPrice(){
+        return (new $this->class)->getPrice();
+    }
+
     public static function findSlug(string $slug)
     {
         return self::where('slug', $slug)->first();
@@ -48,7 +52,7 @@ class Offer extends Model
 
     public function getCompletedGoal()
     {
-        return $this->class::PURCHASED_GOAL;
+        return $this->class::COMPLETED_GOAL;
     }
 
     public function getUrlAttribute()

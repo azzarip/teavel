@@ -3,11 +3,14 @@
 namespace App\Offers\Event;
 
 use Azzarip\Utilities\CHF\CHF;
+use Azzarip\Teavel\Offers\BaseOffer;
 
-class {OFFER_NAME}
+class {OFFER_NAME} extends BaseOffer
 {
-    const NAME = '{OFFER_NAME}';
+    CONST TITLE = '{OFFER_NAME}';
 
+    CONST PURCHASED_GOAL = '';
 
+    CONST INTERESTED_GOAL = '';
 
 }
