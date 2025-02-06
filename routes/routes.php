@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\LoginController;
 use Azzarip\Teavel\Http\Controllers\LogoutController;
+use Azzarip\Teavel\Http\Controllers\StripeController;
 use Azzarip\Teavel\Http\Controllers\AddressController;
-use Azzarip\Teavel\Http\Controllers\ResetPasswordController;
 use Azzarip\Teavel\Http\Controllers\TokenLoginController;
 use Azzarip\Teavel\Http\Controllers\SetPasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
+use Azzarip\Teavel\Http\Controllers\ResetPasswordController;
 
 Route::group([
     'middleware' => 'web',
@@ -52,3 +53,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['web'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
+
+Route::group([
+    'domain' => config('domains.api.url'),
+    'middleware' => 'api',
+], function () {
+    Route::post('/stripe', StripeController::class); 
+});
