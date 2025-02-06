@@ -137,6 +137,10 @@ class Contact extends AuthContact
         return 'password';
     }
 
+    public static function fromSession(): self {
+        return self::find(session('contact'));
+    }
+
     protected static function newFactory()
     {
         return new \Azzarip\Teavel\Database\Factories\ContactFactory;
