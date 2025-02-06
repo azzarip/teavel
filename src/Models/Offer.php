@@ -55,6 +55,10 @@ class Offer extends Model
         return $this->class::COMPLETED_GOAL;
     }
 
+    public function getDuplicatedTag() {
+        return $this->class::DUPLICATE_TAG;
+    }
+    
     public function getUrlAttribute()
     {
         return durl($this->slug, config('teavel.offer_domain_key'))->url();

@@ -13,4 +13,5 @@ class {OFFER_NAME} extends BaseOffer
 
     CONST INTERESTED_GOAL = '';
 
+    CONST DUPLICATE_TAG = ''; // The string name of the tag that redirects to ty
 }
