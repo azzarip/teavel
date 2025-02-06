@@ -4,8 +4,8 @@ namespace Azzarip\Teavel\Http\Controllers;
 
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Azzarip\Teavel\Actions\Contact\Login;
 use Azzarip\Teavel\Http\Requests\LoginRequest;
 
 class LoginController extends Controller
@@ -34,8 +34,7 @@ class LoginController extends Controller
                 ->withInput($request->only('email'));
         }
 
-        Auth::login($contact, true);
-        session()->regenerate();
+        Login::login($contact);
 
         if (session()->has('url.intended')) {
             return redirect(session('url.intended'));
