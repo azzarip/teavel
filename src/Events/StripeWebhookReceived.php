@@ -7,7 +7,8 @@ use Illuminate\Queue\SerializesModels;
 
 class StripeWebhookReceived
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
 
     /**
      * Create a new event instance.
@@ -16,5 +17,4 @@ class StripeWebhookReceived
     {
         //
     }
-
 }

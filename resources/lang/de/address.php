@@ -1,4 +1,5 @@
 <?php
+
 return [
     'new' => 'Neue Adresse',
     'save' => 'Adresse Speichern',

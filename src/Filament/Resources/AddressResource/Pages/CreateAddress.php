@@ -2,11 +2,10 @@
 
 namespace Azzarip\Teavel\Filament\Resources\AddressResource\Pages;
 
-use Filament\Actions;
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Resources\Pages\CreateRecord;
 use Azzarip\Teavel\Filament\Resources\AddressResource;
+use Azzarip\Teavel\Models\Contact;
+use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateAddress extends CreateRecord
 {
@@ -17,21 +16,19 @@ class CreateAddress extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $updates = [];
-        if($data['shipping']) {
+        if ($data['shipping']) {
             $updates[] = 'shipping';
         }
-        if($data['billing']) {
+        if ($data['billing']) {
             $updates[] = 'billing';
         }
 
         unset($data['billing'], $data['shipping']);
-        
+
         $contact = Contact::find($data['contact_id']);
-        
+
         return $contact->createAddress($data, $updates);
     }
-
-
 
     protected function getRedirectUrl(): string
     {

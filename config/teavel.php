@@ -2,20 +2,20 @@
 
 return [
 
-/**
- *  Domain for all the teavel internal routes
- */
+    /**
+     *  Domain for all the teavel internal routes
+     */
     'domain' => '',
 
-/**
- * Domain Key of the domain for offers 
- */    
+    /**
+     * Domain Key of the domain for offers
+     */
     'offer_domain_key' => '',
 
-/**
- * Auth Views
- * The views that will be loaded to handle authentication and password reset logic.
- */
+    /**
+     * Auth Views
+     * The views that will be loaded to handle authentication and password reset logic.
+     */
     'auth_views' => [
         'login' => '',
         'password_request' => '',
@@ -25,10 +25,9 @@ return [
 
     'post_register' => '',
 
-
-//Teavel Panel Provider
+    // Teavel Panel Provider
     'panel' => [
         'domain' => '',
         'guard' => 'admin',
-    ]
+    ],
 ];

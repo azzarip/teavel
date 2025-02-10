@@ -40,5 +40,5 @@ return [
         'reset' => 'The Password has been successfully changed. Please login to continue.',
         'change' => 'The Password has been successfully changed.',
     ],
-    'register' => 'Sign Up'
+    'register' => 'Sign Up',
 ];

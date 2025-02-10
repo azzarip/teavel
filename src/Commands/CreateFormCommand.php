@@ -24,7 +24,7 @@ class CreateFormCommand extends Command implements PromptsForMissingInput
         $parts = explode('\\', $this->argument('name'));
         $formName = array_pop($parts);
 
-        if($parts) {
+        if ($parts) {
             $classPath = $classPath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $parts);
             $namespace = '\\' . implode('\\', $parts);
         } else {
@@ -35,10 +35,10 @@ class CreateFormCommand extends Command implements PromptsForMissingInput
             File::makeDirectory($classPath, 0755, true);
         }
 
-
         $classFile = $classPath . DIRECTORY_SEPARATOR . $formName . '.php';
         if (File::exists($classFile)) {
             $this->error('Form Class already exists');
+
             return 1;
         }
 

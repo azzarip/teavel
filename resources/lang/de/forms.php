@@ -17,7 +17,7 @@ return [
     ],
     'phone' => [
         'label' => 'Handynummer',
-        'validation' => 'Ungültige Nummer.'
+        'validation' => 'Ungültige Nummer.',
     ],
     'new-password' => [
         'placeholder' => 'Neues Password',

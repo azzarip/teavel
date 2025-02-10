@@ -2,26 +2,20 @@
 
 namespace Azzarip\Teavel\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
+use Azzarip\Teavel\Filament\Items\ContactSelect;
+use Azzarip\Teavel\Filament\Resources\AddressResource\Pages;
 use Azzarip\Teavel\Models\Address;
 use Azzarip\Teavel\Models\Contact;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
-use Azzarip\Teavel\Filament\Items\ContactSelect;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Azzarip\Teavel\Filament\Resources\AddressResource\Pages;
-use Azzarip\Teavel\Filament\Resources\AddressResource\RelationManagers;
+use Filament\Tables\Table;
 
 class AddressResource extends Resource
 {
@@ -52,12 +46,10 @@ class AddressResource extends Resource
                 Grid::make()->columns(4)->schema([
                     Toggle::make('shipping'),
                     Toggle::make('billing'),
-                \Filament\Forms\Components\Textarea::make('info')
-                    ->rows(3)
-                    ->columnSpan(2),
-                ])
-
-
+                    \Filament\Forms\Components\Textarea::make('info')
+                        ->rows(3)
+                        ->columnSpan(2),
+                ]),
 
             ]);
     }
@@ -77,14 +69,12 @@ class AddressResource extends Resource
                     ->boolean()
                     ->falseColor('gray'),
 
-            
-            
             ])
             ->filters([
                 //
             ])
             ->actions([
-                //Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ]);
     }
 

@@ -1,15 +1,17 @@
-<?php 
+<?php
 
 namespace Azzarip\Teavel\Actions\Stripe;
 
 use Azzarip\Teavel\Models\Contact;
 
-class CreateStripeContact 
-{   
+class CreateStripeContact
+{
     public static function create(Contact $contact)
     {
-        if($contact->stripe_id) return;
-        
+        if ($contact->stripe_id) {
+            return;
+        }
+
         $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
         $response = $stripe->customers->create([
             'name' => $contact->full_name,

@@ -25,9 +25,9 @@ class GoalAutomation
             if ($sequence instanceof Azzarip\Teavel\Automations\SequenceAutomation) {
                 $sequence::stopSequence($this->contact);
             } else {
-                throw new TeavelException("Class " . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
+                throw new TeavelException('Class ' . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
-                       
+
         }
     }
 
@@ -37,7 +37,7 @@ class GoalAutomation
             if ($sequence instanceof Azzarip\Teavel\Automations\SequenceAutomation) {
                 $sequence::startSequence($this->contact);
             } else {
-                throw new TeavelException("Class " . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
+                throw new TeavelException('Class ' . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
         }
     }

@@ -1,53 +1,52 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Azzarip\Teavel\Http\Controllers\AddressController;
 use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\LoginController;
 use Azzarip\Teavel\Http\Controllers\LogoutController;
-use Azzarip\Teavel\Http\Controllers\AddressController;
-use Azzarip\Teavel\Http\Controllers\TokenLoginController;
-use Azzarip\Teavel\Http\Controllers\SetPasswordController;
-use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
 use Azzarip\Teavel\Http\Controllers\ResetPasswordController;
+use Azzarip\Teavel\Http\Controllers\SetPasswordController;
+use Azzarip\Teavel\Http\Controllers\TokenLoginController;
+use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
+use Illuminate\Support\Facades\Route;
 
 Route::group([
     'middleware' => 'web',
-    'domain' => config('teavel.domain')
+    'domain' => config('teavel.domain'),
 ], function () {
 
-//**   Unsubscribe EMAILS  */
-Route::view('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', 'teavel::email.unsubscribe');
-Route::post('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', UnsubscribeController::class);
-Route::view('/tvl/unsubscribe/success', 'teavel::email.success');
+    // **   Unsubscribe EMAILS  */
+    Route::view('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', 'teavel::email.unsubscribe');
+    Route::post('/tvl/{contactUuid}/email/{emailUuid}/unsubscribe', UnsubscribeController::class);
+    Route::view('/tvl/unsubscribe/success', 'teavel::email.success');
 
-//**   Click on Email  */
-Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::class);
+    // **   Click on Email  */
+    Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::class);
 
+    // **   AUTH ROUTES  */
+    Route::get('/login/{token}', TokenLoginController::class)->name('login.token');
 
-//**   AUTH ROUTES  */
-Route::get('/login/{token}', TokenLoginController::class)->name('login.token');
+    Route::middleware(['guest'])->group(function () {
+        Route::view('/login', config('teavel.auth_views.login'))->name('login');
+        Route::post('/auth/password', [SetPasswordController::class, 'external'])->middleware(['web', 'throttle:5'])->name('set.password');
 
-Route::middleware(['guest'])->group(function () {
-    Route::view('/login', config('teavel.auth_views.login'))->name('login');
-    Route::post('/auth/password', [SetPasswordController::class, 'external'])->middleware(['web', 'throttle:5'])->name('set.password');
+        Route::view('/password/request', config('teavel.auth_views.password_request'))->name('password.request');
+        Route::view('/password/success', config('teavel.auth_views.password_success'))->name('password.success');
+        Route::view('/password/reset', config('teavel.auth_views.password_reset'))->name('password.reset');
 
-    Route::view('/password/request', config('teavel.auth_views.password_request'))->name('password.request');
-    Route::view('/password/success', config('teavel.auth_views.password_success'))->name('password.success');
-    Route::view('/password/reset', config('teavel.auth_views.password_reset'))->name('password.reset');
-
-    Route::middleware(['throttle:5'])->group(function () {
-        Route::post('/password/request', [ResetPasswordController::class, 'request']);
-        Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
-        Route::post('/login', LoginController::class);
-        Route::post('/password/set', [SetPasswordController::class, 'internal'])->name('password');
+        Route::middleware(['throttle:5'])->group(function () {
+            Route::post('/password/request', [ResetPasswordController::class, 'request']);
+            Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
+            Route::post('/login', LoginController::class);
+            Route::post('/password/set', [SetPasswordController::class, 'internal'])->name('password');
+        });
     });
-});
 
-Route::middleware(['auth'])->group(function () {
-    Route::put('/tvl/address', [AddressController::class, 'update'])->name('address.edit');
-    Route::post('/password/change', [ResetPasswordController::class, 'change'])->name('password.change');
-    Route::post('/logout', LogoutController::class)->name('logout');
-});
+    Route::middleware(['auth'])->group(function () {
+        Route::put('/tvl/address', [AddressController::class, 'update'])->name('address.edit');
+        Route::post('/password/change', [ResetPasswordController::class, 'change'])->name('password.change');
+        Route::post('/logout', LogoutController::class)->name('logout');
+    });
 
 });
 

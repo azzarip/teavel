@@ -22,7 +22,7 @@ class TagResource extends Resource
 
     public static function form(Form $form): Form
     {
-        //dd(TagCategory::all()->pluck('name', 'id'));
+        // dd(TagCategory::all()->pluck('name', 'id'));
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')

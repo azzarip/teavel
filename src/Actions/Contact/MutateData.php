@@ -2,10 +2,8 @@
 
 namespace Azzarip\Teavel\Actions\Contact;
 
-use Azzarip\Teavel\Models\Contact;
-
-class MutateData {
-
+class MutateData
+{
     public static function mutate(array $data)
     {
         unset($data['privacy_policy']);

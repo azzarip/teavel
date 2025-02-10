@@ -4,7 +4,6 @@ namespace Azzarip\Teavel\Database\Factories;
 
 use Azzarip\Teavel\Models\Offer;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class OfferFactory extends Factory
 {

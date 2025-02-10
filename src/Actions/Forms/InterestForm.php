@@ -12,8 +12,10 @@ class InterestForm
     public static function achieve(string $form, string $slug)
     {
         $contact = Auth::check() ? Auth::user() : Contact::fromSession();
-        
-        if(empty($contact)) return;
+
+        if (empty($contact)) {
+            return;
+        }
 
         $key = "form.{$slug}.{$contact->id}";
         if (! Cache::has($key)) {
@@ -23,6 +25,7 @@ class InterestForm
 
             return true;
         }
+
         return false;
     }
 }

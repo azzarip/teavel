@@ -2,10 +2,10 @@
 
 namespace Azzarip\Teavel\Filament\Resources\ContactResource\Pages;
 
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Resources\Pages\CreateRecord;
 use Azzarip\Teavel\Filament\Resources\ContactResource;
+use Azzarip\Teavel\Models\Contact;
+use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateContact extends CreateRecord
 {
@@ -21,6 +21,7 @@ class CreateContact extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $data['marketing'] = true;
+
         return Contact::get($data);
     }
 }

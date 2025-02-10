@@ -26,7 +26,7 @@ class SequenceHandler
         try {
             $automation = new ($this->automation)($this->contact, $this->pivot->sequence_id);
             $next = $automation->{$this->step}();
-            
+
             $this->nextStep($next);
         } catch (\BadMethodCallException $e) {
             throw new BadMethodCallException('Sequence ' . $this->automation . "does not have a $this->step method!");

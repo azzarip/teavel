@@ -2,12 +2,14 @@
 
 namespace Azzarip\Teavel\Automations;
 
+use App\Models\User;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\Sequence;
-use App\Models\User;
+
 class SequenceAutomation
 {
     protected User $owner;
+
     public function __construct(public Contact $contact, protected ?int $sequenceId = null)
     {
         $this->owner = User::first();
@@ -17,6 +19,7 @@ class SequenceAutomation
     {
         Sequence::name(get_called_class())->stop($contact);
     }
+
     public static function startSequence(Contact $contact)
     {
         Sequence::name(get_called_class())->start($contact);

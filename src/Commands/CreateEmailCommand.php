@@ -25,7 +25,7 @@ class CreateEmailCommand extends Command implements PromptsForMissingInput
         $parts = explode('\\', $this->argument('name'));
         $emailName = array_pop($parts);
 
-        if($parts) {
+        if ($parts) {
             $classPath = $classPath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $parts);
             $namespace = '\\' . implode('\\', $parts);
             $contentPath = $contentPath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $parts);
@@ -39,12 +39,14 @@ class CreateEmailCommand extends Command implements PromptsForMissingInput
         $classFile = $classPath . DIRECTORY_SEPARATOR . $emailName . '.php';
         if (File::exists($classFile)) {
             $this->error('Email Class already exists');
+
             return 1;
         }
 
         $contentFile = $contentPath . DIRECTORY_SEPARATOR . $emailName . '.md';
         if (File::exists($contentFile)) {
             $this->error('Email content already exists.');
+
             return 1;
         }
 

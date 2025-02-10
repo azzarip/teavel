@@ -2,18 +2,19 @@
 
 namespace Azzarip\Teavel\Automations;
 
-use Azzarip\Teavel\Models\Contact;
-
-class  EmailAutomation extends GoalAutomation
+class EmailAutomation extends GoalAutomation
 {
     const TRANSACTIONAL = false;
 
     protected $utm_campaign;
+
     protected $utm_content;
 
-    public static function getContentPath() {
+    public static function getContentPath()
+    {
         $path = app_path(str_replace('App\\', '', get_called_class()));
         $file = str_replace(app_path('Teavel\Emails'), base_path('content\emails'), $path) . '.md';
+
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $file);
     }
 
@@ -26,5 +27,4 @@ class  EmailAutomation extends GoalAutomation
             'utm_content' => $this->utm_content,
         ];
     }
-
 }

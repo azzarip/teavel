@@ -24,7 +24,7 @@ class CreateSequenceCommand extends Command implements PromptsForMissingInput
         $parts = explode('\\', $this->argument('name'));
         $sequenceName = array_pop($parts);
 
-        if($parts) {
+        if ($parts) {
             $classPath = $classPath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $parts);
             $namespace = '\\' . implode('\\', $parts);
         } else {
@@ -35,10 +35,10 @@ class CreateSequenceCommand extends Command implements PromptsForMissingInput
             File::makeDirectory($classPath, 0755, true);
         }
 
-
         $classFile = $classPath . DIRECTORY_SEPARATOR . $sequenceName . '.php';
         if (File::exists($classFile)) {
             $this->error('Sequence Class already exists');
+
             return 1;
         }
 

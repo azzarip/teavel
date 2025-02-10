@@ -2,21 +2,25 @@
 
 namespace Azzarip\Teavel\Address;
 
-use Livewire\Component;
-use Livewire\Attributes\Locked;
 use Azzarip\Teavel\Models\Address;
+use Livewire\Attributes\Locked;
+use Livewire\Component;
 
 class AddressManager extends Component
 {
     public $shippingAddress;
+
     public $billingAddress;
+
     public $addresses;
+
     public $count;
 
     #[Locked]
     public ?string $backUrl;
 
-    public function __construct(string $backUrl = null) {
+    public function __construct(?string $backUrl = null)
+    {
         $this->backUrl = $backUrl;
     }
 
@@ -31,19 +35,20 @@ class AddressManager extends Component
     {
         $contact = auth()->user();
         $contact->update([
-            $type . "_id" => $id,
+            $type . '_id' => $id,
         ]);
-        $this->{$type.'Address'} = $contact->{$type.'Address'};
+        $this->{$type . 'Address'} = $contact->{$type . 'Address'};
     }
 
-
-    public function delete($id) {
+    public function delete($id)
+    {
         Address::find($id)->remove();
         $this->loadAddresses();
         auth()->user()->refresh();
     }
 
-    protected function loadAddresses(){
+    protected function loadAddresses()
+    {
         $contact = auth()->user();
         $this->shippingAddress = $contact->shippingAddress;
         $this->billingAddress = $contact->billingAddress;

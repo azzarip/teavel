@@ -2,8 +2,8 @@
 
 namespace Azzarip\Teavel\Filament\Panels;
 
-use Filament\Http\Middleware\Authenticate;
 use Azzarip\Utilities\Filament\Items\BackMain;
+use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
