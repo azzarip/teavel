@@ -23,7 +23,7 @@ class GoalAutomation
     {
         foreach ($this->stop as $sequence) {
             if ($sequence instanceof Azzarip\Teavel\Automations\SequenceAutomation) {
-                $sequence::stopSequence($this->contact);s
+                $sequence::stopSequence($this->contact);
             } else {
                 throw new TeavelException("Class " . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
@@ -35,7 +35,7 @@ class GoalAutomation
     {
         foreach ($this->start as $sequence) {
             if ($sequence instanceof Azzarip\Teavel\Automations\SequenceAutomation) {
-                $sequence::startSequence($this->contact);s
+                $sequence::startSequence($this->contact);
             } else {
                 throw new TeavelException("Class " . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
