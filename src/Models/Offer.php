@@ -21,7 +21,8 @@ class Offer extends Model
         return (new $this->class)->getPrice();
     }
 
-    public function getPrice(){
+    public function getPrice()
+    {
         return (new $this->class)->getPrice();
     }
 
@@ -55,10 +56,11 @@ class Offer extends Model
         return $this->class::COMPLETED_GOAL;
     }
 
-    public function getDuplicatedTag() {
+    public function getDuplicatedTag()
+    {
         return $this->class::DUPLICATE_TAG;
     }
-    
+
     public function getUrlAttribute()
     {
         return durl($this->slug, config('teavel.offer_domain_key'))->url();

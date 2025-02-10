@@ -7,7 +7,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 class TeavelMail extends Mailable
-
 {
     use Queueable;
     use SerializesModels;
@@ -15,10 +14,9 @@ class TeavelMail extends Mailable
     public function __construct(protected EmailContent $emailContent)
     {
         $this->html = $emailContent->render();
- 
+
         $this->subject = $emailContent->subject;
 
         $this->setAddress($emailContent->contact->email, $emailContent->contact->full_name);
     }
-
 }

@@ -16,7 +16,8 @@ trait HasTags
     public function tag(string $name)
     {
         $tag = Tag::name($name);
-        try{
+
+        try {
             $this->tags()->attach($tag->id);
         } catch (UniqueConstraintViolationException $e) {
             //

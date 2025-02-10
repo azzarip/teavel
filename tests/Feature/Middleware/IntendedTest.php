@@ -11,7 +11,6 @@ beforeEach(function () {
     });
 });
 
-
 it('puts the url in session if not authenticated', function () {
     get('/test')->assertOk();
 
@@ -26,7 +25,7 @@ it('does not store the queries', function () {
 
 it('does nothing if authenticated', function () {
     $this->actingAs(\Azzarip\Teavel\Models\Contact::factory()->create());
-    
+
     get('/test')->assertOk();
 
     expect(session('url.intended'))->toBeNull();

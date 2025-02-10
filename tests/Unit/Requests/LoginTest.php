@@ -34,4 +34,3 @@ it('requires password', function () {
     $this->data['password'] = null;
     post('/test', $this->data)->assertSessionHasErrors('password');
 });
-

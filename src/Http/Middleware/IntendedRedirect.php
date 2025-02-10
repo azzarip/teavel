@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 class IntendedRedirect
 {
     public function handle(Request $request, Closure $next): Response
-    {        
-        if(Auth::guest()) {
+    {
+        if (Auth::guest()) {
             Session::put('url.intended', $request->url());
         }
 

@@ -2,16 +2,16 @@
 
 namespace Azzarip\Teavel\Http\Middleware;
 
+use Azzarip\Teavel\Actions\StoreUTM;
 use Closure;
 use Illuminate\Http\Request;
-use Azzarip\Teavel\Actions\StoreUTM;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class HandleUTM
 {
     public function handle(Request $request, Closure $next): Response
-    {        
+    {
         $data = [];
 
         if ($request->has('utm_source')) {
@@ -24,8 +24,8 @@ class HandleUTM
                 'click_id' => null,
             ];
 
-            if($request->has('gclid') && $request->get('utm_source') == 'google') {
-               $data['click_id'] = $request->get('gclid');
+            if ($request->has('gclid') && $request->get('utm_source') == 'google') {
+                $data['click_id'] = $request->get('gclid');
             }
 
         } elseif ($request->has('gclid')) {
@@ -33,8 +33,8 @@ class HandleUTM
                 'source' => 'google',
                 'medium' => 'cpc',
                 'click_id' => $request->get('gclid'),
-            ];      
-        } elseif($request->has('utt')) {
+            ];
+        } elseif ($request->has('utt')) {
             Session::store('utm', $request->get('utt'));
         }
 

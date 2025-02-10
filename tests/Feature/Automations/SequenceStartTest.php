@@ -9,7 +9,7 @@ beforeEach(function () {
 });
 
 it('calls the sequence start', function () {
-    //$this->mock->shouldReceive('start')->once();
+    // $this->mock->shouldReceive('start')->once();
 
     $contact = Contact::factory()->create();
     $sequence = Sequence::name('test');

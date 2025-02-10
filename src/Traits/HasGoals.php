@@ -2,12 +2,12 @@
 
 namespace Azzarip\Teavel\Traits;
 
+use Azzarip\Teavel\Events\FormSubmitted;
+use Azzarip\Teavel\Models\CompiledForm;
 use Azzarip\Teavel\Models\Form;
 use Azzarip\Teavel\Models\UTMString;
 use Illuminate\Support\Facades\Cache;
-use Azzarip\Teavel\Models\CompiledForm;
 use Illuminate\Support\Facades\Session;
-use Azzarip\Teavel\Events\FormSubmitted;
 
 trait HasGoals
 {
@@ -55,8 +55,8 @@ trait HasGoals
         if (! array_key_exists($field, $data)) {
             return null;
         }
-        
-        if(is_null($data[$field])) {
+
+        if (is_null($data[$field])) {
             return null;
         }
 

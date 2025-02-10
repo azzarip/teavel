@@ -3,8 +3,8 @@
 namespace Azzarip\Teavel\Jobs;
 
 use Azzarip\Teavel\Models\Contact;
-use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 
 class CompleteForm implements ShouldQueue
 {

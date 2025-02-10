@@ -2,17 +2,17 @@
 
 namespace Azzarip\Teavel;
 
-use Livewire\Livewire;
-use Illuminate\Support\Facades\File;
+use Azzarip\Teavel\Address\AddressManager;
+use Azzarip\Teavel\Address\AddressRouter;
+use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
-use Spatie\LaravelPackageTools\Package;
-use Azzarip\Teavel\Address\AddressRouter;
-use Azzarip\Teavel\Address\AddressManager;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
+use Illuminate\Support\Facades\File;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class TeavelServiceProvider extends PackageServiceProvider
 {
@@ -47,9 +47,13 @@ class TeavelServiceProvider extends PackageServiceProvider
     public function bootingPackage()
     {
         Blade::anonymousComponentPath(
-            $this->getPath() . '/views/forms', 'forms');
+            $this->getPath() . '/views/forms',
+            'forms'
+        );
         Blade::anonymousComponentPath(
-                $this->getPath() . '/views/modals', 'modals');
+            $this->getPath() . '/views/modals',
+            'modals'
+        );
         Livewire::component('address-manager', AddressManager::class);
         Blade::component('address-router', AddressRouter::class);
     }
@@ -113,19 +117,25 @@ class TeavelServiceProvider extends PackageServiceProvider
         );
     }
 
-    protected function publishContactModel(){
+    protected function publishContactModel()
+    {
         $modelPath = app_path('Models/Contact.php');
 
-        if (File::exists($modelPath)) return;
+        if (File::exists($modelPath)) {
+            return;
+        }
 
         $stubPath = __DIR__ . '/../stubs/Contact.php.stub';
         File::copy($stubPath, $modelPath);
     }
 
-    protected function publishEmailCss(){
+    protected function publishEmailCss()
+    {
         $filePath = resource_path('css/email.css');
 
-        if (File::exists($filePath)) return;
+        if (File::exists($filePath)) {
+            return;
+        }
 
         $stubPath = __DIR__ . '/../stubs/email.css.stub';
         File::copy($stubPath, $filePath);
@@ -135,5 +145,4 @@ class TeavelServiceProvider extends PackageServiceProvider
     {
         return base_path() . '/vendor/azzarip/teavel/resources';
     }
-
 }

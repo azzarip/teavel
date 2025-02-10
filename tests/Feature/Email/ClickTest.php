@@ -1,6 +1,5 @@
 <?php
 
-use Azzarip\Teavel\Automations\SequenceAutomation;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\ContactEmail;
 use Azzarip\Teavel\Models\Email;
@@ -26,8 +25,6 @@ beforeEach(function () {
         'sent_at' => now()->subDay(),
     ]);
 });
-
-
 
 it('returns 404 if wrong action', function () {
     get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/WRONG")->assertNotFound();

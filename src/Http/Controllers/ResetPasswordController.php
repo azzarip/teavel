@@ -2,22 +2,22 @@
 
 namespace Azzarip\Teavel\Http\Controllers;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use Azzarip\Teavel\Mail\Mailables\PasswordRegisterMail;
+use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
 use Azzarip\Teavel\Models\Contact;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
-use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
-use Azzarip\Teavel\Mail\Mailables\PasswordRegisterMail;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
     use ValidatesRequests;
 
-    public function reset(Request $request){
+    public function reset(Request $request)
+    {
         $validated = $request->validate([
             'token' => 'required',
             'password' => 'required|min:8',
@@ -26,12 +26,12 @@ class ResetPasswordController extends Controller
 
         $contact = Contact::findUuid($validated['uuid']);
 
-        if( ! Password::tokenExists($contact, $validated['token'])) {
+        if (! Password::tokenExists($contact, $validated['token'])) {
             return redirect()->route('password.request')->withErrors(['token' => trans('teavel::auth.error.token')]);
         }
 
         $contact->forceFill([
-            'password' => Hash::make($validated['password'])
+            'password' => Hash::make($validated['password']),
         ])->setRememberToken(Str::random(60));
         $contact->save();
 
@@ -54,9 +54,11 @@ class ResetPasswordController extends Controller
 
     protected function processRequest($contact)
     {
-        if( ! $contact) return;
+        if (! $contact) {
+            return;
+        }
 
-        if( ! $contact->is_registered) {
+        if (! $contact->is_registered) {
             PasswordRegisterMail::to($contact)->send();
 
             return;
@@ -75,12 +77,12 @@ class ResetPasswordController extends Controller
             'new_password' => 'required|min:8',
             'password' => 'required|min:8',
         ]);
-        
+
         $contact = auth()->user();
 
-        if ( ! Hash::check($validated['password'], $contact->password)) {
+        if (! Hash::check($validated['password'], $contact->password)) {
             return redirect()->back()->withErrors(['password' => trans('teavel::auth.password')]);
-        } 
+        }
 
         $contact->update([
             'password' => Hash::make($validated['new_password']),

@@ -1,12 +1,14 @@
 <?php
 
-use function Pest\Laravel\post;
-use Illuminate\Support\Facades\Route;
 use Azzarip\Teavel\Http\Requests\FullRegistrationRequest;
+use Illuminate\Support\Facades\Route;
+
+use function Pest\Laravel\post;
 
 beforeEach(function () {
     Route::post('/test', function (FullRegistrationRequest $request) {
         $request->validate(['email' => 'required']);
+
         return response('');
     });
 

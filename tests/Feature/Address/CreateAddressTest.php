@@ -1,9 +1,10 @@
 <?php
 
 use Azzarip\Teavel\Models\Contact;
+
 use function Pest\Laravel\post;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->contact = Contact::factory()->create();
     $this->actingAs($this->contact);
 
@@ -20,7 +21,7 @@ beforeEach(function() {
     ];
 });
 
-it('creates a new address', function() {
+it('creates a new address', function () {
     post(route('address.create'), $this->data);
 
     unset($this->data['billing']);
@@ -42,6 +43,5 @@ it('redirects back', function () {
     $previousUrl = 'http://example.com/previous-page';
     $this->post(route('address.create'), $this->data +
         ['redirect' => $previousUrl])
-            ->assertRedirect($previousUrl);
+        ->assertRedirect($previousUrl);
 });
-

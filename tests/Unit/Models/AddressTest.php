@@ -62,7 +62,6 @@ it('has is_shipping bool', function () {
 
 });
 
-
 it('has is_billing bool', function () {
     $contact = Contact::factory()->create();
     $address = Address::factory()->create([

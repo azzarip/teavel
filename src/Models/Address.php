@@ -48,27 +48,30 @@ class Address extends Model
         $contact->save();
     }
 
-    public function getIsShippingAttribute() {
+    public function getIsShippingAttribute()
+    {
         return (bool) ($this->contact?->shipping_id === $this->id);
     }
 
-    public function getIsBillingAttribute() {
+    public function getIsBillingAttribute()
+    {
         return (bool) ($this->contact?->billing_id === $this->id);
     }
 
     public function getOneLineAttribute(): string
     {
-        return $this->name . ', ' .  $this->line1 . ', ' . $this->zip . ' ' . $this->city;
+        return $this->name . ', ' . $this->line1 . ', ' . $this->zip . ' ' . $this->city;
     }
 
     public function getTwoLinesAttribute(): string
     {
         $row1 = $this->name;
-        if($this->co) {
+        if ($this->co) {
             $row1 .= ', ' . $this->co;
         }
-        $row2 =  $this->line1 . ', ' . $this->zip . ' ' . $this->city;
-        return $row1 . "<br>". $row2;
+        $row2 = $this->line1 . ', ' . $this->zip . ' ' . $this->city;
+
+        return $row1 . '<br>' . $row2;
     }
 
     public function getLabelAttribute(): string
@@ -92,8 +95,9 @@ class Address extends Model
         return new \Azzarip\Teavel\Database\Factories\AddressFactory;
     }
 
-    public static function mutateAndCreate(array $data) {
-        
+    public static function mutateAndCreate(array $data)
+    {
+
         $data['name'] = ucwords($data['name']);
         $data['city'] = ucwords($data['city']);
         $data['line1'] = ucfirst($data['line1']);

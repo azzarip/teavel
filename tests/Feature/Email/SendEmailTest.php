@@ -4,7 +4,6 @@ use Azzarip\Teavel\Mail\TeavelMail;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\ContactEmail;
 use Azzarip\Teavel\Models\Email;
-use Azzarip\Teavel\Models\EmailFile;
 use Illuminate\Support\Facades\Mail;
 
 beforeEach(function () {

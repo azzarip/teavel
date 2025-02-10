@@ -1,17 +1,18 @@
 <?php
 
-use function Pest\Laravel\post;
+use Azzarip\Teavel\Mail\Mailables\PasswordRegisterMail;
+use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Support\Facades\Mail;
-use Azzarip\Teavel\Mail\Mailables\PasswordResetMail;
-use Azzarip\Teavel\Mail\Mailables\PasswordRegisterMail;
 
-beforeEach(function() {
+use function Pest\Laravel\post;
+
+beforeEach(function () {
     Mail::fake();
     $this->withoutMiddleware();
 });
 
-it('validates email', function() {
+it('validates email', function () {
     post(route('password.request'), [])->assertSessionHasErrors('email');
     post(route('password.request'), ['email' => 'wrong_email'])->assertSessionHasErrors('email');
 });
@@ -37,4 +38,3 @@ it('sends reset email if registered', function () {
 
     Mail::assertSent(PasswordResetMail::class);
 });
-

@@ -2,10 +2,8 @@
 
 use Azzarip\Teavel\Models\Address;
 use Azzarip\Teavel\Models\Contact;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->contact = Contact::factory()->create();
 });
 it('has shipping address', function () {

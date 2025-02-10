@@ -2,11 +2,11 @@
 
 namespace Azzarip\Teavel\Http\Controllers;
 
+use Azzarip\Teavel\Exceptions\RegistrationException;
+use Azzarip\Teavel\Http\Requests\FullRegistrationRequest;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Azzarip\Teavel\Exceptions\RegistrationException;
-use Azzarip\Teavel\Http\Requests\FullRegistrationRequest;
 
 class FullRegistrationController extends Controller
 {
@@ -18,9 +18,8 @@ class FullRegistrationController extends Controller
         $data = $request->validated();
 
         try {
-        $contact = Contact::register($data);
-        } catch (RegistrationException $e)
-        {
+            $contact = Contact::register($data);
+        } catch (RegistrationException $e) {
             return redirect(route('login'))
                 ->withInput($request->only('email'))
                 ->withErrors(['user' => 'already_registered']);
@@ -29,7 +28,7 @@ class FullRegistrationController extends Controller
         Auth::login($contact, true);
         session()->regenerate();
 
-        if(config('teavel.post_register')) {
+        if (config('teavel.post_register')) {
             config('teavel.post_register')::handle($contact);
         }
 

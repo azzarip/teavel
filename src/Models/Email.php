@@ -4,8 +4,6 @@ namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Mail\EmailContent;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cache;
 
 class Email extends Model
 {
@@ -41,13 +39,15 @@ class Email extends Model
     public function getContent(Contact $contact, array $data = [])
     {
         $class = $this->getAutomation();
+
         return EmailContent::fromFile($class::getContentPath())
-                ->to($contact)
-                ->with($data)
-                ->emailUuid($this->uuid);
+            ->to($contact)
+            ->with($data)
+            ->emailUuid($this->uuid);
     }
 
-    public function getAutomation() {
+    public function getAutomation()
+    {
         return $this->automation;
     }
 

@@ -11,7 +11,6 @@ beforeEach(function () {
     $this->email = Email::create(['automation' => '::automation::']);
 });
 
-
 it('has unsubscribe page', function () {
     get("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/unsubscribe")
         ->assertOk()
@@ -22,7 +21,6 @@ it('has unsubscribe page', function () {
 it('has success page', function () {
     get('/tvl/unsubscribe/success')->assertOk();
 });
-
 
 it('sets marketing_at to null', function () {
     post("/tvl/{$this->contact->uuid}/email/{$this->email->uuid}/unsubscribe", []);

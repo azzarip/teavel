@@ -1,10 +1,9 @@
 <?php
 
-use function Pest\Laravel\post;
 use Azzarip\Teavel\Models\Address;
 use Azzarip\Teavel\Models\Contact;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->contact = Contact::factory()->create();
     $this->actingAs($this->contact);
 
@@ -21,16 +20,16 @@ beforeEach(function() {
     $this->address = Address::factory()->create(['contact_id' => 1]);
 });
 
-it('requires id', function() {
+it('requires id', function () {
     unset($this->data['id']);
     $this->put(route('address.edit'), $this->data)
-    ->assertSessionHasErrors('id');
+        ->assertSessionHasErrors('id');
 });
 
-test('id must be int', function() {
+test('id must be int', function () {
     $this->data['id'] = '::wrong_id::';
     $this->put(route('address.edit'), $this->data)
-    ->assertSessionHasErrors('id');
+        ->assertSessionHasErrors('id');
 });
 
 it('returns 403 if address does not exist', function () {

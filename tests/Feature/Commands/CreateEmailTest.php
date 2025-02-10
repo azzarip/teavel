@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 afterEach(function () {
     File::deleteDirectory(app_path('Teavel'));
@@ -29,7 +28,7 @@ it('creates the new content file', function () {
 });
 
 it('creates the new file with folders', function () {
-    $this->artisan("make:teavel-mail Sequence\\\\Brucchi\\\\EmailName");
+    $this->artisan('make:teavel-mail Sequence\\\\Brucchi\\\\EmailName');
     expect(File::exists(app_path('Teavel\Emails\Sequence\Brucchi\EmailName.php')))->toBeTrue();
     expect(File::exists(base_path('content\emails\Sequence\Brucchi\EmailName.md')))->toBeTrue();
 });

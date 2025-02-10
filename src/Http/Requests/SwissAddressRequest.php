@@ -15,7 +15,7 @@ class SwissAddressRequest extends FormRequest
             'line2' => 'nullable|string|max:255',
             'city' => 'required|string|max:255',
             'zip' => 'required|digits:4',
-            'info' => 'nullable|string|max:500'
+            'info' => 'nullable|string|max:500',
         ];
     }
 }

@@ -43,8 +43,8 @@ class Tag extends Model
         return $tag;
     }
 
-    public function getHasAutomationAttribute(): bool 
+    public function getHasAutomationAttribute(): bool
     {
         return (bool) $this->automation;
-    } 
+    }
 }

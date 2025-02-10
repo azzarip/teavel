@@ -34,7 +34,6 @@ it('can add marketing_at', function () {
     expect($contact->marketing_at)->not->toBeNull();
 });
 
-
 it('adds attributes if empty', function () {
     $this->data['last_name'] = null;
     $this->data['phone'] = null;

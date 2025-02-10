@@ -2,15 +2,15 @@
 
 namespace Azzarip\Teavel\Mail;
 
-use Twig\Environment;
-use Illuminate\Support\Str;
-use Twig\Loader\ArrayLoader;
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Support\Facades\File;
-use Illuminate\Mail\Mailables\Address;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Azzarip\Teavel\Exceptions\TeavelException;
+use Azzarip\Teavel\Models\Contact;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 class EmailContent
 {
@@ -19,24 +19,27 @@ class EmailContent
     protected array $data = [];
 
     public string $html;
+
     protected ?string $uuid = '';
 
-    public static function raw(string $subject, string $body) {
+    public static function raw(string $subject, string $body)
+    {
         return new self($subject, $body);
     }
 
-    public static function fromFile(string $emailPath) {
-        if(! File::exists($emailPath)) {
+    public static function fromFile(string $emailPath)
+    {
+        if (! File::exists($emailPath)) {
             throw new TeavelException("File $emailPath does not exist");
         }
 
         $email = YamlFrontMatter::parse(file_get_contents($emailPath));
 
-        if(empty($email->matter())) {
+        if (empty($email->matter())) {
             throw new TeavelException("Invalid subject in file $emailPath");
         }
 
-        if(empty($email->body())) {
+        if (empty($email->body())) {
             throw new TeavelException("Invalid body in file $emailPath");
         }
 
@@ -52,14 +55,15 @@ class EmailContent
         return $this;
     }
 
-    public function with(array $data) 
+    public function with(array $data)
     {
         $this->data = $data;
 
         return $this;
     }
 
-    public function emailUuid(string $uuid) {
+    public function emailUuid(string $uuid)
+    {
         $this->uuid = $uuid;
 
         return $this;
@@ -67,14 +71,14 @@ class EmailContent
 
     public function render()
     {
-        if(empty($this->contact)) {
-            throw new TeavelException("Contact Not Set");
+        if (empty($this->contact)) {
+            throw new TeavelException('Contact Not Set');
         }
         $loader = new ArrayLoader([
             'layout' => file_get_contents(__DIR__ . '/../../resources/views/email/html/layout.twig'),
             'email' => Str::markdown($this->body),
             'button' => file_get_contents(__DIR__ . '/../../resources/views/email/html/button.twig'),
-            ]);
+        ]);
 
         $twig = new Environment($loader, ['autoescape' => false]);
 
@@ -91,10 +95,9 @@ class EmailContent
         return $this->html;
     }
 
-
     protected function redactUrls()
     {
-        if(empty($this->uuid)) {
+        if (empty($this->uuid)) {
             return;
         }
 
@@ -116,13 +119,13 @@ class EmailContent
     {
         $footer = '';
 
-        if($this->uuid) {
+        if ($this->uuid) {
             $unsubscribe = trans('teavel::email.unsubscribe');
             $footer .= "<a href='{$this->getUnsubscribeLink()}' style='font-size: 10px; color: gray;'>{$unsubscribe}</a>";
         }
 
-        if(config('teavel.company')) {
-            $footer = "<p>" . config('teavel.company') . "</p>";
+        if (config('teavel.company')) {
+            $footer = '<p>' . config('teavel.company') . '</p>';
         }
 
         return $footer;
@@ -138,12 +141,11 @@ class EmailContent
     {
         $css = file_get_contents(__DIR__ . '/../../resources/css/email.css');
 
-        if(File::exists(resource_path('css/email.css'))){
+        if (File::exists(resource_path('css/email.css'))) {
             $css .= "\n" . file_get_contents(resource_path('css/email.css'));
         }
-        $this->html = (new CssToInlineStyles())->convert($this->html, $css);
+        $this->html = (new CssToInlineStyles)->convert($this->html, $css);
     }
-
 
     public function getAddress()
     {

@@ -1,12 +1,13 @@
 <?php
 
-use function Pest\Laravel\post;
 use Azzarip\Teavel\Models\Contact;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 
-beforeEach(function() {
+use function Pest\Laravel\post;
+
+beforeEach(function () {
     Mail::fake();
     $this->withoutMiddleware();
     $this->data = [
@@ -16,17 +17,17 @@ beforeEach(function() {
     ];
 });
 
-it('requires token', function() {
+it('requires token', function () {
     unset($this->data['token']);
     post(route('password.reset'), $this->data)->assertSessionHasErrors('token');
 });
 
-it('requires uuid', function() {
+it('requires uuid', function () {
     unset($this->data['uuid']);
     post(route('password.reset'), $this->data)->assertSessionHasErrors('uuid');
 });
 
-it('validates password', function() {
+it('validates password', function () {
     unset($this->data['password']);
     post(route('password.reset'), $this->data)->assertSessionHasErrors('password');
 

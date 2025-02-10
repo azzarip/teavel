@@ -40,7 +40,7 @@ trait HasPrivacy
         return (bool) $this->marketing_at;
     }
 
-    public function canReceiveEmail(): bool 
+    public function canReceiveEmail(): bool
     {
         return $this->opt_in;
     }

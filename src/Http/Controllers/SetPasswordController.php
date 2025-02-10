@@ -2,15 +2,14 @@
 
 namespace Azzarip\Teavel\Http\Controllers;
 
-use Illuminate\Support\Str;
-use Azzarip\Teavel\Models\Contact;
-use Illuminate\Routing\Controller;
+use Azzarip\Teavel\Http\Requests\LoginRequest;
 use Azzarip\Teavel\Models\AuthToken;
+use Azzarip\Teavel\Models\Contact;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Azzarip\Teavel\Http\Requests\LoginRequest;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Str;
 
 class SetPasswordController extends Controller
 {
@@ -33,7 +32,7 @@ class SetPasswordController extends Controller
     public function external(LoginRequest $request)
     {
         $contact = $this->processRequest($request);
-        
+
         $token = AuthToken::generate($contact);
 
         return to_route('login.token', ['token' => $token]);
@@ -45,19 +44,19 @@ class SetPasswordController extends Controller
 
         $contact = Contact::findEmail($validated['email']);
 
-        if( ! $contact) {
+        if (! $contact) {
             abort(403);
         }
 
-        if($contact->isRegistered) {
+        if ($contact->isRegistered) {
             abort(403);
         }
 
         $contact->forceFill([
-            'password' => Hash::make($validated['password'])
+            'password' => Hash::make($validated['password']),
         ])->setRememberToken(Str::random(60));
         $contact->save();
-        
+
         return $contact;
     }
 }

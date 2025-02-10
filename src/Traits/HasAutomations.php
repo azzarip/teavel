@@ -33,12 +33,12 @@ trait HasAutomations
             return false;
         }
 
-        if(! $this->can_market && ! $email::TRANSACTIONAL) {
+        if (! $this->can_market && ! $email::TRANSACTIONAL) {
             return false;
         }
 
         $email = Email::name($email, $sequence);
-        
+
         Mail::send(new TeavelMail($email->getContent($this, $data)));
 
         $pivot = $this->findPivot($email);

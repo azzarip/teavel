@@ -46,7 +46,7 @@ trait HasAddresses
             $updates['billing_id'] = $address->id;
         }
 
-        if (!empty($updates)) {
+        if (! empty($updates)) {
             $this->update($updates);
         }
 
@@ -54,8 +54,9 @@ trait HasAddresses
 
     }
 
-    public function getRecipientAttribute() {
-        if($this->billing_id) {
+    public function getRecipientAttribute()
+    {
+        if ($this->billing_id) {
             return $this->billingAddress->toArray();
         } else {
             return [$this->full_name];
@@ -66,11 +67,11 @@ trait HasAddresses
     {
         $address = Address::find($id);
 
-        if(empty($address)) {
+        if (empty($address)) {
             return abort(404);
         }
 
-        if($address->contact_id != $this->id){
+        if ($address->contact_id != $this->id) {
             return abort(403);
         }
 
@@ -86,7 +87,7 @@ trait HasAddresses
             $updates['billing_id'] = $address->id;
         }
 
-        if (!empty($updates)) {
+        if (! empty($updates)) {
             $this->update($updates);
         }
 

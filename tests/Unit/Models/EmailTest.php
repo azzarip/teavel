@@ -3,8 +3,6 @@
 use Azzarip\Teavel\Models\Email;
 use Azzarip\Teavel\Models\Sequence;
 
-
-
 it('has sequence', function () {
     $sequence = Sequence::name('test');
     $email = Email::create([

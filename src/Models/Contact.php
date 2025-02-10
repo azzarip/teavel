@@ -3,18 +3,17 @@
 namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Actions\Contact\MutateData;
-use Azzarip\Teavel\Traits;
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use Azzarip\Teavel\Exceptions\RegistrationException;
+use Azzarip\Teavel\Traits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Contact extends AuthContact
 {
     use HasFactory;
-    use Traits\HasPrivacy;
     use Traits\HasAddresses;
     use Traits\HasAutomations;
+    use Traits\HasPrivacy;
     use Traits\HasTags;
 
     protected $guarded = [];
@@ -24,7 +23,6 @@ class Contact extends AuthContact
         'marketing_at' => 'datetime',
         'opt_in' => 'boolean',
     ];
-
 
     public static function get(array $data)
     {
@@ -43,7 +41,7 @@ class Contact extends AuthContact
         $contact = self::retrieve($data);
 
         $data = MutateData::mutate($data);
-        if(! $contact) {
+        if (! $contact) {
             return self::create($data);
         }
 
@@ -106,18 +104,21 @@ class Contact extends AuthContact
             }
         }
         $this->save();
+
         return $this;
     }
-
-
 
     public static function retrieve(array $data)
     {
         $contact = self::findEmail($data['email']);
 
-        if($contact) return $contact;
+        if ($contact) {
+            return $contact;
+        }
 
-        if(! config('teavel.check_phone')) return;
+        if (! config('teavel.check_phone')) {
+            return;
+        }
 
         return self::findPhone($data['phone']);
     }
@@ -127,17 +128,23 @@ class Contact extends AuthContact
         return (bool) $this->password;
     }
 
-    public static function emailStatus(string $email) {
+    public static function emailStatus(string $email)
+    {
         $contact = self::findEmail($email);
 
-        if(! $contact) return 'new';
+        if (! $contact) {
+            return 'new';
+        }
 
-        if($contact->isRegistered) return 'login';
+        if ($contact->isRegistered) {
+            return 'login';
+        }
 
         return 'password';
     }
 
-    public static function fromSession(): ?self {
+    public static function fromSession(): ?self
+    {
         return self::find(session('contact'));
     }
 

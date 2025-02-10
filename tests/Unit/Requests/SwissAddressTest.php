@@ -1,9 +1,9 @@
 <?php
 
-use function Pest\Laravel\post;
-
-use Illuminate\Support\Facades\Route;
 use Azzarip\Teavel\Http\Requests\SwissAddressRequest;
+use Illuminate\Support\Facades\Route;
+
+use function Pest\Laravel\post;
 
 beforeEach(function () {
     Route::post('/test', function (SwissAddressRequest $request) {
