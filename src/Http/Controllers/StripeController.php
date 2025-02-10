@@ -1,12 +1,11 @@
 <?php
 
-namespace Azzarip\Teavel\Http\Controllers;
+namespace Domains\Api\Http\Controllers;
 
-use Stripe\Stripe;
 use Stripe\Webhook;
 use Illuminate\Http\Request;
-use Stripe\WebhookSignature;
 use Illuminate\Support\Facades\Log;
+use Azzarip\Teavel\Events\StripeWebhookReceived;
 use Stripe\Exception\SignatureVerificationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -17,22 +16,20 @@ class StripeController
      */
     public function __invoke(Request $request)
     {
-        $this->verifyWebhook($request);
+        $event = $this->getEvent($request);
 
-
+        event(new StripeWebhookReceived($event));
 
         return response('', 200);
     }
 
     
-    protected function verifyWebhook(Request $request)
-    {
+    protected function getEvent(Request $request) {
         try {
-            WebhookSignature::verifyHeader(
+            return Webhook::constructEvent(
                 $request->getContent(),
                 $request->header('Stripe-Signature'),
-                config('services.stripe.signature'),
-                Webhook::DEFAULT_TOLERANCE
+                config('services.stripe.signature')
             );
         } catch (SignatureVerificationException $exception) {
             Log::error('Stripe Signing Signature');
@@ -40,8 +37,4 @@ class StripeController
         }
     }
 
-    protected function setMaxNetworkRetries($retries = 3)
-    {
-        Stripe::setMaxNetworkRetries($retries);
-    }
 }
