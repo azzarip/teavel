@@ -23,22 +23,22 @@ class GoalAutomation
     public function stopSequences()
     {
         foreach ($this->stop as $sequence) {
-            if ($sequence instanceof SequenceAutomation) {
+            if (is_subclass_of($sequence, SequenceAutomation::class)) {
                 $sequence::stopSequence($this->contact);
             } else {
-                throw new TeavelException('Class ' . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
+                throw new TeavelException("Class $sequence is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
-
+                       
         }
     }
 
     public function startSequences()
     {
         foreach ($this->start as $sequence) {
-            if ($sequence instanceof SequenceAutomation) {
+            if (is_subclass_of($sequence, SequenceAutomation::class)) {
                 $sequence::startSequence($this->contact);
             } else {
-                throw new TeavelException('Class ' . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
+                throw new TeavelException("Class $sequence is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
         }
     }
