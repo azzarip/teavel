@@ -55,6 +55,10 @@ trait HasGoals
         if (! array_key_exists($field, $data)) {
             return null;
         }
+        
+        if(is_null($data[$field])) {
+            return null;
+        }
 
         $utm_string = UTMString::firstOrCreate(['string' => $data[$field]]);
 
