@@ -1,7 +1,7 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use Domains\Api\Http\Controllers\StripeController;
+use Azzarip\Teavel\Http\Controllers\Api\StripeController;
 
 Route::group([
     'domain' => config('domains.api.url'),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Api\Http\Controllers;
+namespace Azzarip\Teavel\Http\Controllers\Api;
 
 use Stripe\Webhook;
 use Illuminate\Http\Request;
