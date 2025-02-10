@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Automations;
 
+use Azzarip\Teavel\Exceptions\TeavelException;
 use Azzarip\Teavel\Models\Contact;
 
 class GoalAutomation
@@ -21,25 +22,23 @@ class GoalAutomation
     public function stopSequences()
     {
         foreach ($this->stop as $sequence) {
-            $this->stopSequence($sequence);
+            if ($sequence instanceof Azzarip\Teavel\Automations\SequenceAutomation) {
+                $sequence::stopSequence($this->contact);s
+            } else {
+                throw new TeavelException("Class " . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
+            }
+                       
         }
     }
 
     public function startSequences()
     {
         foreach ($this->start as $sequence) {
-            $this->startSequence($sequence);
+            if ($sequence instanceof Azzarip\Teavel\Automations\SequenceAutomation) {
+                $sequence::startSequence($this->contact);s
+            } else {
+                throw new TeavelException("Class " . get_class($sequence) . " is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
+            }
         }
     }
-
-    public function stopSequence($sequence)
-    {
-        $sequence::stopSequence($this->contact);
-    }
-
-    public function startSequence($sequence)
-    {
-        $sequence::startSequence($this->contact);
-    }
-
 }
