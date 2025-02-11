@@ -78,6 +78,7 @@ class EmailContent
             'layout' => file_get_contents(__DIR__ . '/../../resources/views/email/html/layout.twig'),
             'email' => Str::markdown($this->body),
             'button' => file_get_contents(__DIR__ . '/../../resources/views/email/html/button.twig'),
+            'subject' => $this->subject,
         ]);
 
         $twig = new Environment($loader, ['autoescape' => false]);
@@ -87,6 +88,13 @@ class EmailContent
             'app_name' => config('app.name'),
             'footer' => $this->buildFooter(),
         ] + $this->data);
+
+        if (strpos($this->subject, '{{') !== false) {
+            $this->subject = $twig->render('subject', array_merge([
+                'contact'  => $this->contact,
+                'app_name' => config('app.name'),
+            ], $this->data));
+        }        
 
         $this->renderCss();
         $this->redactUrls();
