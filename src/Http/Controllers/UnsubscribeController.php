@@ -23,6 +23,6 @@ class UnsubscribeController
             'email_id' => $email ? $email->id : null,
         ]);
 
-        return redirect('/emails/unsubscribe/success');
+        return redirect('/tvl/unsubscribe/success');
     }
 }
