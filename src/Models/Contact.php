@@ -67,20 +67,24 @@ class Contact extends AuthContact
         return trim($this->first_name . ' ' . $this->last_name);
     }
 
-    public static function findEmail(string $email)
+    public static function findEmail(?string $email)
     {
+        if(empty($email)) return null;
+        
         return self::where('email', $email)->first();
     }
 
-    public static function findPhone(string $phone)
+    public static function findPhone(?string $phone)
     {
+        if(empty($phone)) return null;
+        
         return self::where('phone', $phone)->first();
     }
 
     public static function findUuid(?string $uuid)
     {
         if(empty($uuid)) return null;
-        
+
         return self::where('uuid', $uuid)->first();
     }
 
