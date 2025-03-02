@@ -40,6 +40,11 @@ trait HasTags
         return $this->tags()->where('name', $name)->exists();
     }
 
+    public function hasNotTag(string $name): bool
+    {
+        return !$this->hasTag($name);
+    }
+
     public function hasTags(array $tags): array
     {
         $tagIds = Tag::whereIn('name', $tags)->pluck('id', 'name');
