@@ -27,6 +27,10 @@ class MutateData
             $data['last_name'] = ucwords($data['last_name']);
         }
 
+        if (array_key_exists('email', $data)) {
+            $data['email'] = lcfirst($data['email']);
+        }
+
         return $data;
     }
 }
