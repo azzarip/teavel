@@ -77,8 +77,10 @@ class Contact extends AuthContact
         return self::where('phone', $phone)->first();
     }
 
-    public static function findUuid(string $uuid)
+    public static function findUuid(?string $uuid)
     {
+        if(empty($uuid)) return null;
+        
         return self::where('uuid', $uuid)->first();
     }
 
