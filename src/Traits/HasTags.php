@@ -39,4 +39,15 @@ trait HasTags
     {
         return $this->tags()->where('name', $name)->exists();
     }
+
+    public function hasTags(array $tags): array
+    {
+        $tagIds = Tag::whereIn('name', $tags)->pluck('id', 'name');
+
+        $existingTagIds = $this->tags()->whereIn('tags.id', $tagIds->values())->pluck('tags.id')->toArray();
+    
+        return collect($tags)->mapWithKeys(function ($tagName) use ($tagIds, $existingTagIds) {
+            return [$tagName => in_array($tagIds[$tagName] ?? null, $existingTagIds)];
+        })->toArray();
+    }
 }

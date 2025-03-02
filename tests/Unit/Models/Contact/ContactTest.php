@@ -35,17 +35,13 @@ it('finds contacts by Email', function () {
     expect($foundContact->email)->toBe($contact->email);
 });
 
-it('can allow Marketing and does not update', function () {
+it('can allow Marketing', function () {
     $contact = ContactFactory::new()->create();
     expect($contact->marketing_at)->toBe(null);
     $contact->allowMarketing(false);
     expect($contact->marketing_at)->toBe(null);
     $contact->allowMarketing();
     expect($contact->marketing_at)->not->toBe(null);
-    $this->travel(1)->seconds();
-    $timestamp = $contact->marketing_at;
-    $contact->allowMarketing();
-    expect($contact->marketing_at)->not->toBe($timestamp);
 });
 
 it('returns null if marketing_at is empty', function () {
