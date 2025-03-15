@@ -19,7 +19,6 @@ return new class extends Migration
             $table->timestamp('privacy_at')->nullable();
             $table->timestamp('marketing_at')->nullable();
             $table->boolean('opt_in')->default(false);
-            $table->boolean('is_female')->nullable();
             $table->date('birthday')->nullable();
             $table->foreignId('shipping_id')->nullable();
             $table->foreignId('billing_id')->nullable();
