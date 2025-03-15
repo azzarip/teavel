@@ -53,3 +53,8 @@ Route::group([
 Route::middleware(['web'])->post('/tvl/address', [AddressController::class, 'store'])->name('address.create');
 
 require_once __DIR__ . '/api.php';
+
+Route::middleware(['web'])->get('telegram-test', function () {
+    App\Models\User::first()->notify(new \Azzarip\Teavel\Notifications\TelegramNotification('Test'));
+    return 'Message Queued, if not working check the queue.';
+});
