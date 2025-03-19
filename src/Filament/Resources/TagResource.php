@@ -20,9 +20,9 @@ class TagResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
+    protected static ?string $navigationGroup = 'Tags';
     public static function form(Form $form): Form
     {
-        // dd(TagCategory::all()->pluck('name', 'id'));
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')

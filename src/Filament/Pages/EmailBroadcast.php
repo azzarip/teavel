@@ -38,6 +38,7 @@ class EmailBroadcast extends Page
 
     protected static ?string $navigationLabel = 'Email Broadcast';
 
+    protected static ?string $navigationGroup = 'Tags';
     public function form(Form $form): Form
     {
         return $form
