@@ -97,12 +97,27 @@ class EmailBroadcast extends Page
             $contacts = Tag::find($data['tag_id'])->contacts;
         }
 
+        $count = $contacts->count();
         foreach ($contacts as $contact) {
-            $content = EmailContent::raw($data['subject'], $data['body'])->to($contact);
-            Mail::send(new TeavelMail($content));
+            try{
+                $content = EmailContent::raw($data['subject'], $data['body'])->to($contact);
+                Mail::send(new TeavelMail($content));
+                Notification::make()
+                    ->title("{$contact->full_name} sent!")->success()->send();
+            } catch (\Exception $e) {
+                Notification::make()
+                ->title("{$contact->full_name} NOT sent!")
+                ->body($e->getMessage())
+                ->danger()
+                ->duration('persistent')
+                ->send();
+                $count--;
+            }
+
         }
+
         Notification::make()
-            ->title("{$contacts->count()} emails sent!")
+            ->title("{$count}/{$contacts->count()} emails sent!")
             ->success()
             ->send();
     }

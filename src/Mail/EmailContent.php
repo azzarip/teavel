@@ -52,6 +52,10 @@ class EmailContent
     {
         $this->contact = $contact;
 
+        if(empty($contact->email)) {
+            throw new TeavelException("Contact {$contact->full_name} has no email address!");
+        }
+        
         return $this;
     }
 
