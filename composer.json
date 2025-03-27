@@ -23,7 +23,7 @@
         "php": "^8.2",
         "azzarip/utilities": "main-dev",
         "filament/filament": "^3.2",
-        "laravel-notification-channels/telegram": "^5.0",
+        "laravel-notification-channels/telegram": "*",
         "livewire/livewire": "^3.5",
         "propaganistas/laravel-phone": "^5.3",
         "spatie/laravel-package-tools": "^1.15.0",
