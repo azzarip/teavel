@@ -15,12 +15,12 @@ class SequenceAutomation
         $this->owner = User::first();
     }
 
-    public static function stopSequence(Contact $contact)
+    public static function stopThisSequence(Contact $contact)
     {
         Sequence::name(get_called_class())->stop($contact);
     }
 
-    public static function startSequence(Contact $contact)
+    public static function startThisSequence(Contact $contact)
     {
         Sequence::name(get_called_class())->start($contact);
     }
@@ -43,5 +43,10 @@ class SequenceAutomation
     protected function owner()
     {
         return $this->owner;
+    }
+
+    protected function startSequence(string $sequence)
+    {
+        Sequence::name( $sequence)->start($this->contact);
     }
 }

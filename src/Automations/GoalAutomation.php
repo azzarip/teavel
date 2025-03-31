@@ -16,15 +16,15 @@ class GoalAutomation
 
     public function activate()
     {
-        $this->stopSequences();
-        $this->startSequences();
+        $this->stopThisSequences();
+        $this->startThisSequences();
     }
 
-    public function stopSequences()
+    public function stopThisSequences()
     {
         foreach ($this->stop as $sequence) {
             if (is_subclass_of($sequence, SequenceAutomation::class)) {
-                $sequence::stopSequence($this->contact);
+                $sequence::stopThisSequence($this->contact);
             } else {
                 throw new TeavelException("Class $sequence is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
@@ -32,11 +32,11 @@ class GoalAutomation
         }
     }
 
-    public function startSequences()
+    public function startThisSequences()
     {
         foreach ($this->start as $sequence) {
             if (is_subclass_of($sequence, SequenceAutomation::class)) {
-                $sequence::startSequence($this->contact);
+                $sequence::startThisSequence($this->contact);
             } else {
                 throw new TeavelException("Class $sequence is not an instance of Azzarip\Teavel\Automations\SequenceAutomation");
             }
