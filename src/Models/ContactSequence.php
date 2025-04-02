@@ -26,17 +26,20 @@ class ContactSequence extends Pivot
         return $this;
     }
 
+    public function updateValues(array $data) 
+    {
+        $this->setPivotKeys('contact_id', 'sequence_id');
+        $this->update($data);
+    }
     public function stop()
     {
-        $this->where('contact_id', $this->contact_id)
-            ->where('sequence_id', $this->sequence_id)
-            ->update([
-                'stopped_at' => now(),
-            ]);
+        $this->updateValues([
+            'stopped_at' => now(),
+        ]);
 
         return $this;
     }
-
+    
     public static function getReadySteps()
     {
         return self::ready()->get();

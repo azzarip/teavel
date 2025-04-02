@@ -52,9 +52,10 @@ class SequenceHandler
         if ($next === null) {
             return $this->pivot->stop();
         }
-
-        $this->pivot->execute_at = $next->getRandomizedTimestamp();
-        $this->pivot->step = $next->step;
-        $this->pivot->save();
+        
+        $this->pivot->updateValues([
+            'execute_at' => $next->getRandomizedTimestamp(),
+            'step' => $next->step,
+        ]);
     }
 }
