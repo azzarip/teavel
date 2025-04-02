@@ -16,8 +16,24 @@ class Sequence extends Model
     {
         return $this->belongsToMany(Contact::class)
             ->using(ContactSequence::class)
-            ->withPivot(['created_at', 'stopped_at']);
+            ->withPivot(['created_at', 'stopped_at', 'execute_at', 'step']);
     }
+
+    public function stoppedContacts()
+{
+    return $this->belongsToMany(Contact::class)
+        ->using(ContactSequence::class)
+        ->withPivot(['created_at', 'stopped_at', 'execute_at', 'step'])
+        ->whereNotNull('contact_sequence.stopped_at');
+}
+
+public function activeContacts()
+{
+    return $this->belongsToMany(Contact::class)
+        ->using(ContactSequence::class)
+        ->withPivot(['created_at', 'stopped_at', 'execute_at', 'step'])
+        ->whereNotNull('contact_sequence.stopped_at');
+}
 
     public static function name(string $name)
     {
