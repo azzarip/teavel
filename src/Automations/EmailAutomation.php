@@ -2,6 +2,9 @@
 
 namespace Azzarip\Teavel\Automations;
 
+use Azzarip\Teavel\Models\Email;
+use Azzarip\Teavel\Models\Contact;
+
 class EmailAutomation extends GoalAutomation
 {
     const TRANSACTIONAL = false;
@@ -27,4 +30,10 @@ class EmailAutomation extends GoalAutomation
             'utm_content' => $this->utm_content,
         ];
     }
+
+    protected function stopParentSequence()
+    {
+        $this->email->sequence->stop($this->contact);
+    }
+    public function __construct(public Contact $contact, public Email $email) {}
 }

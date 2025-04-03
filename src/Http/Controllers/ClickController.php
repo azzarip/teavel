@@ -22,10 +22,10 @@ class ClickController
 
         $email->contacts()->wherePivot('contact_id', $contact->id)->first()?->pivot->click();
 
-        $automation = new ($email->getAutomation())($contact);
+        $automation = new ($email->getAutomation())($contact, $email);
 
         if (! method_exists($automation, $action)) {
-            Log::error("Email {$email->uui} has missing {$action}");
+            Log::error("Email {$email->automation} has missing {$action}");
             abort(404);
         }
 
