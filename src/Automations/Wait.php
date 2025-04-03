@@ -9,7 +9,7 @@ class Wait
 {
     public string $step;
 
-    protected ?int $randomMinutes;
+    protected ?int $randomMinutes = null;
 
     public function __construct(public \Carbon\Carbon $timestamp) {}
 
