@@ -13,7 +13,7 @@ class ShopAuth
     {
         $segments = $request->segments();
 
-        if (count($segments) === 3 && Auth::guest()) {
+        if (count($segments) >= 3 && Auth::guest()) {
             return redirect()->to(url($segments[0] . '/' . $segments[1]));
         }
 
