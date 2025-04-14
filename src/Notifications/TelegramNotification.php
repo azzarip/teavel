@@ -32,9 +32,20 @@ class TelegramNotification extends Notification implements ShouldQueue
 
     public function toTelegram(object $notifiable)
     {
-        return (new TelegramMessage)
-            ->to($notifiable->telegram_id)
-            ->line($this->message)
-            ->lineif( (bool) $this->contact, 'Name: ' . $this->contact?->full_name);
+        $telegramMessage = (new TelegramMessage)->to($notifiable->telegram_id);
+
+        if (is_array($this->message)) {
+            foreach ($this->message as $line) {
+                $telegramMessage->line($line);
+            }
+        } else {
+            $telegramMessage->line($this->message);
+        }
+        
+        if ($this->contact) {
+            $telegramMessage->line('Name: ' . $this->contact?->full_name);
+        }
+
+        return $telegramMessage;
     }
 }

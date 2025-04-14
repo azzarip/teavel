@@ -9,7 +9,7 @@ class Wait
 {
     public string $step;
 
-    protected ?int $randomMinutes = null;
+    protected ?int $randomMinutes = 10;
 
     public function __construct(public \Carbon\Carbon $timestamp) {}
 
@@ -41,7 +41,7 @@ class Wait
 
     public function IsPast(): bool
     {
-        return Carbon::now()->gte($this->timestamp);
+        return $this->timestamp->isPast();
     }
 
     public function precise()
@@ -53,11 +53,8 @@ class Wait
 
     public function getRandomizedTimestamp()
     {
-        if ($this->randomMinutes === null) {
-            return $this->timestamp->addMinutes(rand(0, 15));
-        }
-
-        return $this->timestamp->addMinutes($this->randomMinutes);
+        $random = rand($this->randomMinutes * -1, $this->randomMinutes);
+        return $this->timestamp->addMinutes($random);
     }
 
     public static function for(string $timeString)
