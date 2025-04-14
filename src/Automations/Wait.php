@@ -39,7 +39,7 @@ class Wait
         return $this;
     }
 
-    public function IsPast(): bool
+    public function isPast(): bool
     {
         return $this->timestamp->isPast();
     }
