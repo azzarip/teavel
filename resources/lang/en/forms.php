@@ -29,5 +29,5 @@ return [
 
     'privacy_policy' => 'I consent to the terms of the :link.',
     'continue' => 'Continue',
-    'Firma' => 'Company'
+    'firma' => 'Company'
 ];
