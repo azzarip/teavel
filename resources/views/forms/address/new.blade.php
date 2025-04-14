@@ -18,7 +18,7 @@
 
         <div x-data="{ co: {{ old('co')  ? 'true' : 'false'  }} }">
             <p class="pl-2 text-sm cursor-pointer link" x-show="!co" @click="co = true"><x-heroicon-s-plus-circle
-                    class="inline w-5 h-5 mb-1" /> c/o</p>
+                    class="inline w-5 h-5 mb-1" />@lang('teavel::forms.firma') / c/o</p>
             <div x-show="co" x-cloak>
                 <label for="co" class="block text-xl text-left"><x-heroicon-s-minus-circle
                         class="inline w-5 h-5 mb-1" @click="co = false; clear('co')" />c/o:</label>
