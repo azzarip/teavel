@@ -14,12 +14,12 @@ it('gets a new step', function () {
     expect($wait->step)->toBe('test');
 });
 
-it('has IsPast()', function () {
+it('has isPast()', function () {
     $wait = Wait::until('1.1.2024 19:00');
-    expect($wait->IsPast())->toBeTrue();
+    expect($wait->isPast())->toBeTrue();
 
     $wait = Wait::until(Carbon::now()->addDays(1));
-    expect($wait->IsPast())->toBeFalse();
+    expect($wait->isPast())->toBeFalse();
 });
 
 it('adds RandomMinutes', function () {
