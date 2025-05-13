@@ -16,21 +16,23 @@
     const input = document.querySelector("#tel");
     const iti = window.intlTelInput(input, {
         utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.0.1/build/js/utils.js",
-        initialCountry: '{{ old('country_code') ?? 'ch' }}', // Use old value or fallback to 'ch'
+        initialCountry: '{{ old('country_code') ?? (config('teavel.locale') == 'international' ? 'us' : 'ch') }}', // Use old value or fallback to 'ch'
         hiddenInput: function(telInputName) {
             return {
                 phone: "phone",
                 country: "country_code"
             };
         },
-        preferredCountries: ['ch', 'de', 'at', 'it', 'fr'],
+        @if(config('teavel.locale') == 'international')
+            preferredCountries: ['us'],
+        @else
+            preferredCountries: ['ch', 'de', 'at', 'it', 'fr'],
+        @endif  
     });
 
     var form = input.closest('form');
     form.addEventListener('submit', function(event) {
         input.setCustomValidity('');
-
-        console.log(iti.getValidationError());
         if (!iti.isValidNumber()) {
             input.setCustomValidity("@lang('teavel::forms.phone.validation')");
             event.preventDefault();

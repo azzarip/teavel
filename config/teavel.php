@@ -7,6 +7,9 @@ return [
      */
     'domain' => '',
 
+    
+    'locale' => 'switzerland',
+
     /**
      * Domain Key of the domain for offers
      */
