@@ -37,15 +37,15 @@ class AddressResource extends Resource
                     ->columnSpanFull(),
                 TextInput::make('co'),
                 TextInput::make('line2'),
-                TextInput::make('city')->required(),
                 TextInput::make('zip')
                     ->required()
                     ->numeric()
                     ->minValue(1000)
                     ->maxValue(9999),
+                TextInput::make('city')->required(),
                 Grid::make()->columns(4)->schema([
-                    Toggle::make('shipping'),
-                    Toggle::make('billing'),
+                    Toggle::make('shipping')->default(true),
+                    Toggle::make('billing')->default(true),
                     \Filament\Forms\Components\Textarea::make('info')
                         ->rows(3)
                         ->columnSpan(2),
