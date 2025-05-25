@@ -1,8 +1,4 @@
-        Route::get('/up', fn () => response()->json(
-            status: 200,
-        ));
-
-        <?php
+<?php
 
 namespace Azzarip\Teavel\Http\Controllers\Api;
 
