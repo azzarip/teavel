@@ -1,7 +1,6 @@
-@props(['button' => false, 'action' => null, 'id' => null])
+@props(['button' => false])
 <form
-@if($action) action="{{ $action }}" @endif
-@if($id) id="{{ $id }}" @endif
+{{ $attributes }}
 method="POST">
     @csrf
     <div class="space-y-4">
