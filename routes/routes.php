@@ -1,14 +1,15 @@
 <?php
 
-use Azzarip\Teavel\Http\Controllers\AddressController;
+use Illuminate\Support\Facades\Route;
+use Azzarip\Teavel\Locale\SetLocaleController;
 use Azzarip\Teavel\Http\Controllers\ClickController;
 use Azzarip\Teavel\Http\Controllers\LoginController;
 use Azzarip\Teavel\Http\Controllers\LogoutController;
-use Azzarip\Teavel\Http\Controllers\ResetPasswordController;
-use Azzarip\Teavel\Http\Controllers\SetPasswordController;
+use Azzarip\Teavel\Http\Controllers\AddressController;
 use Azzarip\Teavel\Http\Controllers\TokenLoginController;
+use Azzarip\Teavel\Http\Controllers\SetPasswordController;
 use Azzarip\Teavel\Http\Controllers\UnsubscribeController;
-use Illuminate\Support\Facades\Route;
+use Azzarip\Teavel\Http\Controllers\ResetPasswordController;
 
 Route::group([
     'middleware' => 'web',
@@ -58,3 +59,8 @@ Route::middleware(['web'])->get('telegram-test', function () {
     App\Models\User::first()->notify(new \Azzarip\Teavel\Notifications\TelegramNotification('Test'));
     return 'Message Queued, if not working check the queue.';
 });
+
+
+Route::middleware(['web'])->get('set-locale/{locale}', SetLocaleController::class)
+    ->where('locale', '[a-z]{2}')
+    ->name('set-locale');

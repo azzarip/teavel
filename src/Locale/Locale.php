@@ -1,9 +1,10 @@
 <?php
 
-namespace Azzarip\Teavel\Http\Middleware;
+namespace Azzarip\Teavel\Locale;
 
 use Closure;
 use Illuminate\Http\Request;
+use Azzarip\Teavel\Locale\SetCookie;
 use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -20,7 +21,8 @@ class Locale
             }
 
             app()->setLocale($forcedLocale);
-            Cookie::queue('lang', $forcedLocale);
+            SetCookie::locale($forcedLocale);
+
             return $next($request);
         }
 

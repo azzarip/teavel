@@ -2,17 +2,18 @@
 
 namespace Azzarip\Teavel;
 
-use Azzarip\Teavel\Address\AddressManager;
-use Azzarip\Teavel\Address\AddressRouter;
-use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
+use Livewire\Livewire;
+use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\File;
-use Livewire\Livewire;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
+use Azzarip\Teavel\Address\AddressRouter;
+use Azzarip\Teavel\Address\AddressManager;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Azzarip\Teavel\Filament\Panels\TeavelPanelProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class TeavelServiceProvider extends PackageServiceProvider
 {
@@ -56,7 +57,8 @@ class TeavelServiceProvider extends PackageServiceProvider
         );
         Livewire::component('address-manager', AddressManager::class);
         Blade::component('address-router', AddressRouter::class);
-        app('router')->aliasMiddleware('locale', \Azzarip\Teavel\Http\Middleware\Locale::class);
+        app('router')->aliasMiddleware('locale', \Azzarip\Teavel\Locale\Locale::class);
+        //EncryptCookies::except('lang');
     }
 
     public function packageRegistered(): void

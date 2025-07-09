@@ -1,10 +1,8 @@
 <?php
 
-use function Pest\Laravel\get;
 use Illuminate\Support\Facades\App;
 
 use Illuminate\Support\Facades\Route;
-use Azzarip\Teavel\Http\Middleware\Locale;
 
 beforeEach(function () {
     Route::middleware(['web', 'locale'])->get('/test', function () {
