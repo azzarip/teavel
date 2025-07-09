@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 class SetLocaleController extends Controller
 {
-    public function __invoke(Request $request, string $locale)
+    public function __invoke(Request $request, string $locale, ?string $redirect = null)
     {
         $supported = config('teavel.supported_locales', []);
 
@@ -17,7 +17,8 @@ class SetLocaleController extends Controller
         }
         
         SetCookie::locale($locale);
-        
-        return redirect()->back();
-    }
+
+        return $redirect
+            ? redirect("/{$redirect}")
+            : redirect()->back();    }
 }

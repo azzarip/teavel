@@ -25,3 +25,10 @@ it('returns 400 for unsupported locale', function () {
 
     $this->from('/back')->get('/set-locale/xx');
 });
+
+it('redirects to custom path and sets lang cookie', function () {
+    $response = $this->get('/set-locale/it/some/path');
+
+    $response->assertRedirect('/some/path');
+    $response->assertCookie('lang', 'it');
+});

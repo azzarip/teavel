@@ -59,6 +59,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         Blade::component('address-router', AddressRouter::class);
         app('router')->aliasMiddleware('locale', \Azzarip\Teavel\Locale\Locale::class);
         //EncryptCookies::except('lang');
+
     }
 
     public function packageRegistered(): void
@@ -76,7 +77,6 @@ class TeavelServiceProvider extends PackageServiceProvider
                 ], 'teavel-stubs');
             }
         }
-
         $this->registerEvents();
     }
 

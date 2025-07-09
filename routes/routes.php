@@ -61,6 +61,7 @@ Route::middleware(['web'])->get('telegram-test', function () {
 });
 
 
-Route::middleware(['web'])->get('set-locale/{locale}', SetLocaleController::class)
+Route::middleware(['web'])->get('set-locale/{locale}/{redirect?}', SetLocaleController::class)
     ->where('locale', '[a-z]{2}')
+    ->where('redirect', '.*')
     ->name('set-locale');
