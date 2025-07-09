@@ -56,6 +56,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         );
         Livewire::component('address-manager', AddressManager::class);
         Blade::component('address-router', AddressRouter::class);
+        app('router')->aliasMiddleware('locale', \Azzarip\Teavel\Http\Middleware\Locale::class);
     }
 
     public function packageRegistered(): void

@@ -1,0 +1,65 @@
+<?php
+
+use function Pest\Laravel\get;
+use Illuminate\Support\Facades\App;
+
+use Illuminate\Support\Facades\Route;
+use Azzarip\Teavel\Http\Middleware\Locale;
+
+beforeEach(function () {
+    Route::middleware(['web', 'locale'])->get('/test', function () {
+        return response()->json([
+            'locale' => App::getLocale(),
+            ]);
+    });
+});
+
+it('does not change locale', function () {
+    $response = $this->get('/test');
+
+    $response->assertOk();
+    $response->assertJson(['locale' => config('app.locale')]);
+});
+
+it('sets locale from cookie', function () {
+    $response = $this->withCookie('lang', 'it')->get('/test');
+
+    $response->assertOk();
+    $response->assertJson(['locale' => 'it']);
+});
+
+it('removes lang cookie if not supported', function () {
+    $response = $this->withCookie('lang', 'xx')->get('/test');
+
+    $response->assertOk();
+    $response->assertJson(['locale' => config('app.locale')]);
+
+    $response->assertCookieExpired('lang');
+});
+
+it('forces locale', function () {
+    Route::middleware(['web', 'locale:it'])->get('/test/it', function () {
+        return response()->json([
+            'locale' => App::getLocale(),
+            ]);
+    });
+
+    $response = $this->withCookie('lang', 'xx')->get('/test/it');
+    $response->assertOk();
+    $response->assertJson(['locale' => 'it']);
+    $response->assertCookie('lang', 'it');
+
+});
+
+it('throws error for unsupported forced locale', function () {
+    Route::middleware(['web', 'locale:xx'])->get('/test/xx', function () {
+        return response()->json(['locale' => App::getLocale()]);
+    });
+
+    $this->withoutExceptionHandling();
+
+    $this->expectException(\Symfony\Component\HttpKernel\Exception\HttpException::class);
+    $this->expectExceptionMessage("Locale 'xx' is not supported.");
+
+    $this->get('/test/xx');
+});

@@ -10,6 +10,13 @@ return [
     
     'locale' => 'switzerland',
 
+    'supported_locales' => [
+        'en',
+        'it',
+        'fr',
+        'de',
+    ],
+
     /**
      * Domain Key of the domain for offers
      */
