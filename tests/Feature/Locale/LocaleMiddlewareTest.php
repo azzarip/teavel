@@ -20,14 +20,14 @@ it('does not change locale', function () {
 });
 
 it('sets locale from cookie', function () {
-    $response = $this->withCookie('lang', 'it')->get('/test');
+    $response = $this->withUnencryptedCookie('lang', 'it')->get('/test');
 
     $response->assertOk();
     $response->assertJson(['locale' => 'it']);
 });
 
 it('removes lang cookie if not supported', function () {
-    $response = $this->withCookie('lang', 'xx')->get('/test');
+    $response = $this->withUnencryptedCookie('lang', 'xx')->get('/test');
 
     $response->assertOk();
     $response->assertJson(['locale' => config('app.locale')]);
@@ -42,10 +42,10 @@ it('forces locale', function () {
             ]);
     });
 
-    $response = $this->withCookie('lang', 'xx')->get('/test/it');
+    $response = $this->withUnencryptedCookie('lang', 'xx')->get('/test/it');
     $response->assertOk();
     $response->assertJson(['locale' => 'it']);
-    $response->assertCookie('lang', 'it');
+    $response->assertPlainCookie('lang', 'it');
 
 });
 

@@ -58,7 +58,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         Livewire::component('address-manager', AddressManager::class);
         Blade::component('address-router', AddressRouter::class);
         app('router')->aliasMiddleware('locale', \Azzarip\Teavel\Locale\Locale::class);
-        //EncryptCookies::except('lang');
+        EncryptCookies::except('lang');
 
     }
 

@@ -3,7 +3,7 @@
 it('sets cookie and redirects back for supported locale', function () {
     $response = $this->from('/previous-page')->get('/set-locale/it');
 
-    $response->assertCookie('lang', 'it');
+    $response->assertPlainCookie('lang', 'it');
     $response->assertRedirect('/previous-page');
 });
 
@@ -30,5 +30,5 @@ it('redirects to custom path and sets lang cookie', function () {
     $response = $this->get('/set-locale/it/some/path');
 
     $response->assertRedirect('/some/path');
-    $response->assertCookie('lang', 'it');
+    $response->assertPlainCookie('lang', 'it');
 });
