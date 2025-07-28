@@ -12,6 +12,7 @@ class Contact extends AuthContact
 {
     use HasFactory;
     use Traits\HasAddresses;
+    use Traits\HasNotes;
     use Traits\HasAutomations;
     use Traits\HasPrivacy;
     use Traits\HasTags;
