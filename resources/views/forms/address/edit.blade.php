@@ -11,7 +11,7 @@
         <div>
             <label for="name" class="block text-xl text-left">Name:</label>
             <input type="text" id="name" name="name" class="input-text"
-                placeholder="@lang('teavel::forms.placeholder.name')""
+                placeholder="@lang('teavel::forms.name.placeholder')"
                     value="{{ old('name') ?? $address->name }}"
                 required autocomplete="name">
             @error('name')
