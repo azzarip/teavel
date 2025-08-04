@@ -4,6 +4,7 @@ namespace Azzarip\Teavel\Models;
 
 use Azzarip\Teavel\Actions\Contact\MutateData;
 use Azzarip\Teavel\Exceptions\RegistrationException;
+use Azzarip\Teavel\Locale\LocaleEnum;
 use Azzarip\Teavel\Traits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
@@ -23,6 +24,7 @@ class Contact extends AuthContact
         'privacy_at' => 'datetime',
         'marketing_at' => 'datetime',
         'opt_in' => 'boolean',
+        'locale' => LocaleEnum::class,
     ];
 
     public static function get(array $data)
