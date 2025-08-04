@@ -20,22 +20,16 @@ class FullRegistrationController extends Controller
         try {
             $contact = Contact::register($data);
         } catch (RegistrationException $e) {
-            return redirect(route('login'))
+            return redirect()->route('login')
                 ->withInput($request->only('email'))
-                ->withErrors(['user' => 'already_registered']);
+                ->withErrors([
+                    'user' => __('teavel::auth.already_registered')
+                ]);
         }
 
         Auth::login($contact, true);
         session()->regenerate();
 
-        if (config('teavel.post_register')) {
-            config('teavel.post_register')::handle($contact);
-        }
-
-        if (session()->has('url.intended')) {
-            return redirect(session('url.intended'));
-        }
-
-        return redirect('/');
+        return redirect()->intended('/');
     }
 }

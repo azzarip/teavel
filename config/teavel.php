@@ -2,12 +2,7 @@
 
 return [
 
-    /**
-     *  Domain for all the teavel internal routes
-     */
-    'domain' => '',
-
-    
+   
     'locale' => 'switzerland',
 
     'supported_locales' => [
@@ -16,11 +11,6 @@ return [
         'fr',
         'de',
     ],
-
-    /**
-     * Domain Key of the domain for offers
-     */
-    'offer_domain_key' => '',
 
     /**
      * Auth Views
@@ -32,8 +22,6 @@ return [
         'password_success' => '',
         'password_reset' => '',
     ],
-
-    'post_register' => '',
 
     // Teavel Panel Provider
     'panel' => [
