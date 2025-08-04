@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
+    'password_forgotten' => 'Passwort vergessen?',
     'failed' => 'Die angegebenen Anmeldedaten stimmen nicht.',
     'not_registered' => 'Die angegebene E-Mail-Adresse ist noch nicht registriert. Bitte füllen Sie das Registrierungsformular aus.',
     'already_registered' => 'Die angegebene E-Mail-Adresse ist bereits registriert. Bitte hier anmelden.',

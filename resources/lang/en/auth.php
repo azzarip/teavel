@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
+    'password_forgotten' => 'Forgotten Password?',
     'failed' => 'The given credentials do not match our records.',
     'not_registered' => 'The given email address is not yet registered. Please complete the registration form.',
     'already_registered' => 'The given email address is already registered. Please log in here.',
