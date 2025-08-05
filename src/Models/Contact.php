@@ -39,6 +39,15 @@ class Contact extends AuthContact
         return $contact->fillMissing($data);
     }
 
+    public function setLocaleAttribute($value)
+    {
+        if(is_string($value)) {
+            $this->attributes['locale'] = LocaleEnum::fromCode($value);
+        }
+        if(is_int($value)) {
+            $this->attributes['locale'] = (int) $value;
+        }
+    }
     public static function register(array $data)
     {
         $contact = self::retrieve($data);
