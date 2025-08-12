@@ -25,15 +25,13 @@ Route::group([
     Route::get('/tvl/{contactUuid}/email/{emailUuid}/{action}', ClickController::class);
 
     // **   AUTH ROUTES  */
-    Route::get('/login/{token}', TokenLoginController::class)->name('login.token');
 
     Route::middleware(['guest'])->group(function () {
-        Route::view('/login', config('teavel.auth_views.login'))->name('login');
         Route::post('/auth/password', [SetPasswordController::class, 'external'])->middleware(['web', 'throttle:5'])->name('set.password');
 
-        Route::view('/password/request', config('teavel.auth_views.password_request'))->name('password.request');
-        Route::view('/password/success', config('teavel.auth_views.password_success'))->name('password.success');
-        Route::view('/password/reset', config('teavel.auth_views.password_reset'))->name('password.reset');
+        // Route::view('/password/request', config('teavel.auth_views.password_request'))->name('password.request');
+        // Route::view('/password/success', config('teavel.auth_views.password_success'))->name('password.success');
+        // Route::view('/password/reset', config('teavel.auth_views.password_reset'))->name('password.reset');
 
         Route::middleware(['throttle:5'])->group(function () {
             Route::post('/password/request', [ResetPasswordController::class, 'request']);
