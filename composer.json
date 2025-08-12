@@ -32,7 +32,6 @@
         "twig/twig": "^3.11"
     },
     "require-dev": {
-        "filament/upgrade": "~4.0",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^8.0",
         "orchestra/testbench": "^9.0",
