@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Illuminate\Support\Str;
 use Azzarip\Teavel\Mail\EmailContent;
 use Illuminate\Database\Eloquent\Model;
 
@@ -73,7 +74,7 @@ class Email extends Model
         parent::booted();
 
         static::creating(function ($model) {
-            $model->uuid = \Illuminate\Support\Str::uuid();
+            $model->uuid = Str::uuid();
         });
     }
 }

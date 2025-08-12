@@ -2,23 +2,25 @@
 
 namespace Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Flex;
+use Filament\Schemas\Components\Section;
+use Illuminate\Contracts\Support\Htmlable;
+use Filament\Actions\EditAction;
 use Azzarip\Teavel\Filament\Resources\CategoryResource;
 use Filament\Actions;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\Split;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewCategory extends ViewRecord
 {
     protected static string $resource = CategoryResource::class;
 
-    public function infolist(Infolist $infolist): Infolist
+    public function infolist(Schema $schema): Schema
     {
         return $infolist
             ->schema([
-                Split::make([
+                Flex::make([
                     Section::make([
                         TextEntry::make('description')
                             ->markdown()
@@ -34,7 +36,7 @@ class ViewCategory extends ViewRecord
             ]);
     }
 
-    public function getTitle(): string | \Illuminate\Contracts\Support\Htmlable
+    public function getTitle(): string | Htmlable
     {
         return $this->record->name;
     }
@@ -42,7 +44,7 @@ class ViewCategory extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            EditAction::make(),
         ];
     }
 }

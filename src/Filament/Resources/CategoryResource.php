@@ -2,10 +2,21 @@
 
 namespace Azzarip\Teavel\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Azzarip\Teavel\Filament\Resources\CategoryResource\Pages\ListCategories;
+use Azzarip\Teavel\Filament\Resources\CategoryResource\Pages\CreateCategory;
+use Azzarip\Teavel\Filament\Resources\CategoryResource\Pages\ViewCategory;
+use Azzarip\Teavel\Filament\Resources\CategoryResource\Pages\EditCategory;
 use Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
 use Azzarip\Teavel\Models\TagCategory;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -15,18 +26,18 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = TagCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-group';
 
-    protected static ?string $navigationGroup = 'Tags';
-    public static function form(Form $form): Form
+    protected static string | \UnitEnum | null $navigationGroup = 'Tags';
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->label('Name')
                     ->required()
                     ->columnSpan(2),
-                Forms\Components\MarkdownEditor::make('description')
+                MarkdownEditor::make('description')
                     ->toolbarButtons([
                         'blockquote',
                         'bold',
@@ -58,15 +69,15 @@ class CategoryResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                \Filament\Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make(),
+            ->recordActions([
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
                 ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -81,10 +92,10 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'view' => Pages\ViewCategory::route('/{record}'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => ListCategories::route('/'),
+            'create' => CreateCategory::route('/create'),
+            'view' => ViewCategory::route('/{record}'),
+            'edit' => EditCategory::route('/{record}/edit'),
         ];
     }
 }

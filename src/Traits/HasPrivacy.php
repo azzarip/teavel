@@ -2,6 +2,8 @@
 
 namespace Azzarip\Teavel\Traits;
 
+use Illuminate\Support\Carbon;
+
 trait HasPrivacy
 {
     public function allowMarketing(bool $allow = true): self
@@ -32,7 +34,7 @@ trait HasPrivacy
 
     public function getMarketingAtAttribute($value)
     {
-        return $value ? \Illuminate\Support\Carbon::parse($value) : null;
+        return $value ? Carbon::parse($value) : null;
     }
 
     public function getCanMarketAttribute(): bool

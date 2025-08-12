@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Filament\Resources\CategoryResource\Pages;
 
+use Filament\Actions\CreateAction;
 use Azzarip\Teavel\Filament\Resources\CategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -13,7 +14,7 @@ class ListCategories extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

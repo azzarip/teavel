@@ -2,6 +2,15 @@
 
 namespace Azzarip\Teavel;
 
+use Azzarip\Teavel\Locale\Locale;
+use Azzarip\Teavel\Commands\CreateFormCommand;
+use Azzarip\Teavel\Commands\CreateEmailCommand;
+use Azzarip\Teavel\Commands\CreateSequenceCommand;
+use Azzarip\Teavel\Commands\TeavelRunCommand;
+use Azzarip\Teavel\Events\FormSubmitted;
+use Azzarip\Teavel\Listeners\FormGoalAchieved;
+use Azzarip\Teavel\Events\OfferPurchased;
+use Azzarip\Teavel\Listeners\OfferGoalAchieved;
 use Livewire\Livewire;
 use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
@@ -57,7 +66,7 @@ class TeavelServiceProvider extends PackageServiceProvider
         );
         Livewire::component('address-manager', AddressManager::class);
         Blade::component('address-router', AddressRouter::class);
-        app('router')->aliasMiddleware('locale', \Azzarip\Teavel\Locale\Locale::class);
+        app('router')->aliasMiddleware('locale', Locale::class);
         EncryptCookies::except('lang');
 
     }
@@ -88,10 +97,10 @@ class TeavelServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            Commands\CreateFormCommand::class,
-            Commands\CreateEmailCommand::class,
-            Commands\CreateSequenceCommand::class,
-            Commands\TeavelRunCommand::class,
+            CreateFormCommand::class,
+            CreateEmailCommand::class,
+            CreateSequenceCommand::class,
+            TeavelRunCommand::class,
         ];
     }
 
@@ -111,12 +120,12 @@ class TeavelServiceProvider extends PackageServiceProvider
     protected function registerEvents()
     {
         Event::listen(
-            Events\FormSubmitted::class,
-            Listeners\FormGoalAchieved::class,
+            FormSubmitted::class,
+            FormGoalAchieved::class,
         );
         Event::listen(
-            Events\OfferPurchased::class,
-            Listeners\OfferGoalAchieved::class,
+            OfferPurchased::class,
+            OfferGoalAchieved::class,
         );
     }
 

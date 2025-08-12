@@ -2,15 +2,19 @@
 
 namespace Azzarip\Teavel\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\Textarea;
+use Azzarip\Teavel\Filament\Resources\AddressResource\Pages\ListAddresses;
+use Azzarip\Teavel\Filament\Resources\AddressResource\Pages\CreateAddress;
+use Azzarip\Teavel\Filament\Resources\AddressResource\Pages\EditAddress;
 use Azzarip\Teavel\Filament\Items\ContactSelect;
 use Azzarip\Teavel\Filament\Resources\AddressResource\Pages;
 use Azzarip\Teavel\Models\Address;
 use Azzarip\Teavel\Models\Contact;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
@@ -21,12 +25,12 @@ class AddressResource extends Resource
 {
     protected static ?string $model = Address::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-map-pin';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 ContactSelect::make()
                     ->live()
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $state ? $set('name', Contact::find($state)->full_name) : $set('name', '')),
@@ -46,7 +50,7 @@ class AddressResource extends Resource
                 Grid::make()->columns(4)->schema([
                     Toggle::make('shipping')->default(true),
                     Toggle::make('billing')->default(true),
-                    \Filament\Forms\Components\Textarea::make('info')
+                    Textarea::make('info')
                         ->rows(3)
                         ->columnSpan(2),
                 ]),
@@ -73,7 +77,7 @@ class AddressResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 // Tables\Actions\EditAction::make(),
             ]);
     }
@@ -88,9 +92,9 @@ class AddressResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAddresses::route('/'),
-            'create' => Pages\CreateAddress::route('/create'),
-            'edit' => Pages\EditAddress::route('/{record}/edit'),
+            'index' => ListAddresses::route('/'),
+            'create' => CreateAddress::route('/create'),
+            'edit' => EditAddress::route('/{record}/edit'),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Commands;
 
+use Exception;
 use Azzarip\Teavel\Automations\SequenceHandler;
 use Azzarip\Teavel\Models\ContactSequence;
 use Illuminate\Console\Command;
@@ -35,7 +36,7 @@ class TeavelRunCommand extends Command
     {
         try {
             SequenceHandler::process($step);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('TEAVEL: ' . $e->getMessage());
         }
     }

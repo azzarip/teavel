@@ -2,12 +2,24 @@
 
 namespace Azzarip\Teavel\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Azzarip\Teavel\Filament\Resources\TagResource\Pages\ListTags;
+use Azzarip\Teavel\Filament\Resources\TagResource\Pages\CreateTag;
+use Azzarip\Teavel\Filament\Resources\TagResource\Pages\ViewTag;
+use Azzarip\Teavel\Filament\Resources\TagResource\Pages\EditTag;
 use Azzarip\Teavel\Filament\Resources\TagResource\Pages;
 use Azzarip\Teavel\Filament\Resources\TagResource\RelationManagers\ContactsRelationManager;
 use Azzarip\Teavel\Models\Tag;
 use Azzarip\Teavel\Models\TagCategory;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -19,22 +31,22 @@ class TagResource extends Resource
     protected static ?string $model = Tag::class;
 
     protected static ?int $navigationSort = -99;
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-tag';
 
-    protected static ?string $navigationGroup = 'Tags';
-    public static function form(Form $form): Form
+    protected static string | \UnitEnum | null $navigationGroup = 'Tags';
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->label('Name')
                     ->required()
                     ->columnSpan(1),
-                Forms\Components\Select::make('category_id')
+                Select::make('category_id')
                     ->label('TagCategory')
                     ->options(TagCategory::all()->pluck('name', 'id'))
                     ->searchable(),
-                Forms\Components\MarkdownEditor::make('description')
+                MarkdownEditor::make('description')
                     ->toolbarButtons([
                         'blockquote',
                         'bold',
@@ -71,15 +83,15 @@ class TagResource extends Resource
                     ->searchable()
                     ->preload(),
             ])
-            ->actions([
-                \Filament\Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make(),
+            ->recordActions([
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
                 ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -94,10 +106,10 @@ class TagResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTags::route('/'),
-            'create' => Pages\CreateTag::route('/create'),
-            'view' => Pages\ViewTag::route('/{record}'),
-            'edit' => Pages\EditTag::route('/{record}/edit'),
+            'index' => ListTags::route('/'),
+            'create' => CreateTag::route('/create'),
+            'view' => ViewTag::route('/{record}'),
+            'edit' => EditTag::route('/{record}/edit'),
         ];
     }
 }

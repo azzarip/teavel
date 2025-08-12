@@ -2,7 +2,9 @@
 
 namespace Azzarip\Teavel\Exceptions;
 
-class TeavelException extends \Exception
+use Exception;
+
+class TeavelException extends Exception
 {
     //
 }

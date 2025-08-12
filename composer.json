@@ -22,7 +22,7 @@
     "require": {
         "php": "^8.2",
         "azzarip/utilities": "main-dev",
-        "filament/filament": "^3.2",
+        "filament/filament": "~4.0",
         "laravel-notification-channels/telegram": "*",
         "livewire/livewire": "^3.5",
         "propaganistas/laravel-phone": "^5.3",
@@ -32,15 +32,13 @@
         "twig/twig": "^3.11"
     },
     "require-dev": {
+        "filament/upgrade": "~4.0",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^8.0",
         "orchestra/testbench": "^9.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-arch": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
         "spatie/laravel-ray": "^1.26"
     },
     "autoload": {

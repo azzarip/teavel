@@ -2,10 +2,15 @@
 
 namespace Azzarip\Teavel\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Azzarip\Teavel\Filament\Resources\ContactResource\Pages\ListContacts;
+use Azzarip\Teavel\Filament\Resources\ContactResource\Pages\CreateContact;
+use Azzarip\Teavel\Filament\Resources\ContactResource\Pages\ViewContact;
+use Azzarip\Teavel\Filament\Resources\ContactResource\Pages\EditContact;
 use Azzarip\Teavel\Filament\Resources\ContactResource\Pages;
 use Azzarip\Teavel\Models\Contact;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -14,16 +19,16 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-users';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('first_name'),
-                Forms\Components\TextInput::make('last_name'),
-                Forms\Components\TextInput::make('email'),
-                Forms\Components\TextInput::make('phone'),
+        return $schema
+            ->components([
+                TextInput::make('first_name'),
+                TextInput::make('last_name'),
+                TextInput::make('email'),
+                TextInput::make('phone'),
             ]);
     }
 
@@ -44,10 +49,10 @@ class ContactResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
 
             ])
-            ->bulkActions([
+            ->toolbarActions([
 
             ]);
     }
@@ -62,10 +67,10 @@ class ContactResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
-            'create' => Pages\CreateContact::route('/create'),
-            'view' => Pages\ViewContact::route('/{record}'),
-            'edit' => Pages\EditContact::route('/{record}/edit'),
+            'index' => ListContacts::route('/'),
+            'create' => CreateContact::route('/create'),
+            'view' => ViewContact::route('/{record}'),
+            'edit' => EditContact::route('/{record}/edit'),
         ];
     }
 }

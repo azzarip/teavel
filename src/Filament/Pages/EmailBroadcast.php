@@ -2,6 +2,9 @@
 
 namespace Azzarip\Teavel\Filament\Pages;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Get;
+use Exception;
 use App\Models\Contact;
 use Azzarip\Teavel\Mail\EmailContent;
 use Azzarip\Teavel\Mail\TeavelMail;
@@ -10,8 +13,6 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
@@ -32,19 +33,19 @@ class EmailBroadcast extends Page
 
     public string $type = 'contact';
 
-    protected static ?string $navigationIcon = 'heroicon-o-envelope-open';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-envelope-open';
 
-    protected static string $view = 'teavel::filament.pages.email-broadcast';
+    protected string $view = 'teavel::filament.pages.email-broadcast';
 
     protected static ?string $navigationLabel = 'Email Broadcast';
 
-    protected static ?string $navigationGroup = 'Tags';
-    public function form(Form $form): Form
+    protected static string | \UnitEnum | null $navigationGroup = 'Tags';
+    public function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->operation('send')
             ->columns(2)
-            ->schema([
+            ->components([
                 Select::make('type')
                     ->label('Group')
                     ->options([
@@ -104,7 +105,7 @@ class EmailBroadcast extends Page
                 Mail::send(new TeavelMail($content));
                 Notification::make()
                     ->title("{$contact->full_name} sent!")->success()->send();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Notification::make()
                 ->title("{$contact->full_name} NOT sent!")
                 ->body($e->getMessage())

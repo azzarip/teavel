@@ -2,6 +2,12 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Traits\HasAddresses;
+use Azzarip\Teavel\Traits\HasNotes;
+use Azzarip\Teavel\Traits\HasAutomations;
+use Azzarip\Teavel\Traits\HasPrivacy;
+use Azzarip\Teavel\Traits\HasTags;
+use Azzarip\Teavel\Database\Factories\ContactFactory;
 use Azzarip\Teavel\Actions\Contact\MutateData;
 use Azzarip\Teavel\Exceptions\RegistrationException;
 use Azzarip\Teavel\Locale\LocaleEnum;
@@ -12,11 +18,11 @@ use Illuminate\Support\Str;
 class Contact extends AuthContact
 {
     use HasFactory;
-    use Traits\HasAddresses;
-    use Traits\HasNotes;
-    use Traits\HasAutomations;
-    use Traits\HasPrivacy;
-    use Traits\HasTags;
+    use HasAddresses;
+    use HasNotes;
+    use HasAutomations;
+    use HasPrivacy;
+    use HasTags;
 
     protected $guarded = [];
 
@@ -168,6 +174,6 @@ class Contact extends AuthContact
 
     protected static function newFactory()
     {
-        return new \Azzarip\Teavel\Database\Factories\ContactFactory;
+        return new ContactFactory;
     }
 }

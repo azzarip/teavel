@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Database\Factories\AddressFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -92,7 +93,7 @@ class Address extends Model
 
     protected static function newFactory()
     {
-        return new \Azzarip\Teavel\Database\Factories\AddressFactory;
+        return new AddressFactory;
     }
 
     public static function mutateAndCreate(array $data)

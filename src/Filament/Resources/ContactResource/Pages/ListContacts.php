@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Filament\Resources\ContactResource\Pages;
 
+use Filament\Actions\CreateAction;
 use Azzarip\Teavel\Filament\Resources\ContactResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -13,7 +14,7 @@ class ListContacts extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

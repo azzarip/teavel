@@ -2,8 +2,15 @@
 
 namespace Azzarip\Teavel\Filament\Resources\TagResource\RelationManagers;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\AttachAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DetachAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DetachBulkAction;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -18,9 +25,9 @@ class ContactsRelationManager extends RelationManager
         return false;
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form->schema([Forms\Components\Select::make('contact_id')->relationship('contacts', 'email')->searchable()->required()]);
+        return $schema->components([Select::make('contact_id')->relationship('contacts', 'email')->searchable()->required()]);
     }
 
     public function table(Table $table): Table
@@ -28,12 +35,12 @@ class ContactsRelationManager extends RelationManager
         return $table
             ->heading($this->getContactCount())
             ->recordTitleAttribute('full_name')
-            ->columns([Tables\Columns\TextColumn::make('full_name'), Tables\Columns\TextColumn::make('email'), Tables\Columns\TextColumn::make('created_at')->dateTime('j F Y, H:i')])
+            ->columns([TextColumn::make('full_name'), TextColumn::make('email'), TextColumn::make('created_at')->dateTime('j F Y, H:i')])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make('add_contact')
+                AttachAction::make('add_contact')
                     ->label('Tag Contact')
                     ->modalHeading('Tag Contact')
                     ->recordSelectSearchColumns(['first_name', 'last_name', 'email'])
@@ -46,8 +53,8 @@ class ContactsRelationManager extends RelationManager
                         $this->getTable()->heading($this->getContactCount());
                     }),
             ])
-                ->actions([\Filament\Tables\Actions\ActionGroup::make([Tables\Actions\DetachAction::make()])])
-                ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DetachBulkAction::make()])]);
+                ->recordActions([ActionGroup::make([DetachAction::make()])])
+                ->toolbarActions([BulkActionGroup::make([DetachBulkAction::make()])]);
     }
 
     protected function getContactCount(): string

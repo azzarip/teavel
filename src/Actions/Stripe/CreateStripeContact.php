@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Actions\Stripe;
 
+use Stripe\StripeClient;
 use Azzarip\Teavel\Models\Contact;
 
 class CreateStripeContact
@@ -12,7 +13,7 @@ class CreateStripeContact
             return;
         }
 
-        $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+        $stripe = new StripeClient(config('services.stripe.secret'));
         $response = $stripe->customers->create([
             'name' => $contact->full_name,
             'email' => $contact->email,
