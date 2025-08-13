@@ -2,4 +2,13 @@
 
 namespace Azzarip\Teavel\Automations;
 
-class FormAutomation extends GoalAutomation {}
+use Azzarip\Teavel\Models\Contact;
+
+class FormAutomation extends GoalAutomation {
+
+
+    public static function dispatchAfterResponse(Contact $contact): void 
+    {
+        \Azzarip\Teavel\Jobs\CompleteForm::dispatchAfterResponse($contact, self::class);
+    }
+}

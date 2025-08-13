@@ -31,9 +31,4 @@ class Form extends Model
 
         return $form;
     }
-
-    public static function dispatchAfterResponse(Contact $contact): void 
-    {
-        \Azzarip\Teavel\Jobs\CompleteForm::dispatchAfterResponse($contact, self);
-    }
 }
