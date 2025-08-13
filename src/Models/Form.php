@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Models;
 
+use Azzarip\Teavel\Jobs\CompleteForm;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,5 +30,10 @@ class Form extends Model
         }
 
         return $form;
+    }
+
+    public static function dispatchAfterResponse(Contact $contact): void 
+    {
+        \Azzarip\Teavel\Jobs\CompleteForm::dispatchAfterResponse($contact, self);
     }
 }
