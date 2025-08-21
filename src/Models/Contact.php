@@ -143,8 +143,10 @@ class Contact extends AuthContact
         if (! config('teavel.check_phone')) {
             return;
         }
-
-        return self::findPhone($data['phone']);
+        
+        if(array_key_exists('phone', $data)) {
+            return self::findPhone($data['phone']);
+        }
     }
 
     public function getIsRegisteredAttribute(): bool
