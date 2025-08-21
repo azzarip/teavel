@@ -5,8 +5,8 @@
         type="email"
         inputmode="email"
         autocomplete="email"
-        aria-describedby="email-help"
         class="input-text"
+        aria-required="true" 
         placeholder="@lang('teavel::forms.email.placeholder')" 
         value="{{ $email ?? old('email') }}"
         required />
