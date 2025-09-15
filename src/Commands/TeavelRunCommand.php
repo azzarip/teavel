@@ -29,7 +29,7 @@ class TeavelRunCommand extends Command
             $this->executeStep($step);
         }
 
-        return 1;
+        return 0;
     }
 
     protected function executeStep(ContactSequence $step)
