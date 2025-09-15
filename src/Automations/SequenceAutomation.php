@@ -45,6 +45,10 @@ class SequenceAutomation
         return $this->owner;
     }
 
+    protected function notifyOwnerOnTelegram($message)
+    {
+        $this->owner()->notify(new \Azzarip\Teavel\Notifications\TelegramNotification($message, $this->contact));
+    }
     protected function startSequence(string $sequence)
     {
         Sequence::name( $sequence)->start($this->contact);

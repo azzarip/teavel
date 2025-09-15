@@ -43,7 +43,11 @@ class TelegramNotification extends Notification implements ShouldQueue
         }
         
         if ($this->contact) {
-            $telegramMessage->line('Name: ' . $this->contact?->full_name);
+            if($this->contact?->full_name) {
+                $telegramMessage->line('Name: ' . $this->contact?->full_name);
+            } else {
+                $telegramMessage->line('Email: ' . $this->contact?->email);
+            }
         }
 
         return $telegramMessage;
