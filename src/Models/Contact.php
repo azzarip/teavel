@@ -154,6 +154,10 @@ class Contact extends AuthContact
         return (bool) $this->password;
     }
 
+    public function storeInSession(): void 
+    {
+        session(['contact' => $this->id]);
+    }
     public static function emailStatus(string $email)
     {
         $contact = self::findEmail($email);
