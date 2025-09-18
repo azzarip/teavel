@@ -35,7 +35,7 @@ class HandleUTM
                 'click_id' => $request->get('gclid'),
             ];
         } elseif ($request->has('utt')) {
-            Session::store('utm', $request->get('utt'));
+            Session::put('utm', $request->get('utt'));
         }
 
         StoreUTM::store($data);
