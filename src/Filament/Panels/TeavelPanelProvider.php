@@ -54,6 +54,7 @@ class TeavelPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                Azzarip\Utilities\Http\Middleware\AdminConfig::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

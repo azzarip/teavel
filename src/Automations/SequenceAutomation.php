@@ -2,6 +2,7 @@
 
 namespace Azzarip\Teavel\Automations;
 
+use Azzarip\Teavel\Notifications\TelegramNotification;
 use App\Models\User;
 use Azzarip\Teavel\Models\Contact;
 use Azzarip\Teavel\Models\Sequence;
@@ -47,7 +48,7 @@ class SequenceAutomation
 
     protected function notifyOwnerOnTelegram($message)
     {
-        $this->owner()->notify(new \Azzarip\Teavel\Notifications\TelegramNotification($message, $this->contact));
+        $this->owner()->notify(new TelegramNotification($message, $this->contact));
     }
     protected function startSequence(string $sequence)
     {
